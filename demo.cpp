@@ -43,13 +43,21 @@ void DemoClearScreen()
     cout << endl;
 }
 
+void DemoCreateGameBoard()
+{
+    cout << "Create Game Board" << endl;
+    pf::CreateGameBoard();
+    pf::ShowGameBoard();
+}
+
 #ifdef DEMO
 int main()
 {
     cout << "===== Begin Demo =====" << endl;
     
-    DemoPause();
-    DemoClearScreen();
+    // DemoPause();
+    // DemoClearScreen();
+    DemoCreateGameBoard();
 
     cout << "===== End Demo =====" << endl;
 }
