@@ -2,28 +2,13 @@
 
 Please introduce the game here.
 
-Please provide the YouTube link to the [Video Demo](https://youtube.com)  
+You may add one signature screenshot of your program here or above the title. Check out [this tutorial](https://www.digitalocean.com/community/tutorials/markdown-markdown-images) to learn how to do it.
 
-# Minimum Requirements
+Please provide the YouTube link to your [Video Demo](https://youtube.com).
 
-## Implemented Features
+## Compilation Instructions
 
-1. Cool Feature #1
-2. Cool Feature #2
-3. *add more*
-
-## Non-Implemented Features
-
-1. Cool Feature #1
-2. *add more*
-
-# Additional Features
-
-Describe the additional features that has been implemented.
-
-# Compilation Instructions
-
-This is optional but do provide the compilation instructions if the comment to compile your program is non-trivial.
+Provide instructions on how to compile your program, especially when it is non-trivial.
 
 For example:
 
@@ -31,23 +16,19 @@ For example:
 g++ main.cpp folder1\code.cpp folder2\code.cpp ......
 ```
 
-# Contributions
+## User Manual
 
-List down the contribution of each group members.
+Please provide the user manual on how to use your program.
 
-For example:
+## Progress Log
 
-## Group Member #1
+- [Part 1](PART1.md)
+- [Part 2](PART2.md)
 
-1. Randomly generate game board.
-2. *add more*
+## Contributors
 
-## Group Member #2
+- Tony Stark
+- Steve Rogers
+- Dr. Strange
 
-1. Zombie movement and attack behaviour.
-2. *add more*
 
-## Group Member #3
-
-1. Implement all game objects.
-2. *add more*
