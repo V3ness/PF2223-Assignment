@@ -1,8 +1,6 @@
-# Alien vs. Zombie
+# Part 1
 
-Please introduce the game here.
-
-Please provide the YouTube link to the [Video Demo](https://youtube.com)  
+Please provide the summary of the work done so far.
 
 # Minimum Requirements
 
@@ -20,16 +18,6 @@ Please provide the YouTube link to the [Video Demo](https://youtube.com)
 # Additional Features
 
 Describe the additional features that has been implemented.
-
-# Compilation Instructions
-
-This is optional but do provide the compilation instructions if the comment to compile your program is non-trivial.
-
-For example:
-
-```
-g++ main.cpp folder1\code.cpp folder2\code.cpp ......
-```
 
 # Contributions
 

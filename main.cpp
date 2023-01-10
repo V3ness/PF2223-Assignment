@@ -10,6 +10,7 @@
 
 // TODO: Fill in the missing information above and delete this line.
 
+#include "pf/helper.h"
 #include <iostream>
 using namespace std;
 
@@ -17,4 +18,5 @@ int main()
 {
     cout << "Assignment (Part 1)" << endl;
     cout << "Let's Get Started!" << endl;
+    pf::Pause();
 }
