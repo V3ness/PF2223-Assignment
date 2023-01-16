@@ -32,7 +32,7 @@ void CreateGameBoard()
     ClearScreen();
     int kColumns = (Columns * 2) + 1;
     int XCount = 1;
-    std::cout.width(10 + Columns);
+    std::cout.width(12 + Columns);
     std::cout << ".: Alien vs Zombie :." << std::endl;
     for (int x = 0; x < Rows; x++)
     {
