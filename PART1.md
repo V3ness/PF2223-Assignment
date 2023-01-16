@@ -10,8 +10,8 @@ Please provide the YouTube link to your [Video Demo](https://youtube.com).
 
 List all the features completed.
 
-1. Cool Feature #1
-2. Cool Feature #2
+1. The rows and columns must be odd number when the player chooses to change the gameboard dimensions
+2. 
 3. *add more*
 
 ### To Do
@@ -33,8 +33,8 @@ For example:
 
 ### Ang Khai Pin
 
-1. Randomly generate game board.
-2. *add more*
+1. Constructed the game settings
+2. Constructed the base game board(without any objects inside it)
 
 ### Lester Liew Jun Min
 
