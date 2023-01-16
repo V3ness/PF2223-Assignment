@@ -49,7 +49,7 @@ void CreateGameBoard()
             }
         }
         std::cout << std::endl;
-        std::cout << XCount << " ";
+        std::cout << XCount << " "; //Display Rows Numbers
         XCount++;
         for (int y = 0; y < kColumns; y++)
         {
