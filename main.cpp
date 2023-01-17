@@ -8,7 +8,16 @@
 // Phones: 011-57725120 | 012-9156393 |
 // *********************************************************
 
-#include "pf/header.h"
+#include "pf/helper.h"
+
+class Zombie
+{
+public:
+
+
+
+};
+
 #include <iostream>
 #include <windows.h>
 
