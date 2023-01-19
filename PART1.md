@@ -11,7 +11,7 @@ Please provide the YouTube link to your [Video Demo](https://youtube.com).
 List all the features completed.
 
 1. The rows and columns must be odd number when the player chooses to change the gameboard dimensions
-2. 
+2. The column number are displayed correctly
 3. *add more*
 
 ### To Do
@@ -35,12 +35,16 @@ For example:
 
 1. Constructed the game settings
 2. Constructed the base game board(without any objects inside it)
+3. Display the row number
 
 ### Lester Liew Jun Min
 
-1. Zombie movement and attack behaviour.
-2. *add more*
+1. ***
+2. Display the column number
 
 ## Problems Encountered & Solutions
 
 Describe the problems encountered and provide the solutions / plan for the solutions.
+1. Couldn't display the column number properly when its more than 10.
+Solution: 
+2. 
