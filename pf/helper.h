@@ -10,4 +10,6 @@ namespace pf
     void ShowGameBoard();
 }
 
+char randomiseItems(char x);
+
 #endif
