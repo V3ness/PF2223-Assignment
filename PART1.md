@@ -29,23 +29,16 @@ Describe the additional features that has been implemented.
 
 List down the contribution of each group members.
 
-For example:
-
-### Tony Stark
+1. ANG KHAI PIN
 
 1. Constructed the game settings
 2. Constructed the base game board(without any objects inside it)
 3. Display the row number
 
-### Steve Rogers
+2. LESTER LIEW JUN MIN
 
-1. ***
-2. Display the column number
-
-### Dr. Strange
-
-1. Implement all game objects.
-2. *add more*
+1. Display the column number
+2. 2.
 
 ## Problems Encountered & Solutions
 
