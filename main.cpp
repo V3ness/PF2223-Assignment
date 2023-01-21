@@ -8,12 +8,32 @@
 // Phones: 011-57725120 | 012-9156393 |
 // *********************************************************
 
-#include "pf/header.h"
+#include "pf/helper.h"
 #include <iostream>
 #include <windows.h>
+#include <time.h>
+#include <vector>
+#include <iterator>
+#include <string>
+#include <cmath>
 
 char GSchoice;
 int Rows = 3, Columns = 9;
+std::vector<std::vector<char>> board; // Make the board a sort of matrix
+int kColumns = (Columns * 2) + 1;
+int XCount = 1;
+
+
+template <typename T> // Overloading Operator "<<" to let std::cout print out vector. (MUST NOT TOUCH)
+std::ostream &operator<<(std::ostream &os, const std::vector<T> &v)
+{
+
+    for (size_t i = v.size() - 1; i < v.size(); i++)
+    {
+        os << v[i];
+    }
+    return os;
+}
 
 void Pause()
 {
@@ -27,16 +47,24 @@ void ClearScreen()
     std::cout << std::endl;
 }
 
-void CreateGameBoard()
+void CreateGameBoard() //Edit here for zombie and alien (at the end)
 {
     ClearScreen();
+    char h, x;
+    srand(time(NULL));
+    ///For Testing Purposes////////////////////////////////
+    // std::cout << "How many rows do you want? => ";
+    // std::cin >> Rows;
+    // std::cout << "How many columns do you want? => ";
+    // std::cin >> Columns;
+    ///////////////////////////////////////////////////////
     int kColumns = (Columns * 2) + 1;
     int XCount = 1;
     std::cout.width(12 + Columns);
     std::cout << ".: Alien vs Zombie :." << std::endl;
     for (int x = 0; x < Rows; x++)
     {
-        std::cout << "  ";
+        std::cout << "   ";
         for (int y = 0; y < kColumns; y++)
         {
             if (y % 2 == 0)
@@ -49,22 +77,33 @@ void CreateGameBoard()
             }
         }
         std::cout << std::endl;
+        if (XCount > 9)
+        {
+            std::cout << " ";
+        }
+        else
+        {
+            std::cout << "  ";
+        }
         std::cout << XCount << " "; //Display Rows Numbers
         XCount++;
         for (int y = 0; y < kColumns; y++)
         {
+            board.push_back(std::vector<char>());
             if (y % 2 == 0)
             {
                 std::cout << "|";
             }
             else
             {
-                std::cout << " ";
+                h = randomiseItems(x);
+                board[y].push_back(h);
+                std::cout << board[y];
             }
         }
         std::cout << std::endl;
     }
-    std::cout << "  ";
+    std::cout << "   ";
     for (int y = 0; y < kColumns; y++)
     {
         if (y % 2 == 0)
@@ -77,20 +116,44 @@ void CreateGameBoard()
         }
     }
     std::cout << std::endl;
-    std::cout << "  ";
+    std::cout << "   ";
+    std::vector<int> YCountSecondHalf;
     int YCount = 1;
-    for (int x = 0; x < kColumns; x++) //Display Columns Numbers
-    { 
+    for (int x = 0; x < kColumns; x++) // Display Columns Numbers
+    {
         if (x % 2 == 1)
         {
-            std::cout << YCount;
-            YCount += 1;
+            // std::cout << YCount;
+
+            if (YCount > 9)
+            {
+                int YCount1 = YCount % 10;           // Splits the 2nd digit out
+                int YCount2 = YCount / 10 % 10;      // Splits the 1st digit out
+                std::cout << YCount2;                // Prints out the 1st digit
+                YCountSecondHalf.push_back(YCount1); // Push the 2nd digits into a vector
+                YCount += 1;
+            }
+            else
+            {
+                std::cout << YCount;
+                YCount += 1;
+            }
         }
         else
         {
             std::cout << " ";
         }
     }
+    std::cout << std::endl;
+    std::cout << "                      ";
+    if (YCount > 10)
+    {
+        for (size_t i = 0; i < YCount - 10; i++) // Displays 2nd half of the double digits
+        {
+            std::cout << YCountSecondHalf[i] << " ";
+        }
+    }
+    board[Columns][(Rows/2)] = {'A'};
 }
 
 void ChangeGameSettings()
@@ -143,8 +206,112 @@ void ShowGameSettings()
     GameSettings();
 }
 
+void RefreshGameBoard() //RefreshGameBoard is just refresh, no need to edit this
+{
+    ClearScreen();
+    ///For Testing Purposes////////////////////////////////
+    // std::cout << "How many rows do you want? => ";
+    // std::cin >> Rows;
+    // std::cout << "How many columns do you want? => ";
+    // std::cin >> Columns;
+    ///////////////////////////////////////////////////////
+    std::cout << "   .: Alien vs Zombie :." << std::endl;
+    std::cout << std::endl;
+    int kColumns = (Columns * 2) + 1;
+    XCount= 1;
+    for (int x = 0; x < Rows; x++)
+    {
+        std::cout << "   ";
+        for (int y = 0; y < kColumns; y++)
+        {
+            if (y % 2 == 0)
+            {
+                std::cout << "+";
+            }
+            else
+            {
+                std::cout << "-";
+            }
+        }
+        std::cout << std::endl;
+        std::cout << XCount;        
+        if (XCount > 9)
+        {
+            std::cout << " ";
+        }
+        else
+        {
+            std::cout << "  ";
+        }
+        XCount++;
+        for (int y = 0; y < kColumns; y++)
+        {
+            board.push_back(std::vector<char>());
+            if (y % 2 == 0)
+            {
+                std::cout << "|";
+            }
+            else
+            {
+                std::cout << board[y][x];
+            }
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "   ";
+    for (int y = 0; y < kColumns; y++)
+    {
+        if (y % 2 == 0)
+        {
+            std::cout << '+';
+        }
+        else
+        {
+            std::cout << '-';
+        }
+    }
+    std::cout << std::endl;
+    std::cout << "   ";
+    std::vector<int> YCountSecondHalf;
+    int YCount = 1;
+    YCountSecondHalf.clear();
+    for (int x = 0; x < kColumns; x++) // Display Columns Numbers
+    {
+        if (x % 2 == 1)
+        {
+            if (YCount > 9)
+            {
+                int YCount1 = YCount % 10;           // Splits the 2nd digit out
+                int YCount2 = YCount / 10 % 10;      // Splits the 1st digit out
+                std::cout << YCount2;                // Prints out the 1st digit
+                YCountSecondHalf.push_back(YCount1); // Push the 2nd digits into a vector
+                YCount += 1;
+            }
+            else
+            {
+                std::cout << YCount;
+                YCount += 1;
+            }
+        }
+        else
+        {
+            std::cout << " ";
+        }
+    }
+    std::cout << std::endl;
+    std::cout << "                      ";
+    if (YCount > 10)
+    {
+        for (size_t i = 0; i < YCount - 10; i++) // Displays 2nd half of the double digits
+        {
+            std::cout << YCountSecondHalf[i] << " ";
+        }
+    }
+}
+
 int main()
 {
     ShowGameSettings();
     CreateGameBoard();
+    RefreshGameBoard();
 }

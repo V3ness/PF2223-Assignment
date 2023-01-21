@@ -31,16 +31,21 @@ List down the contribution of each group members.
 
 For example:
 
-### Ang Khai Pin
+### Tony Stark
 
 1. Constructed the game settings
 2. Constructed the base game board(without any objects inside it)
 3. Display the row number
 
-### Lester Liew Jun Min
+### Steve Rogers
 
 1. ***
 2. Display the column number
+
+### Dr. Strange
+
+1. Implement all game objects.
+2. *add more*
 
 ## Problems Encountered & Solutions
 
