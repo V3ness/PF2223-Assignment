@@ -33,12 +33,12 @@ List down the contribution of each group members.
 
 1. Constructed the game settings
 2. Constructed the base game board(without any objects inside it)
-3. Display the row number
+3. Display the row number(up till 9)
 
 2. LESTER LIEW JUN MIN
 
 1. Display the column number
-2. 2.
+2. Display the row number(fix the issue with number > 10)
 
 ## Problems Encountered & Solutions
 
