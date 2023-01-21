@@ -59,9 +59,9 @@ void CreateGameBoard() //Edit here for zombie and alien (at the end)
     // std::cin >> Columns;
     ///////////////////////////////////////////////////////
     int kColumns = (Columns * 2) + 1;
-    std::cout.width(10 + Columns);
-    std::cout << "   .: Alien vs Zombie :." << std::endl;
-    std::cout << std::endl;
+    int XCount = 1;
+    std::cout.width(12 + Columns);
+    std::cout << ".: Alien vs Zombie :." << std::endl;
     for (int x = 0; x < Rows; x++)
     {
         std::cout << "   ";
@@ -77,7 +77,6 @@ void CreateGameBoard() //Edit here for zombie and alien (at the end)
             }
         }
         std::cout << std::endl;
-        std::cout << XCount;
         if (XCount > 9)
         {
             std::cout << " ";
@@ -86,6 +85,7 @@ void CreateGameBoard() //Edit here for zombie and alien (at the end)
         {
             std::cout << "  ";
         }
+        std::cout << XCount << " "; //Display Rows Numbers
         XCount++;
         for (int y = 0; y < kColumns; y++)
         {
