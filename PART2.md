@@ -29,22 +29,16 @@ Describe the additional features that has been implemented.
 
 List down the contribution of each group members.
 
-For example:
-
-### Tony Stark
+1. ANG KHAI PIN
 
 1. Randomly generate game board.
 2. *add more*
 
-### Steve Rogers
+2. LESTER LIEW JUN MIN
 
 1. Zombie movement and attack behaviour.
 2. *add more*
 
-### Dr. Strange
-
-1. Implement all game objects.
-2. *add more*
 
 ## Problems Encountered & Solutions
 
