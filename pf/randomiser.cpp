@@ -7,7 +7,7 @@
 #include <iterator>
 #include <string>
 #include <cmath>
-#include "helper.h"
+#include "header.h"
 
 // std::vector<std::vector<char>> board; // Make the board a sort of matrix
 
