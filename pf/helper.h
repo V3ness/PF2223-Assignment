@@ -5,9 +5,6 @@ namespace pf
 {
     int ClearScreen();
     int Pause();
-
-    void CreateGameBoard();
-    void ShowGameBoard();
 }
 
 char randomiseItems(char x);
