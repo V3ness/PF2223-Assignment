@@ -29,18 +29,20 @@ Describe the additional features that has been implemented.
 
 List down the contribution of each group members.
 
-For example:
-
-### Ang Khai Pin
+1. ANG KHAI PIN
 
 1. Constructed the game settings
 2. Constructed the base game board(without any objects inside it)
-3. Display the row number
+3. Display the row number(up till 9)
+4. Display the column number(up till 9)
+5. Constructed Alien and Zombie attributes using class
 
-### Lester Liew Jun Min
+2. LESTER LIEW JUN MIN
 
-1. ***
-2. Display the column number
+1. Display the column number(fix the issue with number > 10)
+2. Display the row number(fix the issue with number > 10)
+3. Futher constructed the advanced game board(with game objects stored in 2D vector)
+4. Constructed a randomiser function to randomise game objects
 
 ## Problems Encountered & Solutions
 
