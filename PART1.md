@@ -11,15 +11,22 @@ Please provide the YouTube link to your [Video Demo](https://youtube.com).
 List all the features completed.
 
 1. The rows and columns must be odd number when the player chooses to change the gameboard dimensions
-2. The column number are displayed correctly
-3. *add more*
+2. The row and column number are displayed correctly
+3. Created a randomiser to randomise game objects
+4. Created game board with 2D vector to display game objects
+5. Created both alien and zombie basic attributes (Hp, Atk, Range)
+
 
 ### To Do
 
 List all the features not yet done. Remove this section if there is no incomplete requirements.
 
-1. Cool Feature #1
-2. *add more*
+1. Multi Zombies
+2. Movement & Attack
+3. Game Objects Functions
+4. Game Controls
+5. Save & Load files
+6. GameFlow
 
 ## Additional Features
 
