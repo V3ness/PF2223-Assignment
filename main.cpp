@@ -313,5 +313,7 @@ int main()
 {
     ShowGameSettings();
     CreateGameBoard();
-    RefreshGameBoard();
+    Alien.CreateAlien();
+    Zombie.CreateZombie();
+    // RefreshGameBoard();
 }
