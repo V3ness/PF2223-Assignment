@@ -23,18 +23,4 @@ namespace pf
     }
 }
 
-void Player::CreateAlien()
-{
-    int randomNum = rand() % 3 + 1;
-    AlienHp = 100 + (randomNum * 50);
-    std::cout << "\n  Alien    : Life " << AlienHp << ", Attack  " << AlienAtk;
-}
 
-void Enemy::CreateZombie()
-{
-    int randomHp = rand() % 2 + 1;
-    int randomAtk = rand() % 2 + 1;
-    ZombieHp = 100 + (randomHp * 50);
-    ZombieAtk = 5 + (randomAtk * 5);
-    std::cout << "\n  Zombie   : Life " << ZombieHp << ", Attack  " << ZombieAtk << ", Range " << ZombieRange;
-}
