@@ -14,19 +14,20 @@ List all the features completed.
 2. The row and column number are displayed correctly
 3. Created a randomiser to randomise game objects
 4. Created game board with 2D vector to display game objects
-5. Created both alien and zombie basic attributes (Hp, Atk, Range)
-
+5. Created both alien and multiple zombies basic attributes (Hp, Atk, Range)
+6. Output multiple zombies attributes
 
 ### To Do
 
 List all the features not yet done. Remove this section if there is no incomplete requirements.
 
 1. Multi Zombies
-2. Movement & Attack
-3. Game Objects Functions
-4. Game Controls
-5. Save & Load files
-6. GameFlow
+-Store multi zombies attributes in 2D vector to retrive data
+3. Movement & Attack
+4. Game Objects Functions
+5. Game Controls
+6. Save & Load files
+7. GameFlow
 
 ## Additional Features
 
