@@ -10,15 +10,20 @@ namespace pf
 class Player
 {
     public:
-        int AlienHp, AlienAtk = 0;
-        void CreateAlien();
+        int AlienAtk = 0;
+        int randomNum = rand() % 3 + 1;
+        int AlienHp = 100 + (randomNum * 50);
 };
 
 class Enemy
 {
     public:
-        int ZombieHp, ZombieAtk, ZombieRange;
-        void CreateZombie();
+        int randomHp = rand() % 2 + 1;
+        int randomAtk = rand() % 2 + 1;
+        int randomRng = rand() % 5 + 1;
+        int ZombieHp = 100 + (randomHp * 50);
+        int ZombieAtk = 5 + (randomAtk * 5);
+        int ZombieRange = randomRng;
 };
 
 char randomiseItems(char x);
