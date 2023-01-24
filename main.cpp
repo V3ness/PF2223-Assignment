@@ -309,11 +309,21 @@ void RefreshGameBoard() //RefreshGameBoard is just refresh, no need to edit this
     }
 }
 
+void ShowAlienHUD()
+{
+    std::cout << "\n->Alien    : Life " << Alien.AlienHp << ", Attack  " << Alien.AlienAtk;
+}
+
+void ShowZombieHUD()
+{
+    std::cout << "\n  Zombie   : Life " << Zombie.ZombieHp << ", Attack  " << Zombie.ZombieAtk << ", Range " << Zombie.ZombieRange;
+}
+
 int main()
 {
     ShowGameSettings();
     CreateGameBoard();
-    Alien.CreateAlien();
-    Zombie.CreateZombie();
+    ShowAlienHUD();
+    ShowZombieHUD();
     // RefreshGameBoard();
 }
