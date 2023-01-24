@@ -23,4 +23,16 @@ namespace pf
     }
 }
 
-
+void Enemy::ZombieCreation()
+{
+    for (int i = 0; i < ZombieCount; i++)
+    {
+        int randomHp = rand() % 2 + 1;
+        int randomAtk = rand() % 2 + 1;
+        int randomRng = rand() % 5 + 1;
+        int ZombieHp = 100 + (randomHp * 50);
+        int ZombieAtk = 5 + (randomAtk * 5);
+        int ZombieRange = randomRng;
+        std::cout << '\n' << "  Zombie " << i + 1 << " : Life " << ZombieHp << ", Attack  " << ZombieAtk << ", Range " << ZombieRange;
+    }
+}
