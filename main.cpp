@@ -316,7 +316,7 @@ void ShowAlienHUD()
 
 void ShowZombieHUD()
 {
-    std::cout << "\n  Zombie   : Life " << Zombie.ZombieHp << ", Attack  " << Zombie.ZombieAtk << ", Range " << Zombie.ZombieRange;
+    Zombie.ZombieCreation();
 }
 
 int main()
