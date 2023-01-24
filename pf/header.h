@@ -24,6 +24,7 @@ class Enemy
         int ZombieHp = 100 + (randomHp * 50);
         int ZombieAtk = 5 + (randomAtk * 5);
         int ZombieRange = randomRng;
+        void ZombieCreation();
 };
 
 char randomiseItems(char x);
