@@ -36,7 +36,7 @@ Describe the additional features that has been implemented.
 
 List down the contribution of each group members.
 
-1. ANG KHAI PIN
+### 1. ANG KHAI PIN
 
 1. Constructed the game settings
 2. Constructed the base game board(without any objects inside it)
@@ -45,7 +45,7 @@ List down the contribution of each group members.
 5. Constructed Alien and Zombie attributes using class
 6. Constructed Multiple Zombie attributes and store these values in vectors
 
-2. LESTER LIEW JUN MIN
+### 2. LESTER LIEW JUN MIN
 
 1. Display the column number (fix the issue with number > 10)
 2. Display the row number (fix the issue with number > 10)
