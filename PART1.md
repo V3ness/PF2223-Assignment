@@ -10,13 +10,14 @@ Please provide the YouTube link to your [Video Demo](https://youtube.com).
 
 List all the features completed.
 
-1. The rows and columns must be odd number when the player chooses to change the gameboard dimensions
-2. The row and column number are displayed correctly
-3. Created a randomiser to randomise game objects
-4. Created game board with 2D vector to display game objects
-5. Created both alien and multiple zombies basic attributes (Hp, Atk, Range)
-6. Output multiple zombies attributes
-7. Store multiple zombies attributes into each separate vectors
+1. The rows and columns must be odd number when the player chooses to change the gameboard dimensions.
+2. The row and column number are displayed correctly.
+3. Number of zombie cannot be less than 0 and exceed 9.
+4. Created a randomiser to randomise game objects.
+5. Created game board with 2D vector to display game objects.
+6. Created both alien and multiple zombies basic attributes (Hp, Atk, Range).
+7. Output multiple zombies attributes.
+8. Store multiple zombies attributes into each separate vectors.
 
 ### To Do
 
