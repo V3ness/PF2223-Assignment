@@ -16,18 +16,17 @@ List all the features completed.
 4. Created game board with 2D vector to display game objects
 5. Created both alien and multiple zombies basic attributes (Hp, Atk, Range)
 6. Output multiple zombies attributes
+7. Store multiple zombies attributes into each separate vectors
 
 ### To Do
 
 List all the features not yet done. Remove this section if there is no incomplete requirements.
 
-1. Multi Zombies
--Store multi zombies attributes in 2D vector to retrive data
-3. Movement & Attack
-4. Game Objects Functions
-5. Game Controls
-6. Save & Load files
-7. GameFlow
+1. Movement & Attack
+2. Game Objects Functions
+3. Game Controls
+4. Save & Load files
+5. GameFlow
 
 ## Additional Features
 
@@ -44,12 +43,13 @@ List down the contribution of each group members.
 3. Display the row number(up till 9)
 4. Display the column number(up till 9)
 5. Constructed Alien and Zombie attributes using class
+6. Constructed Multiple Zombie attributes and store these values in vectors
 
 2. LESTER LIEW JUN MIN
 
-1. Display the column number(fix the issue with number > 10)
-2. Display the row number(fix the issue with number > 10)
-3. Futher constructed the advanced game board(with game objects stored in 2D vector)
+1. Display the column number (fix the issue with number > 10)
+2. Display the row number (fix the issue with number > 10)
+3. Futher constructed the advanced game board (with game objects stored in 2D vector)
 4. Constructed a randomiser function to randomise game objects
 
 ## Problems Encountered & Solutions
