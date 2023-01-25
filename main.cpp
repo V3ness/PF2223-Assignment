@@ -9,11 +9,26 @@
 // *********************************************************
 
 #include "pf/header.h"
-#include <iostream>
-#include <windows.h>
 
 char GSchoice;
 int Rows = 3, Columns = 9;
+std::vector<std::vector<char>> board; // Make the board a sort of matrix
+int kColumns = (Columns * 2) + 1;
+int XCount = 1;
+
+Player Alien;
+Enemy Zombie;
+
+template <typename T> // Overloading Operator "<<" to let std::cout print out vector. (MUST NOT TOUCH)
+std::ostream &operator<<(std::ostream &os, const std::vector<T> &v)
+{
+
+    for (size_t i = v.size() - 1; i < v.size(); i++)
+    {
+        os << v[i];
+    }
+    return os;
+}
 
 void Pause()
 {
@@ -27,16 +42,18 @@ void ClearScreen()
     std::cout << std::endl;
 }
 
-void CreateGameBoard()
+void CreateGameBoard() // Edit here for zombie and alien (at the end)
 {
     ClearScreen();
+    char h, x;
+    srand(time(NULL));
     int kColumns = (Columns * 2) + 1;
     int XCount = 1;
     std::cout.width(12 + Columns);
     std::cout << ".: Alien vs Zombie :." << std::endl;
     for (int x = 0; x < Rows; x++)
     {
-        std::cout << "  ";
+        std::cout << "   ";
         for (int y = 0; y < kColumns; y++)
         {
             if (y % 2 == 0)
@@ -49,22 +66,34 @@ void CreateGameBoard()
             }
         }
         std::cout << std::endl;
-        std::cout << XCount << " "; //Display Rows Numbers
+        if (XCount > 9)
+        {
+            std::cout << "";
+        }
+        else
+        {
+            std::cout << " ";
+        }
+        // Display Rows Numbers
+        std::cout << XCount << " ";
         XCount++;
         for (int y = 0; y < kColumns; y++)
         {
+            board.push_back(std::vector<char>());
             if (y % 2 == 0)
             {
                 std::cout << "|";
             }
             else
             {
-                std::cout << " ";
+                h = randomiseItems(x);
+                board[y].push_back(h);
+                std::cout << board[y];
             }
         }
         std::cout << std::endl;
     }
-    std::cout << "  ";
+    std::cout << "   ";
     for (int y = 0; y < kColumns; y++)
     {
         if (y % 2 == 0)
@@ -77,19 +106,65 @@ void CreateGameBoard()
         }
     }
     std::cout << std::endl;
-    std::cout << "  ";
+    std::cout << "   ";
+    std::vector<int> YCountSecondHalf;
+    // Display Columns Numbers
     int YCount = 1;
-    for (int x = 0; x < kColumns; x++) //Display Columns Numbers
-    { 
+    for (int x = 0; x < kColumns; x++)
+    {
         if (x % 2 == 1)
         {
-            std::cout << YCount;
-            YCount += 1;
+            // std::cout << YCount;
+
+            if (YCount > 9)
+            {
+                int YCount1 = YCount % 10;           // Splits the 2nd digit out
+                int YCount2 = YCount / 10 % 10;      // Splits the 1st digit out
+                std::cout << YCount2;                // Prints out the 1st digit
+                YCountSecondHalf.push_back(YCount1); // Push the 2nd digits into a vector
+                YCount += 1;
+            }
+            else
+            {
+                std::cout << YCount;
+                YCount += 1;
+            }
         }
         else
         {
             std::cout << " ";
         }
+    }
+    std::cout << std::endl;
+    std::cout << "                      ";
+    if (YCount > 10)
+    {
+        for (size_t i = 0; i < YCount - 10; i++) // Displays 2nd half of the double digits
+        {
+            std::cout << YCountSecondHalf[i] << " ";
+        }
+    }
+    board[Columns][(Rows / 2)] = {'A'};
+}
+
+void ChangeZombieSettings()
+{
+    Sleep(500);
+    std::cout << "\nZombie Settings\n";
+    std::cout << "-----------------\n";
+    std::cout << "Enter number of zombies: ";
+    std::cin >> Zombie.ZombieCount;
+    if (Zombie.ZombieCount >= 10)
+    {
+        std::cout << "Number of zombies cannot exceed 9.\n";
+        Sleep(3000);
+        ClearScreen();
+        ChangeZombieSettings();
+    }
+    else
+    {
+        std::cout << "\nSettings Updated.\n";
+        Pause();
     }
 }
 
@@ -110,13 +185,7 @@ void ChangeGameSettings()
     }
     else
     {
-        Sleep(500);
-        std::cout << "\nZombie Settings\n";
-        std::cout << "-----------------\n";
-        std::cout << "Enter number of zombies: " << '\n';
-        // std::cin >> kZombieCount;
-        std::cout << "\nSettings Updated.\n";
-        Pause();
+        ChangeZombieSettings();
     }
 }
 
@@ -124,8 +193,7 @@ void GameSettings()
 {
     std::cout << "Board Rows    : " << Rows << '\n';
     std::cout << "Board Columns : " << Columns << '\n';
-    std::cout << "Zombie Count  :" << '\n';
-    // std::cin >> kZombieCount;
+    std::cout << "Zombie Count  : " << Zombie.ZombieCount;
     std::cout << "\nDo you wish to change the game settings (y/n)? => ";
     std::cin >> GSchoice;
     if (GSchoice == 'y' || GSchoice == 'Y')
@@ -143,8 +211,118 @@ void ShowGameSettings()
     GameSettings();
 }
 
+void RefreshGameBoard() // RefreshGameBoard is just refresh, no need to edit this
+{
+    ClearScreen();
+    std::cout << "   .: Alien vs Zombie :." << std::endl;
+    std::cout << std::endl;
+    int kColumns = (Columns * 2) + 1;
+    XCount = 1;
+    for (int x = 0; x < Rows; x++)
+    {
+        std::cout << "   ";
+        for (int y = 0; y < kColumns; y++)
+        {
+            if (y % 2 == 0)
+            {
+                std::cout << "+";
+            }
+            else
+            {
+                std::cout << "-";
+            }
+        }
+        std::cout << std::endl;
+        std::cout << XCount;
+        if (XCount > 9)
+        {
+            std::cout << " ";
+        }
+        else
+        {
+            std::cout << "  ";
+        }
+        XCount++;
+        for (int y = 0; y < kColumns; y++)
+        {
+            board.push_back(std::vector<char>());
+            if (y % 2 == 0)
+            {
+                std::cout << "|";
+            }
+            else
+            {
+                std::cout << board[y][x];
+            }
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "   ";
+    for (int y = 0; y < kColumns; y++)
+    {
+        if (y % 2 == 0)
+        {
+            std::cout << '+';
+        }
+        else
+        {
+            std::cout << '-';
+        }
+    }
+    std::cout << std::endl;
+    std::cout << "   ";
+    std::vector<int> YCountSecondHalf;
+    int YCount = 1;
+    YCountSecondHalf.clear();
+    for (int x = 0; x < kColumns; x++) // Display Columns Numbers
+    {
+        if (x % 2 == 1)
+        {
+            if (YCount > 9)
+            {
+                int YCount1 = YCount % 10;           // Splits the 2nd digit out
+                int YCount2 = YCount / 10 % 10;      // Splits the 1st digit out
+                std::cout << YCount2;                // Prints out the 1st digit
+                YCountSecondHalf.push_back(YCount1); // Push the 2nd digits into a vector
+                YCount += 1;
+            }
+            else
+            {
+                std::cout << YCount;
+                YCount += 1;
+            }
+        }
+        else
+        {
+            std::cout << " ";
+        }
+    }
+    std::cout << std::endl;
+    std::cout << "                      ";
+    if (YCount > 10)
+    {
+        for (size_t i = 0; i < YCount - 10; i++) // Displays 2nd half of the double digits
+        {
+            std::cout << YCountSecondHalf[i] << " ";
+        }
+    }
+}
+
+void ShowAlienHUD()
+{
+    std::cout << "\n->Alien    : Life " << Alien.AlienHp << ", Attack  " << Alien.AlienAtk;
+}
+
+void ShowZombieHUD()
+{
+    Zombie.ZombieCreation();
+}
+
 int main()
 {
     ShowGameSettings();
     CreateGameBoard();
+    ShowAlienHUD();
+    ShowZombieHUD();
+    // RefreshGameBoard();
 }
