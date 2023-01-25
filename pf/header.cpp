@@ -33,6 +33,9 @@ void Enemy::ZombieCreation()
         int ZombieHp = 100 + (randomHp * 50);
         int ZombieAtk = 5 + (randomAtk * 5);
         int ZombieRange = randomRng;
+        ZombHpVec.push_back(ZombieHp);
+        ZombAtkVec.push_back(ZombieAtk);
+        ZombRngVec.push_back(ZombieRange);
         std::cout << '\n' << "  Zombie " << i + 1 << " : Life " << ZombieHp << ", Attack  " << ZombieAtk << ", Range " << ZombieRange;
     }
 }
