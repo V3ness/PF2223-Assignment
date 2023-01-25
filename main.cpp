@@ -9,13 +9,6 @@
 // *********************************************************
 
 #include "pf/header.h"
-#include <iostream>
-#include <windows.h>
-#include <time.h>
-#include <vector>
-#include <iterator>
-#include <string>
-#include <cmath>
 
 char GSchoice;
 int Rows = 3, Columns = 9;
@@ -23,6 +16,8 @@ std::vector<std::vector<char>> board; // Make the board a sort of matrix
 int kColumns = (Columns * 2) + 1;
 int XCount = 1;
 
+Player Alien;
+Enemy Zombie;
 
 template <typename T> // Overloading Operator "<<" to let std::cout print out vector. (MUST NOT TOUCH)
 std::ostream &operator<<(std::ostream &os, const std::vector<T> &v)
@@ -47,17 +42,11 @@ void ClearScreen()
     std::cout << std::endl;
 }
 
-void CreateGameBoard() //Edit here for zombie and alien (at the end)
+void CreateGameBoard() // Edit here for zombie and alien (at the end)
 {
     ClearScreen();
     char h, x;
     srand(time(NULL));
-    ///For Testing Purposes////////////////////////////////
-    // std::cout << "How many rows do you want? => ";
-    // std::cin >> Rows;
-    // std::cout << "How many columns do you want? => ";
-    // std::cin >> Columns;
-    ///////////////////////////////////////////////////////
     int kColumns = (Columns * 2) + 1;
     int XCount = 1;
     std::cout.width(12 + Columns);
@@ -79,13 +68,14 @@ void CreateGameBoard() //Edit here for zombie and alien (at the end)
         std::cout << std::endl;
         if (XCount > 9)
         {
-            std::cout << " ";
+            std::cout << "";
         }
         else
         {
-            std::cout << "  ";
+            std::cout << " ";
         }
-        std::cout << XCount << " "; //Display Rows Numbers
+        // Display Rows Numbers
+        std::cout << XCount << " ";
         XCount++;
         for (int y = 0; y < kColumns; y++)
         {
@@ -118,8 +108,9 @@ void CreateGameBoard() //Edit here for zombie and alien (at the end)
     std::cout << std::endl;
     std::cout << "   ";
     std::vector<int> YCountSecondHalf;
+    // Display Columns Numbers
     int YCount = 1;
-    for (int x = 0; x < kColumns; x++) // Display Columns Numbers
+    for (int x = 0; x < kColumns; x++)
     {
         if (x % 2 == 1)
         {
@@ -153,7 +144,28 @@ void CreateGameBoard() //Edit here for zombie and alien (at the end)
             std::cout << YCountSecondHalf[i] << " ";
         }
     }
-    board[Columns][(Rows/2)] = {'A'};
+    board[Columns][(Rows / 2)] = {'A'};
+}
+
+void ChangeZombieSettings()
+{
+    Sleep(500);
+    std::cout << "\nZombie Settings\n";
+    std::cout << "-----------------\n";
+    std::cout << "Enter number of zombies: ";
+    std::cin >> Zombie.ZombieCount;
+    if (Zombie.ZombieCount >= 10)
+    {
+        std::cout << "Number of zombies cannot exceed 9.\n";
+        Sleep(3000);
+        ClearScreen();
+        ChangeZombieSettings();
+    }
+    else
+    {
+        std::cout << "\nSettings Updated.\n";
+        Pause();
+    }
 }
 
 void ChangeGameSettings()
@@ -173,13 +185,7 @@ void ChangeGameSettings()
     }
     else
     {
-        Sleep(500);
-        std::cout << "\nZombie Settings\n";
-        std::cout << "-----------------\n";
-        std::cout << "Enter number of zombies: " << '\n';
-        // std::cin >> kZombieCount;
-        std::cout << "\nSettings Updated.\n";
-        Pause();
+        ChangeZombieSettings();
     }
 }
 
@@ -187,8 +193,7 @@ void GameSettings()
 {
     std::cout << "Board Rows    : " << Rows << '\n';
     std::cout << "Board Columns : " << Columns << '\n';
-    std::cout << "Zombie Count  :" << '\n';
-    // std::cin >> kZombieCount;
+    std::cout << "Zombie Count  : " << Zombie.ZombieCount;
     std::cout << "\nDo you wish to change the game settings (y/n)? => ";
     std::cin >> GSchoice;
     if (GSchoice == 'y' || GSchoice == 'Y')
@@ -206,19 +211,13 @@ void ShowGameSettings()
     GameSettings();
 }
 
-void RefreshGameBoard() //RefreshGameBoard is just refresh, no need to edit this
+void RefreshGameBoard() // RefreshGameBoard is just refresh, no need to edit this
 {
     ClearScreen();
-    ///For Testing Purposes////////////////////////////////
-    // std::cout << "How many rows do you want? => ";
-    // std::cin >> Rows;
-    // std::cout << "How many columns do you want? => ";
-    // std::cin >> Columns;
-    ///////////////////////////////////////////////////////
     std::cout << "   .: Alien vs Zombie :." << std::endl;
     std::cout << std::endl;
     int kColumns = (Columns * 2) + 1;
-    XCount= 1;
+    XCount = 1;
     for (int x = 0; x < Rows; x++)
     {
         std::cout << "   ";
@@ -234,7 +233,7 @@ void RefreshGameBoard() //RefreshGameBoard is just refresh, no need to edit this
             }
         }
         std::cout << std::endl;
-        std::cout << XCount;        
+        std::cout << XCount;
         if (XCount > 9)
         {
             std::cout << " ";
