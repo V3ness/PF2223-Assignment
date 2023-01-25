@@ -24,6 +24,9 @@ class Enemy
         int ZombieHp = 100 + (randomHp * 50);
         int ZombieAtk = 5 + (randomAtk * 5);
         int ZombieRange = randomRng;
+        std::vector<int> ZombHpVec;
+        std::vector<int> ZombAtkVec;
+        std::vector<int> ZombRngVec;
         void ZombieCreation();
 };
 
