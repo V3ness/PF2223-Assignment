@@ -12,7 +12,7 @@ List all the features completed.
 
 1. The rows and columns must be odd number when the player chooses to change the gameboard dimensions.
 2. The row and column number are displayed correctly.
-3. Number of zombie cannot be less than 0 and exceed 9.
+3. Number of zombie cannot be less than 0 or exceed 9.
 4. Created a randomiser to randomise game objects.
 5. Created game board with 2D vector to display game objects.
 6. Created both alien and multiple zombies basic attributes (Hp, Atk, Range).
