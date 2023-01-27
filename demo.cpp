@@ -24,31 +24,31 @@
 
 // Prepend "pf/" to filename to include source code in
 //   the "pf"  folder.
-#include "pf/helper.h"
-#include <iostream>
-using namespace std;
+// #include "pf/header.h"
+// #include <iostream>
+// using namespace std;
 
-void DemoPause()
-{
-    cout << "Pausing Now" << endl;
-    pf::Pause();
-    cout << endl;
-}
+// void DemoPause()
+// {
+//     cout << "Pausing Now" << endl;
+//     pf::Pause();
+//     cout << endl;
+// }
 
-void DemoClearScreen()
-{
-    cout << "Pausing and Clearing Screen Now" << endl;
-    pf::Pause();
-    pf::ClearScreen();
-    cout << endl;
-}
+// void DemoClearScreen()
+// {
+//     cout << "Pausing and Clearing Screen Now" << endl;
+//     pf::Pause();
+//     pf::ClearScreen();
+//     cout << endl;
+// }
 
-void DemoCreateGameBoard()
-{
-    cout << "Create Game Board" << endl;
-    pf::CreateGameBoard();
-    pf::ShowGameBoard();
-}
+// void DemoCreateGameBoard()
+// {
+//     cout << "Create Game Board" << endl;
+//     pf::CreateGameBoard();
+//     pf::ShowGameBoard();
+// }
 
 #ifdef DEMO
 int main()
