@@ -66,7 +66,7 @@ public:
     int randomHp = rand() % 2 + 1;
     int randomAtk = rand() % 2 + 1;
     int randomRng = rand() % 5 + 1;
-    int ZombieCount;
+    int ZombieCount = 1;
     int ZombieHp = 100 + (randomHp * 50);
     int ZombieAtk = 5 + (randomAtk * 5);
     int ZombieRange = randomRng;
