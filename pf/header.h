@@ -33,19 +33,26 @@ public:
 class Player
 {
     char AlienSymbol = 'A';
+    int posX_, posY_;
 
     public:
         bool hitObject;
         bool hitBarrier;
-        int posX_, posY_;
-        int newPosX_;
-        int newPosY_;
+        int prevX;
+        int prevY;
+        int posX;
+        int posY;
         int AlienAtk = 0;
         int randomNum = rand() % 3 + 1;
         int AlienHp = 100 + (randomNum * 50);
         void InitialLanding(Map &map_, float x, float y);
         void AlienMove(Map &map_, std::string inp, int x, int y);
         void AlienPlacement(Map &map_);
+        void MoveUp(Map &map_, int x, int y);
+        void upPos(Map &map_);
+        void downPos(Map &map_);
+        void leftPos(Map &map_);
+        void rightPos(Map &map_);
 
 };
 

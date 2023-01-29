@@ -113,10 +113,10 @@ void makeBoard()
 {
     map.init(Rows, Columns);
     Alien.InitialLanding(map, Rows, Columns);
-    // pf::ClearScreen();
+    pf::ClearScreen();
     map.display();
-    Alien.newPosX_ = Alien.posX_;
-    Alien.newPosY_ = Alien.posY_;
+    // Alien.newPosX_ = Alien.posX_;
+    // Alien.newPosY_ = Alien.posY_;
 }
 
 void ShowAlienHUD()
@@ -156,10 +156,14 @@ void PlayerMovement()
 
 int main()
 {
+    srand(1);
     ShowGameSettings();
+    pf::ClearScreen();
     makeBoard();
     ShowAlienHUD();
     ShowZombieHUD();
     PlayerMovement();
+
     PlayerMovement();
+
 }
