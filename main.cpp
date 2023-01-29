@@ -12,11 +12,9 @@
 #include <algorithm>
 
 char GSchoice;
-int Rows = 3, Columns = 9;
+int Rows = 5, Columns = 9;
 
 std::vector<std::vector<char>> board; // Make the board a sort of matrix
-int kColumns = (Columns * 2) + 1;
-int XCount = 1;
 
 Player Alien;
 Enemy Zombie;
