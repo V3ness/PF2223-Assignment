@@ -706,65 +706,65 @@ void Enemy::ZombieCreation()
 }
 
 
-int main()
-{
-    srand(1);
-    Map m1;
-    Player alien;
-    int irows, icolumns;
-    std::cout << "Enter Rows: ";
-    std::cin >> icolumns; 
-    std::cout << "Enter Columns: ";
-    std::cin >> irows;
-    m1.init(irows, icolumns);
-    alien.InitialLanding(m1, irows, icolumns);
-    pf::ClearScreen();
-    m1.display();
-    std::cout << "Which Direction? ";
-    std::string userInput;
-    std::cin >> userInput;
-    do
-    {
-        alien.AlienMove(m1, userInput, irows, icolumns);
-        alien.AlienPlacement(m1);
-        pf::ClearScreen();
-        m1.display();
-        if (alien.hitBarrier == true)
-        {
-            std::cout << "\nAlien hit the barrier!" << std::endl;
-            pf::Pause();
-        }
-    }
-    while (alien.hitBarrier == false);
-    alien.hitObject = false;
-    std::cout << "Which Direction? ";
-    std::cin >> userInput;
-    do
-    {
-        alien.AlienMove(m1, userInput, irows, icolumns);
-        alien.AlienPlacement(m1);
-        pf::ClearScreen();
-        m1.display();
-        if (alien.hitBarrier == true)
-        {
-            std::cout << "\nAlien hit the barrier!" << std::endl;
-            pf::Pause();
-        }
-    }
-    while (alien.hitBarrier == false);
-    std::cout << "Which Direction? ";
-    std::cin >> userInput;
-    do
-    {
-        alien.AlienMove(m1, userInput, irows, icolumns);
-        alien.AlienPlacement(m1);
-        pf::ClearScreen();
-        m1.display();
-        if (alien.hitBarrier == true)
-        {
-            std::cout << "\nAlien hit the barrier!" << std::endl;
-            pf::Pause();
-        }
-    }
-    while (alien.hitBarrier == false);
-}
+// int main()
+// {
+//     srand(1);
+//     Map m1;
+//     Player alien;
+//     int irows, icolumns;
+//     std::cout << "Enter Rows: ";
+//     std::cin >> icolumns; 
+//     std::cout << "Enter Columns: ";
+//     std::cin >> irows;
+//     m1.init(irows, icolumns);
+//     alien.InitialLanding(m1, irows, icolumns);
+//     pf::ClearScreen();
+//     m1.display();
+//     std::cout << "Which Direction? ";
+//     std::string userInput;
+//     std::cin >> userInput;
+//     do
+//     {
+//         alien.AlienMove(m1, userInput, irows, icolumns);
+//         alien.AlienPlacement(m1);
+//         pf::ClearScreen();
+//         m1.display();
+//         if (alien.hitBarrier == true)
+//         {
+//             std::cout << "\nAlien hit the barrier!" << std::endl;
+//             pf::Pause();
+//         }
+//     }
+//     while (alien.hitBarrier == false);
+//     alien.hitObject = false;
+//     std::cout << "Which Direction? ";
+//     std::cin >> userInput;
+//     do
+//     {
+//         alien.AlienMove(m1, userInput, irows, icolumns);
+//         alien.AlienPlacement(m1);
+//         pf::ClearScreen();
+//         m1.display();
+//         if (alien.hitBarrier == true)
+//         {
+//             std::cout << "\nAlien hit the barrier!" << std::endl;
+//             pf::Pause();
+//         }
+//     }
+//     while (alien.hitBarrier == false);
+//     std::cout << "Which Direction? ";
+//     std::cin >> userInput;
+//     do
+//     {
+//         alien.AlienMove(m1, userInput, irows, icolumns);
+//         alien.AlienPlacement(m1);
+//         pf::ClearScreen();
+//         m1.display();
+//         if (alien.hitBarrier == true)
+//         {
+//             std::cout << "\nAlien hit the barrier!" << std::endl;
+//             pf::Pause();
+//         }
+//     }
+//     while (alien.hitBarrier == false);
+// }
