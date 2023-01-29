@@ -12,6 +12,7 @@
 #include <algorithm>
 
 char GSchoice;
+bool GameOver = false;
 int Rows = 5, Columns = 9;
 
 std::vector<std::vector<char>> board; // Make the board a sort of matrix
@@ -160,8 +161,8 @@ int main()
     makeBoard();
     ShowAlienHUD();
     ShowZombieHUD();
-    PlayerMovement();
-
-    PlayerMovement();
-
+    while(!GameOver)
+    {
+        PlayerMovement();
+    }
 }
