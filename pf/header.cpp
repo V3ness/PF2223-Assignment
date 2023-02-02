@@ -77,6 +77,25 @@ void Map::display() const
     std::cout << std::endl;
 }
 
+void replaceDot(Map &map_, int rows, int columns)
+{
+    for (int i = 1; i < columns + 1; i++)
+    {
+        for (int j = 1; j < rows + 1; j++)
+        {
+            char x = map_.getObject(i, j);
+            if (x == '.')
+            {
+                char rockItems[] = {'h', 'p', '^', 'v', '<', '>', ' ', 'r', ' ', ' ', ' ', ' '};
+                int noOfItems = 12;
+                int itemsNo = rand() % noOfItems;
+                char replacedItem = rockItems[itemsNo];
+                map_.setObject(i, j, replacedItem);
+            }
+        }
+    }
+}
+
 char Map::getObject(int x, int y) const
 {
     return map_[y - 1][x - 1];
@@ -144,8 +163,9 @@ void Enemy::ZombieLanding(Map &map_, int x, int y)
             EPosY_ = randomY;
             PosX = EPosX_;
             PosY = EPosY_;
+            int z = 49 + i;
 
-            map_.setZomPos(randomX, randomY, i+1);
+            map_.setZomPos(randomX, randomY, z);
         }
         else
         {
@@ -153,8 +173,9 @@ void Enemy::ZombieLanding(Map &map_, int x, int y)
             EPosY_ = randomY;
             PosX = EPosX_;
             PosY = EPosY_;
+            int z = 49 + i;
 
-            map_.setZomPos(randomX, randomY, i+1);
+            map_.setZomPos(randomX, randomY, z);
         }
     }
 }
@@ -239,6 +260,8 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
 {
     Enemy Zombie;
     hitObject = false;
+    do
+    {
     if (inp == "up")
     {
         do
@@ -276,6 +299,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     podEffect();
                     pf::Pause();
+                    inp = "up";
                     break;
 
                 case 'h':
@@ -287,6 +311,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     healthEffect(AlienHp, MaxAlienHp);
                     pf::Pause();
+                    inp = "up";
                     break;
 
                 case ' ':
@@ -298,6 +323,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
                     pf::Pause();
+                    inp = "up";
                     break;
 
                 case '^':
@@ -305,10 +331,12 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     {
                         upPos(map_);
                     }
+                    hitObject = false;
                     pf::ClearScreen();
                     map_.display();
                     std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
                     pf::Pause();
+                    inp = "up";
                     break;
 
                 case 'v':
@@ -393,6 +421,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     podEffect();
                     pf::Pause();
+                    inp = "down";
                     break;
 
                 case 'h':
@@ -404,6 +433,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     healthEffect(AlienHp, MaxAlienHp);
                     pf::Pause();
+                    inp = "down";
                     break;
 
                 case ' ':
@@ -415,6 +445,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
                     pf::Pause();
+                    inp = "down";
                     break;
 
                 case '^':
@@ -435,13 +466,14 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     {
                         downPos(map_);
                     }
+                    hitObject = false;
                     pf::ClearScreen();
                     map_.display();
                     std::cout << "\nAlien sees an arrow and a force has pulled upon him downwards" << std::endl;
                     pf::Pause();
+                    inp = "down";
                     break;
 
-                    // continue
                 case '<':
                     if (hitBarrier == false)
                     {
@@ -510,6 +542,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     podEffect();
                     pf::Pause();
+                    inp = "left";
                     break;
 
                 case 'h':
@@ -521,6 +554,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     healthEffect(AlienHp, MaxAlienHp);
                     pf::Pause();
+                    inp = "left";
                     break;
 
                 case ' ':
@@ -532,6 +566,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
                     pf::Pause();
+                    inp = "left";
                     break;
 
                 case '^':
@@ -565,10 +600,12 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     {
                         leftPos(map_);
                     }
+                    hitObject = false;
                     pf::ClearScreen();
                     map_.display();
                     std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
                     pf::Pause();
+                    inp = "left";
                     break;
 
                 case '>':
@@ -626,6 +663,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     podEffect();
                     pf::Pause();
+                    inp = "right";
                     break;
 
                 case 'h':
@@ -637,6 +675,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     healthEffect(AlienHp, MaxAlienHp);
                     pf::Pause();
+                    inp = "right";
                     break;
 
                 case ' ':
@@ -648,6 +687,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
                     pf::Pause();
+                    inp = "right";
                     break;
 
                 case '^':
@@ -655,10 +695,10 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     {
                         rightPos(map_);
                     }
+                    hitObject = true;
                     pf::ClearScreen();
                     map_.display();
                     std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
-                    hitObject = true;
                     pf::Pause();
                     inp = "up";
                     break;
@@ -686,7 +726,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     map_.display();
                     std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
                     pf::Pause();
-                    inp = "right";
+                    inp = "left";
                     break;
 
                 case '>':
@@ -694,10 +734,12 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     {
                         rightPos(map_);
                     }
+                    hitObject = false;
                     pf::ClearScreen();
                     map_.display();
                     std::cout << "\nAlien went to the right because it wanted to be right." << std::endl;
                     pf::Pause();
+                    inp = "right";
                     break;
 
                 default:
@@ -706,6 +748,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
             }
         } while (hitBarrier == false && hitObject == false);
     }
+    } while (hitBarrier == false && hitObject == false);
 }
 
 void Player::AlienPlacement(Map &map_)

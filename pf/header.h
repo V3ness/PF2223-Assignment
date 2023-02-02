@@ -75,10 +75,10 @@ public:
     void ZombieLanding(Map &map_, int x, int y);
 };
 
+void replaceDot(Map &map_, int rows, int columns);
+
 char randomiseItems(char x);
 
 #endif
 
 
-//TO DO: SETTLE HOW THE FUCK DO I PUT IN THE ALIEN AND MAKE IT MOVE
-//       MERGE MAIN AND HEADER OR ELSE ITS GONNA LOOK NASTY

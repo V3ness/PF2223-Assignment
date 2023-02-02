@@ -161,15 +161,15 @@ void PlayerMovement()
     }
     do
     {
-        Alien.AlienMove(map, userInput, Rows, Columns);
-        Alien.AlienPlacement(map);
-        // pf::ClearScreen();
-        // map.display();
-        if (Alien.hitBarrier == true)
-        {
-            std::cout << "Alien hit the barrier!" << std::endl;
-            pf::Pause();
-        }
+            Alien.AlienMove(map, userInput, Rows, Columns);
+            Alien.AlienPlacement(map);
+            // pf::ClearScreen();
+            // map.display();
+            if (Alien.hitBarrier == true)
+            {
+                std::cout << "Alien hit the barrier!" << std::endl;
+                pf::Pause();
+            }
     } while (Alien.hitBarrier == false && Alien.hitObject == false);
 }
 
@@ -184,6 +184,7 @@ void Combat()
     {
         CombatHUD();
         PlayerMovement();
+        replaceDot(map, Rows, Columns);
         for (int i = 0; i < Zombie.ZombieCount; i++)
         {
             if (Zombie.ZombHpVec[i] >= 1)
