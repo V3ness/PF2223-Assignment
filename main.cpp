@@ -9,11 +9,27 @@
 // *********************************************************
 
 #include "pf/header.h"
-#include <iostream>
-#include <windows.h>
+#include <algorithm>
 
 char GSchoice;
-int Rows = 3, Columns = 9;
+bool GameOver = false;
+int Rows = 9, Columns = 9;
+
+std::vector<std::vector<char>> board; // Make the board a sort of matrix
+
+Player Alien;
+Enemy Zombie;
+Map map;
+
+template <typename T> // Overloading Operator "<<" to let std::cout print out vector. (MUST NOT TOUCH)
+std::ostream &operator<<(std::ostream &os, const std::vector<T> &v)
+{
+    for (size_t i = v.size() - 1; i < v.size(); i++)
+    {
+        os << v[i];
+    }
+    return os;
+}
 
 void Pause()
 {
@@ -27,69 +43,24 @@ void ClearScreen()
     std::cout << std::endl;
 }
 
-void CreateGameBoard()
+void ChangeZombieSettings()
 {
-    ClearScreen();
-    int kColumns = (Columns * 2) + 1;
-    int XCount = 1;
-    std::cout.width(12 + Columns);
-    std::cout << ".: Alien vs Zombie :." << std::endl;
-    for (int x = 0; x < Rows; x++)
+    Sleep(500);
+    std::cout << "\nZombie Settings\n";
+    std::cout << "-----------------\n";
+    std::cout << "Enter number of zombies: ";
+    std::cin >> Zombie.ZombieCount;
+    if (Zombie.ZombieCount >= 10)
     {
-        std::cout << "  ";
-        for (int y = 0; y < kColumns; y++)
-        {
-            if (y % 2 == 0)
-            {
-                std::cout << "+";
-            }
-            else
-            {
-                std::cout << "-";
-            }
-        }
-        std::cout << std::endl;
-        std::cout << XCount << " "; //Display Rows Numbers
-        XCount++;
-        for (int y = 0; y < kColumns; y++)
-        {
-            if (y % 2 == 0)
-            {
-                std::cout << "|";
-            }
-            else
-            {
-                std::cout << " ";
-            }
-        }
-        std::cout << std::endl;
+        std::cout << "Number of zombies cannot exceed 9.\n";
+        Sleep(3000);
+        ClearScreen();
+        ChangeZombieSettings();
     }
-    std::cout << "  ";
-    for (int y = 0; y < kColumns; y++)
+    else
     {
-        if (y % 2 == 0)
-        {
-            std::cout << '+';
-        }
-        else
-        {
-            std::cout << '-';
-        }
-    }
-    std::cout << std::endl;
-    std::cout << "  ";
-    int YCount = 1;
-    for (int x = 0; x < kColumns; x++) //Display Columns Numbers
-    { 
-        if (x % 2 == 1)
-        {
-            std::cout << YCount;
-            YCount += 1;
-        }
-        else
-        {
-            std::cout << " ";
-        }
+        std::cout << "\nSettings Updated.\n";
+        Pause();
     }
 }
 
@@ -98,9 +69,9 @@ void ChangeGameSettings()
     std::cout << "Board Settings\n";
     std::cout << "-----------------\n";
     std::cout << "Enter Rows    : ";
-    std::cin >> Rows;
-    std::cout << "Enter Columns : ";
     std::cin >> Columns;
+    std::cout << "Enter Columns : ";
+    std::cin >> Rows;
     if (Rows % 2 == 0 || Columns % 2 == 0)
     {
         std::cout << "Please ensure that Rows and Columns are odd numbers.\n";
@@ -110,13 +81,7 @@ void ChangeGameSettings()
     }
     else
     {
-        Sleep(500);
-        std::cout << "\nZombie Settings\n";
-        std::cout << "-----------------\n";
-        std::cout << "Enter number of zombies: " << '\n';
-        // std::cin >> kZombieCount;
-        std::cout << "\nSettings Updated.\n";
-        Pause();
+        ChangeZombieSettings();
     }
 }
 
@@ -124,8 +89,7 @@ void GameSettings()
 {
     std::cout << "Board Rows    : " << Rows << '\n';
     std::cout << "Board Columns : " << Columns << '\n';
-    std::cout << "Zombie Count  :" << '\n';
-    // std::cin >> kZombieCount;
+    std::cout << "Zombie Count  : " << Zombie.ZombieCount;
     std::cout << "\nDo you wish to change the game settings (y/n)? => ";
     std::cin >> GSchoice;
     if (GSchoice == 'y' || GSchoice == 'Y')
@@ -143,8 +107,100 @@ void ShowGameSettings()
     GameSettings();
 }
 
+void makeBoard()
+{
+    // Initialize the gameboard with random objects and alien in middle position
+    // Need to add zombie in the gameboard
+    map.init(Rows, Columns);
+    Alien.InitialLanding(map, Rows, Columns);
+    Zombie.ZombieLanding(map, Rows, Columns);
+    pf::ClearScreen();
+    map.display();
+}
+
+void CombatHUD()
+{
+    Zombie.ZombieCreation();
+    std::cout << "\n->Alien    : Health " << Alien.AlienHp << ", Attack  " << Alien.AlienAtk;
+    for (int i = 0; i < Zombie.ZombieCount; i++)
+    {
+        std::cout << '\n'
+                  << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
+    }
+}
+
+void HelpCommand()
+{
+    std::cout << "\nCommands";
+    std::cout << "\n1. up        - Move up.";
+    std::cout << "\n2. down      - Move down.";
+    std::cout << "\n3. left      - Move left.";
+    std::cout << "\n4. right     - Move right.";
+    std::cout << "\n5. arrow     - Change the direction of an arrow.";
+    std::cout << "\n6. help      - Display these user commands.";
+    std::cout << "\n7. save      - Save the game.";
+    std::cout << "\n8. load      - Load a game.";
+    std::cout << "\n9. quit      - Quit the game.\n";
+    pf::Pause();
+    pf::ClearScreen();
+    map.display();
+}
+
+void PlayerMovement()
+{
+    std::cout << std::endl;
+    std::cout << "<Command> => ";
+    std::string userInput;
+    std::cin >> userInput;
+    std::for_each(userInput.begin(), userInput.end(), [](char &c)
+                  { c = ::tolower(c); });
+
+    if (userInput == "help")
+    {
+        HelpCommand();
+    }
+    do
+    {
+        Alien.AlienMove(map, userInput, Rows, Columns);
+        Alien.AlienPlacement(map);
+        // pf::ClearScreen();
+        // map.display();
+        if (Alien.hitBarrier == true)
+        {
+            std::cout << "Alien hit the barrier!" << std::endl;
+            pf::Pause();
+        }
+    } while (Alien.hitBarrier == false && Alien.hitObject == false);
+}
+
+void EnemyMovement()
+{
+    std::cout << "Zombie's turn bitch" << std::endl;
+}
+
+void Combat()
+{
+    if (Alien.AlienHp >= 0)
+    {
+        CombatHUD();
+        PlayerMovement();
+        for (int i = 0; i < Zombie.ZombieCount; i++)
+        {
+            if (Zombie.ZombHpVec[i] >= 1)
+            {
+                EnemyMovement();
+                Combat();
+            }
+        }
+    }
+}
+
 int main()
 {
+    srand(1);
     ShowGameSettings();
-    CreateGameBoard();
+    pf::ClearScreen();
+    makeBoard();
+
+    Combat();
 }
