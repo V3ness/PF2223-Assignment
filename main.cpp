@@ -175,14 +175,8 @@ void EnemyMovement()
     std::cout << "Zombie's turn bitch" << std::endl;
 }
 
-int main()
+void Combat()
 {
-    srand(1);
-    ShowGameSettings();
-    pf::ClearScreen();
-    makeBoard();
-    // GameOver function might need some juice later on
-
     if (Alien.AlienHp >= 0)
     {
         CombatHUD();
@@ -192,7 +186,18 @@ int main()
             if (Zombie.ZombHpVec[i] >= 1)
             {
                 EnemyMovement();
+                Combat();
             }
         }
     }
+}
+
+int main()
+{
+    srand(1);
+    ShowGameSettings();
+    pf::ClearScreen();
+    makeBoard();
+
+    Combat();
 }
