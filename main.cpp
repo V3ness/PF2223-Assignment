@@ -110,8 +110,10 @@ void ShowGameSettings()
 void makeBoard()
 {
     // Initialize the gameboard with random objects and alien in middle position
+    // Need to add zombie in the gameboard
     map.init(Rows, Columns);
     Alien.InitialLanding(map, Rows, Columns);
+    Zombie.ZombieLanding(map, Rows, Columns);
     pf::ClearScreen();
     map.display();
 }
@@ -123,9 +125,10 @@ void CombatHUD()
     for (int i = 0; i < Zombie.ZombieCount; i++)
     {
         std::cout << '\n'
-                  << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i] << '\n';
+                  << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
     }
 }
+
 void HelpCommand()
 {
     std::cout << "\nCommands";
