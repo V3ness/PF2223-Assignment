@@ -86,6 +86,11 @@ void Map::setObject(int x, int y, char ch)
 {
     map_[y - 1][x - 1] = ch;
 }
+ 
+void Map::setZomPos(int x, int y, int z)
+{
+    map_[y - 1][x - 1] = z;
+}
 
 namespace pf
 {
@@ -120,6 +125,38 @@ void Player::InitialLanding(Map &map_, float x, float y)
     posY = posY_;
 
     map_.setObject(middleX, middleY, AlienSymbol);
+}
+
+void Enemy::ZombieLanding(Map &map_, int x, int y)
+{
+    Player Alien;
+    Map map;
+    float randomX, randomY;
+    for (int i = 0; i < ZombieCount; i++)
+    {
+        randomX = rand() % x + 1;
+        randomY = rand() % y + 1;
+        if (randomX == Alien.posX && randomY == Alien.posY)
+        {
+            randomX = rand() % x + 1;
+            randomY = rand() % y + 1;
+            EPosX_ = randomX;
+            EPosY_ = randomY;
+            PosX = EPosX_;
+            PosY = EPosY_;
+
+            map_.setZomPos(randomX, randomY, i+1);
+        }
+        else
+        {
+            EPosX_ = randomX;
+            EPosY_ = randomY;
+            PosX = EPosX_;
+            PosY = EPosY_;
+
+            map_.setZomPos(randomX, randomY, i+1);
+        }
+    }
 }
 
 void rockItem(Map &map_, int x, int y)
