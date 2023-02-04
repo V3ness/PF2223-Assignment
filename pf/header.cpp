@@ -3,10 +3,12 @@
 #include <iostream>
 #include <ctime>
 
-void Map::init(int rows, int columns)
+void Map::init(int rows1, int columns1)
 {
-    rows_ = rows;
-    columns_ = columns;
+    rows_ = rows1;
+    columns_ = columns1;
+    rows = rows_;
+    columns = columns_;
     char randobjects[] = {' ', ' ', ' ', ' ', ' ', 'r', 'h', 'v', '^', '<', '>', 'p'};
     int noOfObjects = 12; // number of objects in the objects array
     // create dynamic 2D array using vector
@@ -105,7 +107,7 @@ void Map::setObject(int x, int y, char ch)
 {
     map_[y - 1][x - 1] = ch;
 }
- 
+
 void Map::setZomPos(int x, int y, int z)
 {
     map_[y - 1][x - 1] = z;
@@ -259,15 +261,14 @@ void Player::rightPos(Map &map_)
 void Player::AlienMove(Map &map_, std::string inp, int x, int y)
 {
     Enemy Zombie;
-    hitObject = false;
-    do
-    {
+    // hitObject = false;
     if (inp == "up")
     {
         do
         {
-            if (posY == 1) // CHANGE THIS TO Y
+            if (posY == 1)
             {
+                prevObj = 'q';
                 hitBarrier = true;
             }
             else
@@ -281,7 +282,8 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 switch (objectOnTop)
                 {
                 case 'r': // Special Case: Rock will stop the alien and change into a random object.
-                    rockItem(map_, posX, posY - 1); 
+                    rockItem(map_, posX, posY - 1);
+                    prevObj = 'r';
                     hitObject = true;
                     pf::ClearScreen();
                     map_.display();
@@ -290,94 +292,159 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     break;
 
                 case 'p':
-                    podEffect();
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        upPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    podEffect();
-                    pf::Pause();
-                    inp = "up";
-                    break;
+                    else
+                    {
+                        podEffect();
+                        if (hitBarrier == false)
+                        {
+                            upPos(map_);
+                        }
+                        prevObj = 'p';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        podEffect();
+                        pf::Pause();
+                        inp = "up";
+                        break;
+                    }
 
                 case 'h':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        upPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    healthEffect(AlienHp, MaxAlienHp);
-                    pf::Pause();
-                    inp = "up";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            upPos(map_);
+                        }
+                        prevObj = 'h';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        healthEffect(AlienHp, MaxAlienHp);
+                        pf::Pause();
+                        inp = "up";
+                        break;
+                    }
 
                 case ' ':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        upPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
-                    pf::Pause();
-                    inp = "up";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            upPos(map_);
+                        }
+                        prevObj = ' ';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
+                        pf::Pause();
+                        inp = "up";
+                        break;
+                    }
 
                 case '^':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        upPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = false;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
-                    pf::Pause();
-                    inp = "up";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            upPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
+                        pf::Pause();
+                        inp = "up";
+                        AlienMove(map_, "up", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case 'v':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        upPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees an arrow and a force has pulled upon him downwards" << std::endl;
-                    pf::Pause();
-                    inp = "down";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            upPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees an arrow and a force has pulled upon him downwards" << std::endl;
+                        pf::Pause();
+                        inp = "down";
+                        AlienMove(map_, "down", map_.rows, map_.columns);
+                        break;
+                    }
 
-                    // continue
                 case '<':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        upPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
-                    pf::Pause();
-                    inp = "left";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            upPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
+                        pf::Pause();
+                        inp = "left";
+                        AlienMove(map_, "left", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case '>':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        upPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien went to the right because it wanted to be right." << std::endl;
-                    pf::Pause();
-                    inp = "right";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            upPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien went to the right because it wanted to be right." << std::endl;
+                        pf::Pause();
+                        inp = "right";
+                        AlienMove(map_, "right", map_.rows, map_.columns);
+                        break;
+                    }
 
                 default:
                     break;
@@ -389,8 +456,9 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
     {
         do
         {
-            if (posY == y)
+            if (posY == map_.rows)
             {
+                prevObj = 'q';
                 hitBarrier = true;
             }
             else
@@ -405,6 +473,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 {
                 case 'r':
                     hitObject = true;
+                    prevObj = 'r';
                     rockItem(map_, posX, posY + 1);
                     pf::ClearScreen();
                     map_.display();
@@ -413,92 +482,157 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     break;
 
                 case 'p':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        downPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    podEffect();
-                    pf::Pause();
-                    inp = "down";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            downPos(map_);
+                        }
+                        prevObj = 'p';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        podEffect();
+                        pf::Pause();
+                        inp = "down";
+                        break;
+                    }
 
                 case 'h':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        downPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    healthEffect(AlienHp, MaxAlienHp);
-                    pf::Pause();
-                    inp = "down";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false) // add if statements for prevobj = r later
+                        {
+                            downPos(map_);
+                        }
+                        prevObj = 'h';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        healthEffect(AlienHp, MaxAlienHp);
+                        pf::Pause();
+                        inp = "down";
+                        break;
+                    }
 
                 case ' ':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        downPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
-                    pf::Pause();
-                    inp = "down";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            downPos(map_);
+                        }
+                        prevObj = ' ';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
+                        pf::Pause();
+                        inp = "down";
+                        break;
+                    }
 
                 case '^':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        downPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
-                    pf::Pause();
-                    inp = "up";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            downPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
+                        pf::Pause();
+                        inp = "up";
+                        AlienMove(map_, "up", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case 'v':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        downPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = false;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees an arrow and a force has pulled upon him downwards" << std::endl;
-                    pf::Pause();
-                    inp = "down";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            downPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees an arrow and a force has pulled upon him downwards" << std::endl;
+                        pf::Pause();
+                        inp = "down";
+                        AlienMove(map_, "down", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case '<':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        downPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
-                    pf::Pause();
-                    inp = "left";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            downPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
+                        pf::Pause();
+                        inp = "left";
+                        AlienMove(map_, "left", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case '>':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        downPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien went to the right because it wanted to be right." << std::endl;
-                    pf::Pause();
-                    inp = "right";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            downPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien went to the right because it wanted to be right." << std::endl;
+                        pf::Pause();
+                        AlienMove(map_, "right", map_.rows, map_.columns);
+                        break;
+                    }
 
                 default:
                     break;
@@ -512,7 +646,10 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
         {
             if (posX == 1)
             {
+                std::cout << "hA" << std::endl;
+                prevObj = 'q';
                 hitBarrier = true;
+                break;
             }
             else
             {
@@ -526,100 +663,167 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 {
                 case 'r':
                     hitObject = true;
+                    prevObj = 'r';
                     rockItem(map_, posX - 1, posY);
                     pf::ClearScreen();
                     map_.display();
                     rockEffect();
                     pf::Pause();
                     break;
-                
+
                 case 'p':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        leftPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    podEffect();
-                    pf::Pause();
-                    inp = "left";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            leftPos(map_);
+                        }
+                        hitObject = false;
+                        prevObj = 'p';
+                        pf::ClearScreen();
+                        map_.display();
+                        podEffect();
+                        pf::Pause();
+                        inp = "left";
+                        break;
+                    }
 
                 case 'h':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        leftPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    healthEffect(AlienHp, MaxAlienHp);
-                    pf::Pause();
-                    inp = "left";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            leftPos(map_);
+                        }
+                        prevObj = 'h';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        healthEffect(AlienHp, MaxAlienHp);
+                        pf::Pause();
+                        inp = "left";
+                        break;
+                    }
 
                 case ' ':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        leftPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
-                    pf::Pause();
-                    inp = "left";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            leftPos(map_);
+                        }
+                        prevObj = ' ';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
+                        pf::Pause();
+                        inp = "left";
+                        break;
+                    }
 
                 case '^':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        leftPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
-                    pf::Pause();
-                    inp = "up";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            leftPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
+                        pf::Pause();
+                        inp = "up";
+                        AlienMove(map_, "up", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case 'v':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        leftPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees an arrow and a force has pulled upon him downwards" << std::endl;
-                    pf::Pause();
-                    inp = "down";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            leftPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees an arrow and a force has pulled upon him downwards" << std::endl;
+                        pf::Pause();
+                        inp = "down";
+                        AlienMove(map_, "down", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case '<':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        leftPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = false;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
-                    pf::Pause();
-                    inp = "left";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            leftPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
+                        pf::Pause();
+                        inp = "left";
+                        AlienMove(map_, "left", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case '>':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        leftPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien went to the right because it wanted to be right." << std::endl;
-                    pf::Pause();
-                    inp = "right";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            leftPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien went to the right because it wanted to be right." << std::endl;
+                        pf::Pause();
+                        inp = "right";
+                        AlienMove(map_, "right", map_.rows, map_.columns);
+                        break;
+                    }
 
                 default:
                     break;
@@ -631,9 +835,12 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
     {
         do
         {
-            if (posX == x)
+            if (posX == map_.columns)
             {
+                std::cout << "te";
+                prevObj = 'q';
                 hitBarrier = true;
+                break;
             }
             else
             {
@@ -647,100 +854,169 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 {
                 case 'r':
                     hitObject = true;
+                    prevObj = 'r';
                     rockItem(map_, posX + 1, posY);
                     pf::ClearScreen();
                     map_.display();
+                    std::cout << "test";
                     rockEffect();
                     pf::Pause();
                     break;
 
                 case 'p':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        rightPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    podEffect();
-                    pf::Pause();
-                    inp = "right";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            rightPos(map_);
+                        }
+                        prevObj = 'p';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        podEffect();
+                        pf::Pause();
+                        inp = "right";
+                        break;
+                    }
 
                 case 'h':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        rightPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    healthEffect(AlienHp, MaxAlienHp);
-                    pf::Pause();
-                    inp = "right";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            rightPos(map_);
+                        }
+                        prevObj = 'h';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        healthEffect(AlienHp, MaxAlienHp);
+                        pf::Pause();
+                        inp = "right";
+                        break;
+                    }
 
                 case ' ':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        rightPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
-                    pf::Pause();
-                    inp = "right";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            rightPos(map_);
+                        }
+                        prevObj = ' ';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees no obstacle in front of it and walks gracefully towards it." << std::endl;
+                        pf::Pause();
+                        inp = "left";
+                        break;
+                    }
 
                 case '^':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        rightPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
-                    pf::Pause();
-                    inp = "up";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            rightPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees an arrow in front of it and it pulls the alien upwards." << std::endl;
+                        pf::Pause();
+                        inp = "up";
+                        AlienMove(map_, "up", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case 'v':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        rightPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien sees an arrow and a force has pulled upon him downwards" << std::endl;
-                    pf::Pause();
-                    inp = "down";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            rightPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien sees an arrow and a force has pulled upon him downwards" << std::endl;
+                        pf::Pause();
+                        inp = "down";
+                        AlienMove(map_, "down", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case '<':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        rightPos(map_);
+                        std::cout << "yo";
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
-                    pf::Pause();
-                    inp = "left";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            rightPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nThe force has recognised the alien and decided left was his path." << std::endl;
+                        pf::Pause();
+                        inp = "left";
+                        AlienMove(map_, "left", map_.rows, map_.columns);
+                        break;
+                    }
 
                 case '>':
-                    if (hitBarrier == false)
+                    if (prevObj == 'r')
                     {
-                        rightPos(map_);
+                        prevObj = 'q';
+                        break;
                     }
-                    hitObject = false;
-                    pf::ClearScreen();
-                    map_.display();
-                    std::cout << "\nAlien went to the right because it wanted to be right." << std::endl;
-                    pf::Pause();
-                    inp = "right";
-                    break;
+                    else
+                    {
+                        if (hitBarrier == false)
+                        {
+                            rightPos(map_);
+                        }
+                        hitObject = true;
+                        pf::ClearScreen();
+                        map_.display();
+                        std::cout << "\nAlien went to the right because it wanted to be right." << std::endl;
+                        pf::Pause();
+                        inp = "right";
+                        AlienMove(map_, "right", map_.rows, map_.columns);
+                        break;
+                    }
 
                 default:
                     break;
@@ -748,7 +1024,6 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
             }
         } while (hitBarrier == false && hitObject == false);
     }
-    } while (hitBarrier == false && hitObject == false);
 }
 
 void Player::AlienPlacement(Map &map_)

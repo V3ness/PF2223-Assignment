@@ -159,18 +159,18 @@ void PlayerMovement()
     {
         HelpCommand();
     }
+
     do
     {
             Alien.AlienMove(map, userInput, Rows, Columns);
             Alien.AlienPlacement(map);
-            // pf::ClearScreen();
-            // map.display();
             if (Alien.hitBarrier == true)
             {
                 std::cout << "Alien hit the barrier!" << std::endl;
                 pf::Pause();
             }
     } while (Alien.hitBarrier == false && Alien.hitObject == false);
+
 }
 
 void EnemyMovement()
@@ -198,6 +198,7 @@ void Combat()
 
 int main()
 {
+    //srand(time(NULL));
     srand(1);
     ShowGameSettings();
     pf::ClearScreen();
