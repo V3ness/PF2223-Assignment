@@ -645,7 +645,6 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
         {
             if (posX == 1)
             {
-                std::cout << "hA" << std::endl;
                 prevObj = 'q';
                 hitBarrier = true;
                 break;
@@ -974,7 +973,6 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 case '<':
                     if (prevObj == 'r')
                     {
-                        std::cout << "yo";
                         prevObj = 'q';
                         break;
                     }

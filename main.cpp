@@ -189,7 +189,6 @@ void Combat()
         CombatHUD();
         Alien.hitObject = false;
         PlayerMovement();
-        std::cout << "Test";
         replaceDot(map, Columns, Rows);
         for (int i = 0; i < Zombie.ZombieCount; i++)
         {
