@@ -475,7 +475,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
     {
         do
         {
-            if (posY == map_.rows)
+            if (posY == map_.columns)
             {
                 prevObj = 'q';
                 hitBarrier = true;
@@ -870,7 +870,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
     {
         do
         {
-            if (posX == map_.columns)
+            if (posX == map_.rows)
             {
                 prevObj = 'q';
                 hitBarrier = true;
@@ -1016,7 +1016,6 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 case '<':
                     if (prevObj == 'r')
                     {
-                        std::cout << "yo";
                         prevObj = 'q';
                         break;
                     }
@@ -1145,6 +1144,7 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
             if (PosY == 1)
             {
                 hitBorder = true;
+                ZombieMove(map_, x, y);
             }
             else
             {
@@ -1254,6 +1254,7 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
             if (PosY == y)
             {
                 hitBorder = true;
+                ZombieMove(map_, x, y);
             }
             else
             {
@@ -1363,6 +1364,7 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
             if (PosX == 1)
             {
                 hitBorder = true;
+                ZombieMove(map_, x, y);
             }
             else
             {
@@ -1472,6 +1474,7 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
             if (PosX == x)
             {
                 hitBorder = true;
+                ZombieMove(map_, x, y);
             }
             else
             {
