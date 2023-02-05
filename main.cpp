@@ -166,7 +166,9 @@ void PlayerMovement()
             Alien.AlienPlacement(map);
             if (Alien.hitBarrier == true)
             {
-                std::cout << "Alien hit the barrier!" << std::endl;
+                pf::ClearScreen();
+                map.display();
+                std::cout << "\nAlien hit the barrier!" << std::endl;
                 pf::Pause();
             }
     } while (Alien.hitBarrier == false && Alien.hitObject == false);
@@ -183,6 +185,7 @@ void Combat()
     if (Alien.AlienHp >= 0)
     {
         CombatHUD();
+        Alien.hitObject = false;
         PlayerMovement();
         replaceDot(map, Rows, Columns);
         for (int i = 0; i < Zombie.ZombieCount; i++)

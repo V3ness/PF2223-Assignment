@@ -261,15 +261,14 @@ void Player::rightPos(Map &map_)
 void Player::AlienMove(Map &map_, std::string inp, int x, int y)
 {
     Enemy Zombie;
-    // hitObject = false;
     if (inp == "up")
     {
         do
         {
             if (posY == 1)
             {
-                prevObj = 'q';
-                hitBarrier = true;
+                prevObj = 'q'; // Resets prev object to q
+                hitBarrier = true; // Stops alien from moving out of gameboard
             }
             else
             {
@@ -277,40 +276,40 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 char objectOnTop;
                 if (posY != 0)
                 {
-                    objectOnTop = map_.getObject(posX, posY - 1);
+                    objectOnTop = map_.getObject(posX, posY - 1); // Get the object on top
                 }
-                switch (objectOnTop)
+                switch (objectOnTop) // Switches depending on the object on top of alien
                 {
-                case 'r': // Special Case: Rock will stop the alien and change into a random object.
-                    rockItem(map_, posX, posY - 1);
-                    prevObj = 'r';
-                    hitObject = true;
-                    pf::ClearScreen();
-                    map_.display();
-                    rockEffect();
-                    pf::Pause();
+                case 'r':                               // Special Case: Rock will stop the alien and change into a random object
+                    rockItem(map_, posX, posY - 1);     // Randomises item on the rock
+                    prevObj = 'r';                      // Sets prev object to r so that the arrows won't glitch out
+                    hitObject = true;                   // This will make the movement code loop with the same direction unless it is true, which in this case, stops.
+                    pf::ClearScreen();                  // Duh
+                    map_.display();                     // Duh
+                    rockEffect();                       // It's just an output of alien hitting a rock, we should remove it sometime soon
+                    pf::Pause();                        // Duh
                     break;
 
                 case 'p':
-                    if (prevObj == 'r')
-                    {
-                        prevObj = 'q';
-                        break;
+                    if (prevObj == 'r')                 // If the object before was a rock,
+                    {                                   // this code ensures it will continue forward to step on 'p'
+                        prevObj = 'q';                  // as it will reset the prevObj variable
+                        break;                          // to let the alien through
                     }
                     else
                     {
-                        podEffect();
-                        if (hitBarrier == false)
+                        podEffect();                    // It will deal damage to the nearest zombie
+                        if (hitBarrier == false)        // This is a redundant code to check if hitbarrier is false, but just to be safe
                         {
-                            upPos(map_);
+                            upPos(map_);                // Moves the alien upwards
                         }
-                        prevObj = 'p';
-                        hitObject = false;
+                        prevObj = 'p';                  
+                        hitObject = false;              
                         pf::ClearScreen();
                         map_.display();
                         podEffect();
                         pf::Pause();
-                        inp = "up";
+                        inp = "up";                     // Just to ensure the alien will still go up
                         break;
                     }
 
@@ -837,7 +836,6 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
         {
             if (posX == map_.columns)
             {
-                std::cout << "te";
                 prevObj = 'q';
                 hitBarrier = true;
                 break;
@@ -852,13 +850,13 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 }
                 switch (objectOnTop)
                 {
+                
                 case 'r':
                     hitObject = true;
                     prevObj = 'r';
                     rockItem(map_, posX + 1, posY);
                     pf::ClearScreen();
                     map_.display();
-                    std::cout << "test";
                     rockEffect();
                     pf::Pause();
                     break;
