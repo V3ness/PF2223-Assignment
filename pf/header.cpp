@@ -455,7 +455,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
     {
         do
         {
-            if (posY == map_.rows)
+            if (posY == map_.columns)
             {
                 prevObj = 'q';
                 hitBarrier = true;
@@ -834,7 +834,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
     {
         do
         {
-            if (posX == map_.columns)
+            if (posX == map_.rows)
             {
                 prevObj = 'q';
                 hitBarrier = true;

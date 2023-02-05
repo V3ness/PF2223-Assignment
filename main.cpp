@@ -114,6 +114,8 @@ void makeBoard()
     map.init(Rows, Columns);
     Alien.InitialLanding(map, Rows, Columns);
     Zombie.ZombieLanding(map, Rows, Columns);
+    map.rows = Rows;
+    map.columns = Columns;
     pf::ClearScreen();
     map.display();
 }
@@ -187,7 +189,8 @@ void Combat()
         CombatHUD();
         Alien.hitObject = false;
         PlayerMovement();
-        replaceDot(map, Rows, Columns);
+        std::cout << "Test";
+        replaceDot(map, Columns, Rows);
         for (int i = 0; i < Zombie.ZombieCount; i++)
         {
             if (Zombie.ZombHpVec[i] >= 1)
