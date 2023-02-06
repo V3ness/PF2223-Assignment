@@ -22,6 +22,9 @@ class Map
 
 public:
     int rows, columns;
+    int itemsNo;
+    void rockItem(Map &map_, int x, int y);
+    void rockEffect();
     void init(int rows, int columns);
     void display() const;
     char getObject(int x, int y) const;
