@@ -197,36 +197,65 @@ void Enemy::ZombieLanding(Map &map_, int x, int y)
     }
 }
 
-void rockItem(Map &map_, int x, int y)
+void Map::rockItem(Map &map_, int x, int y)
 {
     char rockItems[] = {'h', 'p', '^', 'v', '<', '>', ' '};
     int noOfItems = 7;
-    int itemsNo = rand() % noOfItems;
+    itemsNo = rand() % noOfItems;
     char replacedItem = rockItems[itemsNo];
     map_.setObject(x, y, replacedItem);
+    
 }
 
-void rockEffect()
+void Map::rockEffect()
 {
-    std::cout << "\n\nAlien hit rock!\n" << std::endl;
+    std::cout << "\n\nAlien hit rock!" << std::endl;
+    if (itemsNo == 0)
+    {
+        std::cout << "Alien discovers health pack!\n" << std::endl;
+    }
+    else if (itemsNo == 1)
+    {
+        std::cout << "Alien discovers pod!\n" << std::endl;
+    }
+    else if (itemsNo == 2)
+    {
+        std::cout << "Alien discovers arrow 'UP'!\n" << std::endl;
+    }
+    else if (itemsNo == 3)
+    {
+        std::cout << "Alien discovers arrow 'DOWN'!\n" << std::endl;
+    }
+    else if (itemsNo == 4)
+    {
+        std::cout << "Alien discovers arrow 'LEFT'!\n" << std::endl;
+    }
+    else if (itemsNo == 5)
+    {
+        std::cout << "Alien discovers arrow 'RIGHT'\n" << std::endl;
+    }
+    else if (itemsNo == 6)
+    {
+        std::cout << "Alien discovers an empty space!\n" << std::endl;
+    }
 }
 
 void healthEffect(int AlienHp, int MaxAlienHp)
 {
     if (AlienHp < MaxAlienHp)
     {
-        std::cout << "\n\nYour Alien has miraculously gained 20 health through the power of healthpack!\n" << std::endl;
+        std::cout << "\n\nAlien has miraculously gained 20 health through the power of healthpack!\n" << std::endl;
         AlienHp = AlienHp + 20;
     }
     else
     {
-        std::cout << "\n\nYour Alien is still healthy. There's no need for recover.\n" << std::endl;
+        std::cout << "\n\nAlien is still healthy. There's no need for recover.\n" << std::endl;
     }
 }
 
 void podEffect() // after implement zombies, needs to put in zombies
 {
-    std::cout << "\n\nYour Alien has encountered a pod that deals 10 damage to the nearest zombie!\n" << std::endl;
+    std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie!\n" << std::endl;
 }
 
 void Player::upPos(Map &map_)
@@ -293,13 +322,13 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 switch (objectOnTop) // Switches depending on the object on top of alien
                 {
                 case 'r':                           // Special Case: Rock will stop the alien and change into a random object
-                    rockItem(map_, posX, posY - 1); // Randomises item on the rock
+                    map.rockItem(map_, posX, posY - 1); // Randomises item on the rock
                     prevObj = 'r';                  // Sets prev object to r so that the arrows won't glitch out
                     hitObject = true;               // This will make the movement code loop with the same direction unless it is true, which in this case, stops.
                     pf::ClearScreen();              // Duh
                     map_.display();                 // Duh
                     map.CombatHUD();                // Duh
-                    rockEffect();                   // It's just an output of alien hitting a rock, we should remove it sometime soon
+                    map.rockEffect();                   // It's just an output of alien hitting a rock, we should remove it sometime soon
                     pf::Pause();                    // Duh
                     break;
 
@@ -493,11 +522,11 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 case 'r':
                     hitObject = true;
                     prevObj = 'r';
-                    rockItem(map_, posX, posY + 1);
+                    map.rockItem(map_, posX, posY + 1);
                     pf::ClearScreen();
                     map_.display();
                     map.CombatHUD();
-                    rockEffect();
+                    map.rockEffect();
                     pf::Pause();
                     break;
 
@@ -691,11 +720,11 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 case 'r':
                     hitObject = true;
                     prevObj = 'r';
-                    rockItem(map_, posX - 1, posY);
+                    map.rockItem(map_, posX - 1, posY);
                     pf::ClearScreen();
                     map_.display();
                     map.CombatHUD();
-                    rockEffect();
+                    map.rockEffect();
                     pf::Pause();
                     break;
 
@@ -890,11 +919,11 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 case 'r':
                     hitObject = true;
                     prevObj = 'r';
-                    rockItem(map_, posX + 1, posY);
+                    map.rockItem(map_, posX + 1, posY);
                     pf::ClearScreen();
                     map_.display();
                     map.CombatHUD();
-                    rockEffect();
+                    map.rockEffect();
                     pf::Pause();
                     break;
 
