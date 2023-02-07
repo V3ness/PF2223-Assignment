@@ -307,6 +307,30 @@ void Player::rightPos(Map &map_)
     map_.setObject(posX, posY, 'A');
 }
 
+void PrintAlienMoveUp()
+{
+    std::cout << "\n\nAlien sees an arrow in front of it and it pulls the alien UPWARDS.\n"
+    << std::endl;
+}
+
+void PrintAlienMoveDown()
+{
+    std::cout << "\n\nAlien sees an arrow and a force has pulled upon him DOWNWARDS.\n"
+    << std::endl;
+}
+
+void PrintAlienMoveLeft()
+{
+    std::cout << "\n\nThe force has recognised the alien and decided LEFT was his path.\n"
+    << std::endl;
+}
+
+void PrintAlienMoveRight()
+{
+    std::cout << "\n\nAlien went to the RIGHT because it wanted to be right.\n"
+    << std::endl;
+}
+
 void Player::AlienMove(Map &map_, std::string inp, int x, int y)
 {
     Map map;
@@ -428,8 +452,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien sees an arrow in front of it and it pulls the alien upwards.\n"
-                                  << std::endl;
+                        PrintAlienMoveUp();
                         pf::Pause();
                         inp = "up";
                         AlienMove(map_, "up", map_.rows, map_.columns);
@@ -452,8 +475,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien sees an arrow and a force has pulled upon him downwards\n"
-                                  << std::endl;
+                        PrintAlienMoveDown();
                         pf::Pause();
                         inp = "down";
                         AlienMove(map_, "down", map_.rows, map_.columns);
@@ -476,8 +498,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nThe force has recognised the alien and decided left was his path.\n"
-                                  << std::endl;
+                        PrintAlienMoveLeft();
                         pf::Pause();
                         inp = "left";
                         AlienMove(map_, "left", map_.rows, map_.columns);
@@ -500,8 +521,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien went to the right because it wanted to be right.\n"
-                                  << std::endl;
+                        PrintAlienMoveRight();
                         pf::Pause();
                         inp = "right";
                         AlienMove(map_, "right", map_.rows, map_.columns);
@@ -630,8 +650,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien sees an arrow in front of it and it pulls the alien upwards.\n"
-                                  << std::endl;
+                        PrintAlienMoveUp();
                         pf::Pause();
                         inp = "up";
                         AlienMove(map_, "up", map_.rows, map_.columns);
@@ -654,8 +673,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien sees an arrow and a force has pulled upon him downwards.\n"
-                                  << std::endl;
+                        PrintAlienMoveDown();
                         pf::Pause();
                         inp = "down";
                         AlienMove(map_, "down", map_.rows, map_.columns);
@@ -678,8 +696,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nThe force has recognised the alien and decided left was his path.\n"
-                                  << std::endl;
+                        PrintAlienMoveLeft();
                         pf::Pause();
                         inp = "left";
                         AlienMove(map_, "left", map_.rows, map_.columns);
@@ -702,8 +719,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien went to the right because it wanted to be right.\n"
-                                  << std::endl;
+                        PrintAlienMoveRight();
                         pf::Pause();
                         AlienMove(map_, "right", map_.rows, map_.columns);
                         break;
@@ -833,8 +849,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien sees an arrow in front of it and it pulls the alien upwards.\n"
-                                  << std::endl;
+                        PrintAlienMoveUp();
                         pf::Pause();
                         inp = "up";
                         AlienMove(map_, "up", map_.rows, map_.columns);
@@ -857,8 +872,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien sees an arrow and a force has pulled upon him downwards.\n"
-                                  << std::endl;
+                        PrintAlienMoveDown();
                         pf::Pause();
                         inp = "down";
                         AlienMove(map_, "down", map_.rows, map_.columns);
@@ -881,8 +895,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nThe force has recognised the alien and decided left was his path.\n"
-                                  << std::endl;
+                        PrintAlienMoveLeft();
                         pf::Pause();
                         inp = "left";
                         AlienMove(map_, "left", map_.rows, map_.columns);
@@ -905,8 +918,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien went to the right because it wanted to be right.\n"
-                                  << std::endl;
+                        PrintAlienMoveRight();
                         pf::Pause();
                         inp = "right";
                         AlienMove(map_, "right", map_.rows, map_.columns);
@@ -1037,8 +1049,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien sees an arrow in front of it and it pulls the alien upwards.\n"
-                                  << std::endl;
+                        PrintAlienMoveUp();
                         pf::Pause();
                         inp = "up";
                         AlienMove(map_, "up", map_.rows, map_.columns);
@@ -1061,8 +1072,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien sees an arrow and a force has pulled upon him downwards.\n"
-                                  << std::endl;
+                        PrintAlienMoveDown();
                         pf::Pause();
                         inp = "down";
                         AlienMove(map_, "down", map_.rows, map_.columns);
@@ -1085,8 +1095,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nThe force has recognised the alien and decided left was his path.\n"
-                                  << std::endl;
+                        PrintAlienMoveLeft();
                         pf::Pause();
                         inp = "left";
                         AlienMove(map_, "left", map_.rows, map_.columns);
@@ -1109,8 +1118,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        std::cout << "\n\nAlien went to the right because it wanted to be right.\n"
-                                  << std::endl;
+                        PrintAlienMoveRight();
                         pf::Pause();
                         inp = "right";
                         AlienMove(map_, "right", map_.rows, map_.columns);
