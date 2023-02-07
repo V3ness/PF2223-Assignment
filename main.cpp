@@ -163,37 +163,34 @@ void PlayerMovement()
 
     do
     {
-            Alien.AlienMove(map, userInput, Rows, Columns);
-            Alien.AlienPlacement(map);
-            if (Alien.hitBarrier == true)
-            {
-                pf::ClearScreen();
-                map.display();
-                map.CombatHUD();
-                std::cout << "\n" << "\nAlien hit the barrier!\n" << std::endl;
-                pf::Pause();
-            }
+        Alien.AlienMove(map, userInput, Rows, Columns);
+        Alien.AlienPlacement(map);
+        if (Alien.hitBarrier == true)
+        {
+            pf::ClearScreen();
+            map.display();
+            map.CombatHUD();
+            std::cout << "\n"
+                      << "\nAlien hit the barrier!\n"
+                      << std::endl;
+            pf::Pause();
+        }
     } while (Alien.hitBarrier == false && Alien.hitObject == false);
-
 }
 
 void EnemyMovement()
 {
+    std::cout << std::endl;
+    Zombie.ZombieMove(map, Rows, Columns);
     pf::ClearScreen();
     map.display();
     map.CombatHUD();
-    std::cout << std::endl;
-    for (int i = 0; i < Zombie.ZombieCount; i++)
-    {
-        Zombie.ZombieMove(map, Rows, Columns);
-        pf::ClearScreen();
-        map.display();
-        map.CombatHUD();
-        std::cout << "\n\nZombie " << i+1 << "'s turns ends.\n" << std::endl;
-        pf::Pause();
-        pf::ClearScreen();
-        map.display();
-    }
+    std::cout << "\n\nZombie " << Zombie.n + 1 << "'s turns ends.\n"
+              << std::endl;
+    pf::Pause();
+    pf::ClearScreen();
+    map.display();
+    Zombie.n++;
 }
 
 void Combat()
@@ -209,16 +206,19 @@ void Combat()
             if (Zombie.ZombHpVec[i] >= 1)
             {
                 EnemyMovement();
-                Combat();
             }
         }
+        //resets the zombie value on both gameboard and HUD
+        Zombie.n = 0; //works
+        Zombie.count = 49; //does not work for zombie > 2
+        Combat();
     }
 }
 
 int main()
 {
-    //srand(time(NULL));
-    srand(1); //set fixed random value
+    // srand(time(NULL));
+    srand(1); // set fixed random value
     ShowGameSettings();
     pf::ClearScreen();
     makeBoard();
