@@ -199,8 +199,8 @@ void Enemy::ZombieLanding(Map &map_, int x, int y)
 
 void Map::rockItem(Map &map_, int x, int y)
 {
-    char rockItems[] = {'h', 'p', '^', 'v', '<', '>', ' '};
-    int noOfItems = 7;
+    char rockItems[] = {'h', 'p', '^', 'v', '<', '>', ' ', ' ', ' ', ' ', ' ', ' '};
+    int noOfItems = 12;
     itemsNo = rand() % noOfItems;
     char replacedItem = rockItems[itemsNo];
     map_.setObject(x, y, replacedItem);
@@ -354,6 +354,42 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 }
                 switch (objectOnTop) // Switches depending on the object on top of alien
                 {
+                case '1':
+                    hitZombie = true;
+                    break;
+                
+                case '2':
+                    hitZombie = true;
+                    break;
+
+                case '3':
+                    hitZombie = true;
+                    break;
+                
+                case '4':
+                    hitZombie = true;
+                    break;
+
+                case '5':
+                    hitZombie = true;
+                    break;
+                
+                case '6':
+                    hitZombie = true;
+                    break;
+
+                case '7':
+                    hitZombie = true;
+                    break;
+
+                case '8':
+                    hitZombie = true;
+                    break;
+                
+                case '9':
+                    hitZombie = true;
+                    break;
+
                 case 'r':                               // Special Case: Rock will stop the alien and change into a random object
                     map.rockItem(map_, posX, posY - 1); // Randomises item on the rock
                     prevObj = 'r';                      // Sets prev object to r so that the arrows won't glitch out
@@ -532,7 +568,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     break;
                 }
             }
-        } while (hitBarrier == false && hitObject == false);
+        } while (hitBarrier == false && hitObject == false && hitZombie == false);
     }
     if (inp == "down")
     {
@@ -553,6 +589,42 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 }
                 switch (objectOnTop)
                 {
+                case '1':
+                    hitZombie = true;
+                    break;
+                
+                case '2':
+                    hitZombie = true;
+                    break;
+
+                case '3':
+                    hitZombie = true;
+                    break;
+                
+                case '4':
+                    hitZombie = true;
+                    break;
+
+                case '5':
+                    hitZombie = true;
+                    break;
+                
+                case '6':
+                    hitZombie = true;
+                    break;
+
+                case '7':
+                    hitZombie = true;
+                    break;
+
+                case '8':
+                    hitZombie = true;
+                    break;
+                
+                case '9':
+                    hitZombie = true;
+                    break;
+
                 case 'r':
                     hitObject = true;
                     prevObj = 'r';
@@ -729,7 +801,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     break;
                 }
             }
-        } while (hitBarrier == false && hitObject == false);
+        } while (hitBarrier == false && hitObject == false && hitZombie == false);
     }
     if (inp == "left")
     {
@@ -752,6 +824,42 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 }
                 switch (objectOnTop)
                 {
+                case '1':
+                    hitZombie = true;
+                    break;
+                
+                case '2':
+                    hitZombie = true;
+                    break;
+
+                case '3':
+                    hitZombie = true;
+                    break;
+                
+                case '4':
+                    hitZombie = true;
+                    break;
+
+                case '5':
+                    hitZombie = true;
+                    break;
+                
+                case '6':
+                    hitZombie = true;
+                    break;
+
+                case '7':
+                    hitZombie = true;
+                    break;
+
+                case '8':
+                    hitZombie = true;
+                    break;
+                
+                case '9':
+                    hitZombie = true;
+                    break;
+
                 case 'r':
                     hitObject = true;
                     prevObj = 'r';
@@ -929,7 +1037,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     break;
                 }
             }
-        } while (hitBarrier == false && hitObject == false);
+        } while (hitBarrier == false && hitObject == false && hitZombie == false);
     }
     if (inp == "right")
     {
@@ -951,6 +1059,41 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 }
                 switch (objectOnTop)
                 {
+                case '1':
+                    hitZombie = true;
+                    break;
+                
+                case '2':
+                    hitZombie = true;
+                    break;
+
+                case '3':
+                    hitZombie = true;
+                    break;
+                
+                case '4':
+                    hitZombie = true;
+                    break;
+
+                case '5':
+                    hitZombie = true;
+                    break;
+                
+                case '6':
+                    hitZombie = true;
+                    break;
+
+                case '7':
+                    hitZombie = true;
+                    break;
+
+                case '8':
+                    hitZombie = true;
+                    break;
+                
+                case '9':
+                    hitZombie = true;
+                    break;                    
 
                 case 'r':
                     hitObject = true;
@@ -1129,7 +1272,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                     break;
                 }
             }
-        } while (hitBarrier == false && hitObject == false);
+        } while (hitBarrier == false && hitObject == false && hitZombie == false);
     }
 }
 
@@ -1222,6 +1365,42 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
                 }
                 switch (nxtObj)
                 {
+                case '1':
+                    hitAlien = true;
+                    break;
+                
+                case '2':
+                    hitAlien = true;
+                    break;
+
+                case '3':
+                    hitAlien = true;
+                    break;
+                
+                case '4':
+                    hitAlien = true;
+                    break;
+
+                case '5':
+                    hitAlien = true;
+                    break;
+                
+                case '6':
+                    hitAlien = true;
+                    break;
+
+                case '7':
+                    hitAlien = true;
+                    break;
+
+                case '8':
+                    hitAlien = true;
+                    break;
+                
+                case '9':
+                    hitAlien = true;
+                    break;
+
                 case 'A':
                     hitAlien = true;
                     randDir = rand() % 4;
@@ -1282,7 +1461,7 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
                     pf::Pause();
                     break;
 
-                case 'V':
+                case 'v':
                     count = count + n;
                     upPos(map_, count);
                     hitObject = true;
@@ -1340,6 +1519,42 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
                 }
                 switch (nxtObj)
                 {
+                case '1':
+                    hitAlien = true;
+                    break;
+                
+                case '2':
+                    hitAlien = true;
+                    break;
+
+                case '3':
+                    hitAlien = true;
+                    break;
+                
+                case '4':
+                    hitAlien = true;
+                    break;
+
+                case '5':
+                    hitAlien = true;
+                    break;
+                
+                case '6':
+                    hitAlien = true;
+                    break;
+
+                case '7':
+                    hitAlien = true;
+                    break;
+
+                case '8':
+                    hitAlien = true;
+                    break;
+                
+                case '9':
+                    hitAlien = true;
+                    break;
+                
                 case 'A':
                     hitAlien = true;
                     randDir = rand() % 4;
@@ -1400,7 +1615,7 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
                     pf::Pause();
                     break;
 
-                case 'V':
+                case 'v':
                     count = count + n;
                     downPos(map_, count);
                     hitObject = true;
@@ -1458,6 +1673,42 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
                 }
                 switch (nxtObj)
                 {
+                case '1':
+                    hitAlien = true;
+                    break;
+                
+                case '2':
+                    hitAlien = true;
+                    break;
+
+                case '3':
+                    hitAlien = true;
+                    break;
+                
+                case '4':
+                    hitAlien = true;
+                    break;
+
+                case '5':
+                    hitAlien = true;
+                    break;
+                
+                case '6':
+                    hitAlien = true;
+                    break;
+
+                case '7':
+                    hitAlien = true;
+                    break;
+
+                case '8':
+                    hitAlien = true;
+                    break;
+                
+                case '9':
+                    hitAlien = true;
+                    break;
+                
                 case 'A':
                     hitAlien = true;
                     randDir = rand() % 4;
@@ -1518,7 +1769,7 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
                     pf::Pause();
                     break;
 
-                case 'V':
+                case 'v':
                     count = count + n;
                     leftPos(map_, count);
                     hitObject = true;
@@ -1576,6 +1827,42 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
                 }
                 switch (nxtObj)
                 {
+                case '1':
+                    hitAlien = true;
+                    break;
+                
+                case '2':
+                    hitAlien = true;
+                    break;
+
+                case '3':
+                    hitAlien = true;
+                    break;
+                
+                case '4':
+                    hitAlien = true;
+                    break;
+
+                case '5':
+                    hitAlien = true;
+                    break;
+                
+                case '6':
+                    hitAlien = true;
+                    break;
+
+                case '7':
+                    hitAlien = true;
+                    break;
+
+                case '8':
+                    hitAlien = true;
+                    break;
+                
+                case '9':
+                    hitAlien = true;
+                    break;
+
                 case 'A':
                     hitAlien = true;
                     randDir = rand() % 4;
@@ -1636,7 +1923,7 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
                     pf::Pause();
                     break;
 
-                case 'V':
+                case 'v':
                     count = count + n;
                     rightPos(map_, count);
                     hitObject = true;

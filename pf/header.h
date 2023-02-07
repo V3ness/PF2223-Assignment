@@ -41,6 +41,7 @@ class Player
     public:
         bool hitObject;
         bool hitBarrier;
+        bool hitZombie;
         char prevObj;
         int prevX;
         int prevY;

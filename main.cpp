@@ -175,12 +175,22 @@ void PlayerMovement()
                       << std::endl;
             pf::Pause();
         }
-    } while (Alien.hitBarrier == false && Alien.hitObject == false);
+        if (Alien.hitZombie == true)
+        {
+            pf::ClearScreen();
+            map.display();
+            map.CombatHUD();
+            std::cout << "\n"
+                      << "\nAlien hit Zombie " << Zombie.n
+                      << "\n" << std::endl;
+            pf::Pause;
+        }
+    } while (Alien.hitBarrier == false && Alien.hitObject == false && Alien.hitZombie == false);
 }
 
 void EnemyMovement()
 {
-    std::cout << std::endl;
+    std::cout << "test:" << std::endl;
     Zombie.ZombieMove(map, Rows, Columns);
     pf::ClearScreen();
     map.display();
@@ -199,6 +209,7 @@ void Combat()
     {
         map.CombatHUD();
         Alien.hitObject = false;
+        Alien.hitZombie = false;
         PlayerMovement();
         replaceDot(map, Columns, Rows);
         for (int i = 0; i < Zombie.ZombieCount; i++)
@@ -206,6 +217,7 @@ void Combat()
             if (Zombie.ZombHpVec[i] >= 1)
             {
                 EnemyMovement();
+                Zombie.count = 49;
             }
         }
         //resets the zombie value on both gameboard and HUD
