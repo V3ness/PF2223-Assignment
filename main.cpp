@@ -15,6 +15,8 @@ char GSchoice;
 bool GameOver = false;
 int Rows = 9, Columns = 9;
 
+
+
 std::vector<std::vector<char>> board; // Make the board a sort of matrix
 
 Player Alien;
@@ -112,6 +114,7 @@ void makeBoard()
     // Initialize the gameboard with random objects and alien in middle position
     // Need to add zombie in the gameboard
     map.init(Rows, Columns);
+    Zombie.ZombDist = {0, 0, 0, 0, 0, 0, 0, 0, 0};
     Alien.InitialLanding(map, Rows, Columns);
     Zombie.ZombieLanding(map, Rows, Columns);
     pf::ClearScreen();
@@ -188,6 +191,32 @@ void PlayerMovement()
     } while (Alien.hitBarrier == false && Alien.hitObject == false && Alien.hitZombie == false);
 }
 
+int CalcZombDistance(int i)
+{
+    int distance;
+    distance = ((Alien.posX - Zombie.ZombPosX[i]) * (Alien.posX - Zombie.ZombPosX[i]) + (Alien.posY - Zombie.ZombPosY[i]) * (Alien.posY - Zombie.ZombPosY[i]));
+    // distance = sqrt(distance);
+    return distance;
+}
+
+int CompareZombDistance() // Use this to calculate the nearest Zombie
+{
+    int x;
+    int nearest = 5000;
+    int nearestZomb = 0;
+    for (int i = 0; i < Zombie.ZombieCount; i++)
+    {
+        x = Zombie.ZombDist.at(i);
+        if (x < nearest)
+        {
+            nearest = x;
+            nearestZomb = i + 1;
+        }
+    }
+    
+    return nearestZomb;
+}
+
 void EnemyMovement()
 {
     std::cout << "test:" << std::endl;
@@ -205,9 +234,17 @@ void EnemyMovement()
 
 void Combat()
 {
+    int distance;
     if (Alien.AlienHp >= 0)
     {
         map.CombatHUD();
+        for (int i = 0; i < Zombie.ZombieCount; i++)
+        {
+            distance = CalcZombDistance(i);
+            std::cout << "\nZombie " << i + 1 << " Distance : " << distance << std::endl;
+            Zombie.ZombDist[i] = distance;
+        }
+        std::cout << "Nearest Zombie is: " << CompareZombDistance() << std::endl;
         Alien.hitObject = false;
         Alien.hitZombie = false;
         PlayerMovement();
@@ -226,6 +263,8 @@ void Combat()
         Combat();
     }
 }
+
+
 
 int main()
 {

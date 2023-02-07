@@ -86,6 +86,7 @@ public:
     std::vector<int> ZombHpVec;
     std::vector<int> ZombAtkVec;
     std::vector<int> ZombRngVec;
+    std::vector<int> ZombDist;
     void ZombieCreation();
     void ZombieLanding(Map &map_, int x, int y);
     void ZombieMove(Map &map_, int x, int y);
