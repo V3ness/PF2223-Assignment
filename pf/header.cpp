@@ -261,6 +261,11 @@ void healthEffect(int AlienHp, int MaxAlienHp)
     }
 }
 
+void dotEffect()
+{
+    std::cout << "\n\nAlien has gone back the path it travel before.\n" << std::endl;
+}
+
 void podEffect() // after implement zombies, needs to put in zombies
 {
     std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie!\n"
@@ -448,6 +453,29 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         break;
                     }
 
+                case '.':
+                    if (prevObj == 'r') 
+                    {                   
+                        prevObj = 'q';  
+                        break;         
+                    }
+                    else
+                    {            
+                        if (hitBarrier == false) 
+                        {
+                            upPos(map_); 
+                        }
+                        prevObj = '.';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        map.CombatHUD();
+                        dotEffect();
+                        pf::Pause();
+                        inp = "up"; 
+                        break;
+                    }
+                        
                 case ' ':
                     if (prevObj == 'r')
                     {
@@ -682,6 +710,29 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         break;
                     }
 
+                case '.':
+                    if (prevObj == 'r') 
+                    {                   
+                        prevObj = 'q';  
+                        break;         
+                    }
+                    else
+                    {            
+                        if (hitBarrier == false) 
+                        {
+                            downPos(map_); 
+                        }
+                        prevObj = '.';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        map.CombatHUD();
+                        dotEffect();
+                        pf::Pause();
+                        inp = "down"; 
+                        break;
+                    }
+                        
                 case ' ':
                     if (prevObj == 'r')
                     {
@@ -917,6 +968,29 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         break;
                     }
 
+                case '.':
+                    if (prevObj == 'r') 
+                    {                   
+                        prevObj = 'q';  
+                        break;         
+                    }
+                    else
+                    {            
+                        if (hitBarrier == false) 
+                        {
+                            leftPos(map_); 
+                        }
+                        prevObj = '.';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        map.CombatHUD();
+                        dotEffect();
+                        pf::Pause();
+                        inp = "left"; 
+                        break;
+                    }
+                        
                 case ' ':
                     if (prevObj == 'r')
                     {
@@ -1152,6 +1226,29 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         break;
                     }
 
+                case '.':
+                    if (prevObj == 'r') 
+                    {                   
+                        prevObj = 'q';  
+                        break;         
+                    }
+                    else
+                    {            
+                        if (hitBarrier == false) 
+                        {
+                            rightPos(map_); 
+                        }
+                        prevObj = '.';
+                        hitObject = false;
+                        pf::ClearScreen();
+                        map_.display();
+                        map.CombatHUD();
+                        dotEffect();
+                        pf::Pause();
+                        inp = "right"; 
+                        break;
+                    }
+                        
                 case ' ':
                     if (prevObj == 'r')
                     {
