@@ -312,26 +312,30 @@ void Player::rightPos(Map &map_)
     map_.setObject(posX, posY, 'A');
 }
 
-void PrintAlienMoveUp()
+void Player::PrintAlienMoveUp()
 {
+    AlienAtk += 20;
     std::cout << "\n\nAlien sees an arrow in front of it and it pulls the alien UPWARDS.\n"
     << std::endl;
 }
 
-void PrintAlienMoveDown()
+void Player::PrintAlienMoveDown()
 {
+    AlienAtk += 20;
     std::cout << "\n\nAlien sees an arrow and a force has pulled upon him DOWNWARDS.\n"
     << std::endl;
 }
 
-void PrintAlienMoveLeft()
+void Player::PrintAlienMoveLeft()
 {
+    AlienAtk += 20;
     std::cout << "\n\nThe force has recognised the alien and decided LEFT was his path.\n"
     << std::endl;
 }
 
-void PrintAlienMoveRight()
+void Player::PrintAlienMoveRight()
 {
+    AlienAtk += 20;
     std::cout << "\n\nAlien went to the RIGHT because it wanted to be right.\n"
     << std::endl;
 }
