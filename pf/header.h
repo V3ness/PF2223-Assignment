@@ -60,6 +60,10 @@ class Player
         void downPos(Map &map_);
         void leftPos(Map &map_);
         void rightPos(Map &map_);
+        void PrintAlienMoveUp();
+        void PrintAlienMoveDown();
+        void PrintAlienMoveLeft();
+        void PrintAlienMoveRight();
 };
 
 class Enemy
