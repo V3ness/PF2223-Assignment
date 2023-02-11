@@ -123,7 +123,7 @@ void makeBoard()
 
 void Map::CombatHUD()
 {
-    Alien.AlienCreation();
+    Alien.AlienCreation(Zombie.ZombieCount);
     Zombie.ZombieCreation();
     std::cout << "\n->Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
     for (int i = 0; i < Zombie.ZombieCount; i++)
