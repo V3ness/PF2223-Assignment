@@ -140,12 +140,29 @@ namespace pf
     }
 }
 
-void Player::AlienCreation()
+void Player::AlienCreation(int ZombCount)
 {
     int AlienAtk = 0;
-    int randomNum = rand() % 3 + 1;
-    int const AlienHp = 100 + (randomNum * 50);
-    int const MaxAlienHp = AlienHp;
+    if (ZombCount <= 2)
+    {
+        AlienHp = 100;
+        int const MaxAlienHp = AlienHp;
+    }
+    else if (ZombCount <= 5)
+    {
+        AlienHp = 150;
+        int const MaxAlienHp = AlienHp;      
+    }
+    else if (ZombCount <= 7)
+    {
+        AlienHp = 200;
+        int const MaxAlienHp = AlienHp;      
+    }
+    else if (ZombCount <= 9)
+    {
+        AlienHp = 250;
+        int const MaxAlienHp = AlienHp;      
+    }
     AlienHpVec.push_back(AlienHp);
 }
 
