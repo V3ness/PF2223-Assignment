@@ -15,7 +15,7 @@ char GSchoice;
 bool GameOver = false;
 int Rows = 9, Columns = 9;
 
-
+void Combat();
 
 std::vector<std::vector<char>> board; // Make the board a sort of matrix
 
@@ -150,6 +150,24 @@ void HelpCommand()
     map.display();
 }
 
+void QuitCommand()
+{
+    char ans;
+    std::cout << "\nAre you sure? (y/n): ";
+    std::cin >> ans;
+    if (ans == 'y' || ans == 'Y')
+    {
+        std::cout << "\n\nGoodbye!" << std::endl;
+        pf::Pause();
+        pf::ClearScreen();
+        exit(0);
+    }
+    else
+    {
+        Combat();
+    }
+}
+
 void PlayerMovement()
 {
     std::cout << std::endl;
@@ -163,7 +181,11 @@ void PlayerMovement()
     {
         HelpCommand();
     }
-
+    else if (userInput == "quit")
+    {
+        QuitCommand();
+    }
+    
     do
     {
         Alien.AlienMove(map, userInput, Rows, Columns);
