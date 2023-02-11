@@ -48,11 +48,10 @@ class Player
         int posX;
         int posY;
         int AlienAtk = 0;
-        int randomNum = rand() % 3 + 1;
-        int const AlienHp = 100 + (randomNum * 50);
+        int AlienHp;
         int const MaxAlienHp = AlienHp;
         std::vector<int> AlienHpVec;
-        void AlienCreation();
+        void AlienCreation(int ZombCount);
         void InitialLanding(Map &map_, float x, float y);
         void AlienMove(Map &map_, std::string inp, int x, int y);
         void AlienPlacement(Map &map_);
