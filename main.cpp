@@ -148,6 +148,7 @@ void HelpCommand()
     pf::Pause();
     pf::ClearScreen();
     map.display();
+    Combat();
 }
 
 void ArrowCommand()
