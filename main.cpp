@@ -150,6 +150,75 @@ void HelpCommand()
     map.display();
 }
 
+void ArrowCommand()
+{
+    int Arow, Acolumn;
+    std::string Adirec;
+    char ch;
+    std::cout << "\nEnter row, column, and direction: ";
+    std::cin >> Arow >> Acolumn >> Adirec;
+
+    std::for_each(Adirec.begin(), Adirec.end(), [](char &c)
+                  { c = ::tolower(c); });
+
+    ch = map.getObject(Acolumn, Arow);
+    if (ch == '^' || ch == 'v' || ch == '<' || ch == '>')
+    {
+        if (Adirec == "up")
+        {
+            map.setObject(Acolumn, Arow, '^');
+            std::cout << "Arrow object changed from " << ch << " to ^." << std::endl;
+            pf::Pause();
+            pf::ClearScreen();
+            map.display();
+            Combat();
+        }
+        else if (Adirec == "down")
+        {
+            map.setObject(Acolumn, Arow, 'v');
+            std::cout << "Arrow object changed from " << ch << " to V." << std::endl;
+            pf::Pause();
+            pf::ClearScreen();
+            map.display();
+            Combat();
+        }
+        else if (Adirec == "left")
+        {
+            map.setObject(Acolumn, Arow, '<');
+            std::cout << "Arrow object changed from " << ch << " to <." << std::endl;
+            pf::Pause();
+            pf::ClearScreen();
+            map.display();
+            Combat();
+        }
+        else if (Adirec == "right")
+        {
+            map.setObject(Acolumn, Arow, '>');
+            std::cout << "Arrow object changed from " << ch << " to >." << std::endl;
+            pf::Pause();
+            pf::ClearScreen();
+            map.display();  
+            Combat();
+        }
+        else
+        {
+            std::cout << "Invalid direction." << std::endl;
+            pf::Pause();
+            pf::ClearScreen();
+            map.display();
+            Combat();
+        }    
+    }
+    else
+    {
+        std::cout << "Please ensure that the position contains an arrow object." << std::endl;
+        pf::Pause();
+        pf::ClearScreen();
+        map.display();
+        Combat();
+    }
+}
+
 void QuitCommand()
 {
     char ans;
@@ -180,6 +249,10 @@ void PlayerMovement()
     if (userInput == "help")
     {
         HelpCommand();
+    }
+    else if (userInput == "arrow")
+    {
+        ArrowCommand();
     }
     else if (userInput == "quit")
     {
