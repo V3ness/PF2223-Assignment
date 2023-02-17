@@ -146,24 +146,21 @@ void Player::AlienCreation(int ZombCount)
     if (ZombCount <= 2)
     {
         AlienHp = 100;
-        int const MaxAlienHp = AlienHp;
     }
     else if (ZombCount <= 5)
     {
-        AlienHp = 150;
-        int const MaxAlienHp = AlienHp;      
+        AlienHp = 150;   
     }
     else if (ZombCount <= 7)
     {
-        AlienHp = 200;
-        int const MaxAlienHp = AlienHp;      
+        AlienHp = 200;     
     }
     else if (ZombCount <= 9)
     {
-        AlienHp = 250;
-        int const MaxAlienHp = AlienHp;      
+        AlienHp = 250;    
     }
     AlienHpVec.push_back(AlienHp);
+    AlienMaxHpVec.push_back(AlienHp);
 }
 
 void Player::InitialLanding(Map &map_, float x, float y)
@@ -185,6 +182,13 @@ void Enemy::ZombieLanding(Map &map_, int x, int y)
     Player Alien;
     Map map;
     float randomX, randomY;
+    // testing purpose
+    // int i = 4, j = 5;
+    // map_.setZomPos(i , j, 49);
+    // ZombPosX.push_back(i);
+    // ZombPosY.push_back(j);
+    // testing purpose
+
     for (int i = 0; i < ZombieCount; i++)
     {
         randomX = rand() % x + 1;
@@ -263,13 +267,28 @@ void Map::rockEffect()
     }
 }
 
-void healthEffect(int AlienHp, int MaxAlienHp)
+void Player::healthEffect()
 {
-    if (AlienHp < MaxAlienHp)
+    if (AlienHpVec[0] < AlienMaxHpVec[0])
     {
         std::cout << "\n\nAlien has miraculously gained 20 health through the power of healthpack!\n"
                   << std::endl;
-        AlienHp = AlienHp + 20;
+        if (AlienHpVec[0] == AlienMaxHpVec[0] - 5)
+        {
+            AlienHpVec[0] = AlienHpVec[0] + 5;
+        }
+        else if (AlienHpVec[0] == AlienMaxHpVec[0] - 10)
+        {
+            AlienHpVec[0] = AlienHpVec[0] + 10;
+        }
+        else if (AlienHpVec[0] == AlienMaxHpVec[0] - 15)
+        {
+            AlienHpVec[0] = AlienHpVec[0] + 15;
+        }
+        else
+        {
+            AlienHpVec[0] = AlienHpVec[0] + 20;
+        }
     }
     else
     {
@@ -329,6 +348,21 @@ void Player::rightPos(Map &map_)
     map_.setObject(posX, posY, 'A');
 }
 
+void Player::AlienAttack(int zombieNum, Enemy &Zombie)
+{
+    Zombie.ZombHpVec[zombieNum - 1] = Zombie.ZombHpVec[zombieNum - 1] - AlienAtk;
+    std::cout << "Alien has dealt " << AlienAtk << " damge to Zombie " << zombieNum << "." << std::endl;
+    if (Zombie.ZombHpVec[zombieNum - 1] <= 0)
+    {
+        std::cout << "Alien has defeated zombie " << zombieNum << "." << std::endl;
+    }
+    else
+    {
+        std::cout << "Zombie " << zombieNum << " is still alive. " << std::endl;
+        std::cout << "Health left: " << Zombie.ZombHpVec[zombieNum - 1] << "\n\n";
+    }
+}
+
 void Player::PrintAlienMoveUp()
 {
     AlienAtk += 20;
@@ -357,11 +391,11 @@ void Player::PrintAlienMoveRight()
     << std::endl;
 }
 
-
 void Player::AlienMove(Map &map_, std::string inp, int x, int y)
 {
     Map map;
     Enemy Zombie;
+    Player Alien;
     if (inp == "up")
     {
         do
@@ -478,7 +512,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        healthEffect(AlienHp, MaxAlienHp);
+                        healthEffect();
                         pf::Pause();
                         inp = "up";
                         break;
@@ -744,7 +778,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        healthEffect(AlienHp, MaxAlienHp);
+                        healthEffect();
                         pf::Pause();
                         inp = "down";
                         break;
@@ -1011,7 +1045,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        healthEffect(AlienHp, MaxAlienHp);
+                        healthEffect();
                         pf::Pause();
                         inp = "left";
                         break;
@@ -1278,7 +1312,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        healthEffect(AlienHp, MaxAlienHp);
+                        healthEffect();
                         pf::Pause();
                         inp = "right";
                         break;
@@ -1435,6 +1469,22 @@ void Player::AlienPlacement(Map &map_)
 {
 }
 
+void Enemy::ZombieCreation()
+{
+    for (int i = 0; i < ZombieCount; i++)
+    {
+        int randomHp = rand() % 2 + 1;
+        int randomAtk = rand() % 2 + 1;
+        int randomRng = rand() % 5 + 1;
+        int ZombieHp = 100 + (randomHp * 50);
+        int ZombieAtk = 5 + (randomAtk * 5);
+        int ZombieRange = randomRng;
+        ZombHpVec.push_back(ZombieHp);
+        ZombAtkVec.push_back(ZombieAtk);
+        ZombRngVec.push_back(ZombieRange);
+    }
+}
+
 void Enemy::upPos(Map &map_, int x)
 {
     PrevX = ZombPosX[n];
@@ -1500,7 +1550,7 @@ void Enemy::ZombieAttack(int zombieNum, Player &Alien, Map &map_)
     if (ZombDist[zombieNum] <= ZombRngVec[zombieNum])
     {
         Alien.AlienHpVec[0] = Alien.AlienHpVec[0] - ZombAtkVec[zombieNum];
-        std::cout << "\nZombie " << zombieNum + 1 << " has dealt " << ZombAtkVec[zombieNum] << " damage to the Alien!" << std::endl;
+        std::cout << "\n\nZombie " << zombieNum + 1 << " has dealt " << ZombAtkVec[zombieNum] << " damage to the Alien!\n" << std::endl;
         pf::Pause();
     };
 }
@@ -2130,18 +2180,3 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
     }
 }
 
-void Enemy::ZombieCreation()
-{
-    for (int i = 0; i < ZombieCount; i++)
-    {
-        int randomHp = rand() % 2 + 1;
-        int randomAtk = rand() % 2 + 1;
-        int randomRng = rand() % 5 + 1;
-        int ZombieHp = 100 + (randomHp * 50);
-        int ZombieAtk = 5 + (randomAtk * 5);
-        int ZombieRange = randomRng;
-        ZombHpVec.push_back(ZombieHp);
-        ZombAtkVec.push_back(ZombieAtk);
-        ZombRngVec.push_back(ZombieRange);
-    }
-}
