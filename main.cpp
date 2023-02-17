@@ -141,20 +141,20 @@ void Map::CombatHUD()
         case 0:
             std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             std::cout << '\n'
-            << "->Zombie " << 1 << " : Health " << Zombie.ZombHpVec[0] << ", Attack  " << Zombie.ZombAtkVec[0] << ", Range " << Zombie.ZombRngVec[0];
+                      << "->Zombie " << 1 << " : Health " << Zombie.ZombHpVec[0] << ", Attack  " << Zombie.ZombAtkVec[0] << ", Range " << Zombie.ZombRngVec[0];
             for (int i = 1; i < Zombie.ZombieCount; i++)
             {
                 std::cout << '\n'
-                        << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
+                          << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
             }
             break;
-        
+
         case 1:
             std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             std::cout << '\n'
-            << "  Zombie " << 1 << " : Health " << Zombie.ZombHpVec[0] << ", Attack  " << Zombie.ZombAtkVec[0] << ", Range " << Zombie.ZombRngVec[0];
+                      << "  Zombie " << 1 << " : Health " << Zombie.ZombHpVec[0] << ", Attack  " << Zombie.ZombAtkVec[0] << ", Range " << Zombie.ZombRngVec[0];
             std::cout << '\n'
-            << "->Zombie " << 2 << " : Health " << Zombie.ZombHpVec[1] << ", Attack  " << Zombie.ZombAtkVec[1] << ", Range " << Zombie.ZombRngVec[1];
+                      << "->Zombie " << 2 << " : Health " << Zombie.ZombHpVec[1] << ", Attack  " << Zombie.ZombAtkVec[1] << ", Range " << Zombie.ZombRngVec[1];
             for (int i = 2; i < Zombie.ZombieCount; i++)
             {
                 std::cout << '\n'
@@ -165,11 +165,11 @@ void Map::CombatHUD()
         case 2:
             std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             std::cout << '\n'
-            << "  Zombie " << 1 << " : Health " << Zombie.ZombHpVec[0] << ", Attack  " << Zombie.ZombAtkVec[0] << ", Range " << Zombie.ZombRngVec[0];
+                      << "  Zombie " << 1 << " : Health " << Zombie.ZombHpVec[0] << ", Attack  " << Zombie.ZombAtkVec[0] << ", Range " << Zombie.ZombRngVec[0];
             std::cout << '\n'
-            << "  Zombie " << 2 << " : Health " << Zombie.ZombHpVec[1] << ", Attack  " << Zombie.ZombAtkVec[1] << ", Range " << Zombie.ZombRngVec[1];
+                      << "  Zombie " << 2 << " : Health " << Zombie.ZombHpVec[1] << ", Attack  " << Zombie.ZombAtkVec[1] << ", Range " << Zombie.ZombRngVec[1];
             std::cout << '\n'
-            << "->Zombie " << 3 << " : Health " << Zombie.ZombHpVec[2] << ", Attack  " << Zombie.ZombAtkVec[2] << ", Range " << Zombie.ZombRngVec[2];
+                      << "->Zombie " << 3 << " : Health " << Zombie.ZombHpVec[2] << ", Attack  " << Zombie.ZombAtkVec[2] << ", Range " << Zombie.ZombRngVec[2];
             for (int i = 3; i < Zombie.ZombieCount; i++)
             {
                 std::cout << '\n'
@@ -185,7 +185,7 @@ void Map::CombatHUD()
                           << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
             }
             std::cout << '\n'
-            << "->Zombie " << 4 << " : Health " << Zombie.ZombHpVec[3] << ", Attack  " << Zombie.ZombAtkVec[3] << ", Range " << Zombie.ZombRngVec[3];
+                      << "->Zombie " << 4 << " : Health " << Zombie.ZombHpVec[3] << ", Attack  " << Zombie.ZombAtkVec[3] << ", Range " << Zombie.ZombRngVec[3];
             for (int i = 4; i < Zombie.ZombieCount; i++)
             {
                 std::cout << '\n'
@@ -201,7 +201,7 @@ void Map::CombatHUD()
                           << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
             }
             std::cout << '\n'
-            << "->Zombie " << 5 << " : Health " << Zombie.ZombHpVec[4] << ", Attack  " << Zombie.ZombAtkVec[4] << ", Range " << Zombie.ZombRngVec[4];
+                      << "->Zombie " << 5 << " : Health " << Zombie.ZombHpVec[4] << ", Attack  " << Zombie.ZombAtkVec[4] << ", Range " << Zombie.ZombRngVec[4];
             for (int i = 5; i < Zombie.ZombieCount; i++)
             {
                 std::cout << '\n'
@@ -217,7 +217,7 @@ void Map::CombatHUD()
                           << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
             }
             std::cout << '\n'
-            << "->Zombie " << 6 << " : Health " << Zombie.ZombHpVec[5] << ", Attack  " << Zombie.ZombAtkVec[5] << ", Range " << Zombie.ZombRngVec[5];
+                      << "->Zombie " << 6 << " : Health " << Zombie.ZombHpVec[5] << ", Attack  " << Zombie.ZombAtkVec[5] << ", Range " << Zombie.ZombRngVec[5];
             for (int i = 6; i < Zombie.ZombieCount; i++)
             {
                 std::cout << '\n'
@@ -233,7 +233,7 @@ void Map::CombatHUD()
                           << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
             }
             std::cout << '\n'
-            << "->Zombie " << 7 << " : Health " << Zombie.ZombHpVec[6] << ", Attack  " << Zombie.ZombAtkVec[6] << ", Range " << Zombie.ZombRngVec[6];
+                      << "->Zombie " << 7 << " : Health " << Zombie.ZombHpVec[6] << ", Attack  " << Zombie.ZombAtkVec[6] << ", Range " << Zombie.ZombRngVec[6];
             for (int i = 7; i < Zombie.ZombieCount; i++)
             {
                 std::cout << '\n'
@@ -249,7 +249,7 @@ void Map::CombatHUD()
                           << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
             }
             std::cout << '\n'
-            << "->Zombie " << 8 << " : Health " << Zombie.ZombHpVec[7] << ", Attack  " << Zombie.ZombAtkVec[7] << ", Range " << Zombie.ZombRngVec[7];
+                      << "->Zombie " << 8 << " : Health " << Zombie.ZombHpVec[7] << ", Attack  " << Zombie.ZombAtkVec[7] << ", Range " << Zombie.ZombRngVec[7];
             for (int i = 8; i < Zombie.ZombieCount; i++)
             {
                 std::cout << '\n'
@@ -265,14 +265,14 @@ void Map::CombatHUD()
                           << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
             }
             std::cout << '\n'
-            << "->Zombie " << 9 << " : Health " << Zombie.ZombHpVec[8] << ", Attack  " << Zombie.ZombAtkVec[8] << ", Range " << Zombie.ZombRngVec[8];
+                      << "->Zombie " << 9 << " : Health " << Zombie.ZombHpVec[8] << ", Attack  " << Zombie.ZombAtkVec[8] << ", Range " << Zombie.ZombRngVec[8];
             for (int i = 9; i < Zombie.ZombieCount; i++)
             {
                 std::cout << '\n'
                           << "  Zombie " << i + 1 << " : Health " << Zombie.ZombHpVec[i] << ", Attack  " << Zombie.ZombAtkVec[i] << ", Range " << Zombie.ZombRngVec[i];
             }
             break;
-        
+
         default:
             break;
         }
@@ -344,7 +344,7 @@ void ArrowCommand()
             std::cout << "Arrow object changed from " << ch << " to >." << std::endl;
             pf::Pause();
             pf::ClearScreen();
-            map.display();  
+            map.display();
             Combat();
         }
         else
@@ -354,7 +354,7 @@ void ArrowCommand()
             pf::ClearScreen();
             map.display();
             Combat();
-        }    
+        }
     }
     else
     {
@@ -406,32 +406,43 @@ void PlayerMovement()
     {
         QuitCommand();
     }
-    
-    do
+    else if (userInput == "up" || userInput == "down" || userInput == "left" || userInput == "right")
     {
-        Alien.AlienMove(map, userInput, Rows, Columns);
-        Alien.AlienPlacement(map);
-        if (Alien.hitBarrier == true)
+        do
         {
-            pf::ClearScreen();
-            map.display();
-            map.CombatHUD();
-            std::cout << "\n"
-                      << "\nAlien hit the barrier!\n"
-                      << std::endl;
-            pf::Pause();
-        }
-        if (Alien.hitZombie == true)
-        {
-            pf::ClearScreen();
-            map.display();
-            map.CombatHUD();
-            std::cout << "\n"
-                      << "\nAlien hit Zombie " << Alien.AlienZomb
-                      << "\n" << std::endl;
-            pf::Pause();
-        }
-    } while (Alien.hitBarrier == false && Alien.hitObject == false && Alien.hitZombie == false);
+            Alien.AlienMove(map, userInput, Rows, Columns);
+            Alien.AlienPlacement(map);
+            if (Alien.hitBarrier == true)
+            {
+                pf::ClearScreen();
+                map.display();
+                map.CombatHUD();
+                std::cout << "\n"
+                          << "\nAlien hit the barrier!\n"
+                          << std::endl;
+                pf::Pause();
+            }
+            if (Alien.hitZombie == true)
+            {
+                pf::ClearScreen();
+                map.display();
+                map.CombatHUD();
+                std::cout << "\n"
+                          << "\nAlien hit Zombie " << Alien.AlienZomb
+                          << "\n"
+                          << std::endl;
+                pf::Pause();
+            }
+        } while (Alien.hitBarrier == false && Alien.hitObject == false && Alien.hitZombie == false);
+    }
+    else
+    {
+        std::cout << "Oops! Invalid Input." << std::endl;
+        pf::Pause();
+        pf::ClearScreen();
+        map.display();
+        Combat();
+    }
 }
 
 int CalcZombDistance(int i)
@@ -455,7 +466,7 @@ int CompareZombDistance() // Use this to calculate the nearest Zombie
             nearestZomb = i + 1;
         }
     }
-    
+
     return nearestZomb;
 }
 
@@ -499,14 +510,12 @@ void Combat()
                 Zombie.count = 49;
             }
         }
-        //resets the zombie value on both gameboard and HUD
-        Zombie.n = 0; //works
+        // resets the zombie value on both gameboard and HUD
+        Zombie.n = 0; // works
         Alien.alienTurn = true;
         Combat();
     }
 }
-
-
 
 int main()
 {
