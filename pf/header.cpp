@@ -183,39 +183,39 @@ void Enemy::ZombieLanding(Map &map_, int x, int y)
     Map map;
     float randomX, randomY;
     // testing purpose
-    int i = 4, j = 5;
-    map_.setZomPos(i , j, 49);
-    ZombPosX.push_back(i);
-    ZombPosY.push_back(j);
+    // int i = 4, j = 5;
+    // map_.setZomPos(i , j, 49);
+    // ZombPosX.push_back(i);
+    // ZombPosY.push_back(j);
     // testing purpose
 
-    // for (int i = 0; i < ZombieCount; i++)
-    // {
-    //     randomX = rand() % x + 1;
-    //     randomY = rand() % y + 1;
-    //     if (randomX == Alien.posX && randomY == Alien.posY)
-    //     {
-    //         randomX = rand() % x + 1;
-    //         randomY = rand() % y + 1;
-    //         EPosX_ = randomX;
-    //         EPosY_ = randomY;
-    //         int z = 49 + i;
+    for (int i = 0; i < ZombieCount; i++)
+    {
+        randomX = rand() % x + 1;
+        randomY = rand() % y + 1;
+        if (randomX == Alien.posX && randomY == Alien.posY)
+        {
+            randomX = rand() % x + 1;
+            randomY = rand() % y + 1;
+            EPosX_ = randomX;
+            EPosY_ = randomY;
+            int z = 49 + i;
 
-    //         map_.setZomPos(randomX, randomY, z);
-    //         ZombPosX.push_back(randomX);
-    //         ZombPosY.push_back(randomY);
-    //     }
-    //     else
-    //     {
-    //         EPosX_ = randomX;
-    //         EPosY_ = randomY;
-    //         int z = 49 + i;
+            map_.setZomPos(randomX, randomY, z);
+            ZombPosX.push_back(randomX);
+            ZombPosY.push_back(randomY);
+        }
+        else
+        {
+            EPosX_ = randomX;
+            EPosY_ = randomY;
+            int z = 49 + i;
 
-    //         map_.setZomPos(randomX, randomY, z);
-    //         ZombPosX.push_back(randomX);
-    //         ZombPosY.push_back(randomY);
-    //     }
-    // }
+            map_.setZomPos(randomX, randomY, z);
+            ZombPosX.push_back(randomX);
+            ZombPosY.push_back(randomY);
+        }
+    }
 }
 
 void Map::rockItem(Map &map_, int x, int y)
