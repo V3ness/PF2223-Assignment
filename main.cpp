@@ -428,9 +428,8 @@ void PlayerMovement()
                 map.display();
                 map.CombatHUD();
                 std::cout << "\n"
-                          << "\nAlien hit Zombie " << Alien.AlienZomb
-                          << "\n"
-                          << std::endl;
+                          << "\nAlien attack Zombie " << Alien.AlienZomb << "." << std::endl;
+                Alien.AlienAttack(Alien.AlienZomb, Zombie);
                 pf::Pause();
             }
         } while (Alien.hitBarrier == false && Alien.hitObject == false && Alien.hitZombie == false);
@@ -498,10 +497,8 @@ void Combat()
         for (int i = 0; i < Zombie.ZombieCount; i++)
         {
             distance = CalcZombDistance(i);
-            std::cout << "\nZombie " << i + 1 << " Distance : " << distance << std::endl;
             Zombie.ZombDist[i] = distance;
         }
-        std::cout << "Nearest Zombie is: " << CompareZombDistance() << std::endl;
         Alien.hitObject = false;
         Alien.hitZombie = false;
         PlayerMovement();
@@ -516,7 +513,7 @@ void Combat()
             }
         }
         // resets the zombie value on both gameboard and HUD
-        Zombie.n = 0; // works
+        Zombie.n = 0;
         Alien.alienTurn = true;
         Combat();
     }
