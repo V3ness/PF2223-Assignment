@@ -98,6 +98,7 @@ public:
     void ZombieCreation();
     void ZombieLanding(Map &map_, int x, int y);
     void ZombieMove(Map &map_, int x, int y);
+    void ZombieAttack(int zombieNum, Player &Alien, Map &map_);
     void upPos(Map &map_, int x);
     void downPos(Map &map_, int x);
     void leftPos(Map &map_, int x);

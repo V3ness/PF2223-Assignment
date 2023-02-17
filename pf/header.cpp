@@ -1495,6 +1495,16 @@ void PrintZombMoveRight(int i)
     std::cout << "\n\nZombie " << i + 1 << " moves right.\n\n";
 }
 
+void Enemy::ZombieAttack(int zombieNum, Player &Alien, Map &map_)
+{
+    if (ZombDist[zombieNum] <= ZombRngVec[zombieNum])
+    {
+        Alien.AlienHpVec[0] = Alien.AlienHpVec[0] - ZombAtkVec[zombieNum];
+        std::cout << "\nZombie " << zombieNum + 1 << " has dealt " << ZombAtkVec[zombieNum] << " damage to the Alien!" << std::endl;
+        pf::Pause();
+    };
+}
+
 void Enemy::ZombieMove(Map &map_, int x, int y)
 {
     Map map;

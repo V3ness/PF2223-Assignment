@@ -465,6 +465,11 @@ void EnemyMovement()
     pf::ClearScreen();
     map.display();
     map.CombatHUD();
+    Zombie.ZombDist.at(Zombie.n) = CalcZombDistance(Zombie.n);
+    Zombie.ZombieAttack(Zombie.n, Alien, map);
+    pf::ClearScreen();
+    map.display();
+    map.CombatHUD();
     std::cout << "\n\nZombie " << Zombie.n + 1 << "'s turns ends.\n"
               << std::endl;
     pf::Pause();
@@ -516,6 +521,7 @@ int main()
     ShowGameSettings();
     pf::ClearScreen();
     makeBoard();
-
+    
     Combat();
+    
 }
