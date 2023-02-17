@@ -41,25 +41,24 @@ class Player
     int posX_, posY_;
 
     public:
+        char prevObj;
         bool hitObject;
         bool hitBarrier;
         bool hitZombie;
-        int AlienZomb;
         bool alienTurn;
-        char prevObj;
+        int AlienZomb;
         int prevX;
         int prevY;
         int posX;
         int posY;
         int AlienAtk = 0;
         int AlienHp;
-        int const MaxAlienHp = AlienHp;
         std::vector<int> AlienHpVec;
+        std::vector<int> AlienMaxHpVec;
         void AlienCreation(int ZombCount);
         void InitialLanding(Map &map_, float x, float y);
         void AlienMove(Map &map_, std::string inp, int x, int y);
         void AlienPlacement(Map &map_);
-        void AttackSequence(Enemy Zombie,int zombieNum);
         void upPos(Map &map_);
         void downPos(Map &map_);
         void leftPos(Map &map_);
@@ -68,6 +67,8 @@ class Player
         void PrintAlienMoveDown();
         void PrintAlienMoveLeft();
         void PrintAlienMoveRight();
+        void AlienAttack(int zombieNum, Enemy &Zombie);
+        void healthEffect();
 };
 
 class Enemy
@@ -83,8 +84,8 @@ public:
     int randomHp = rand() % 2 + 1;
     int randomAtk = rand() % 2 + 1;
     int randomRng = rand() % 5 + 1;
-    int ZombieCount = 2;
-    int ZombieHp = 100 + (randomHp * 50);
+    int ZombieCount = 1;
+    int ZombieHp = 50 + (randomHp * 50);
     int ZombieAtk = 5 + (randomAtk * 5);
     int ZombieRange = randomRng;
     int count = 49; // use to display zombie on the gameboard
@@ -103,6 +104,7 @@ public:
     void downPos(Map &map_, int x);
     void leftPos(Map &map_, int x);
     void rightPos(Map &map_, int x);
+    void ZombieDefeated(int zombieNum, Map &map_, int x, int y);
 };
 
 void replaceDot(Map &map_, int rows, int columns);
@@ -110,4 +112,3 @@ void replaceDot(Map &map_, int rows, int columns);
 char randomiseItems(char x);
 
 #endif
-
