@@ -465,12 +465,12 @@ int CompareZombDistance() // Use this to calculate the nearest Zombie
             nearestZomb = i + 1;
         }
     }
-
     return nearestZomb;
 }
 
 void EnemyMovement()
 {
+    Alien.AlienAtk = 0;
     Zombie.ZombieMove(map, Rows, Columns);
     pf::ClearScreen();
     map.display();
