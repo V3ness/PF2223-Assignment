@@ -497,8 +497,10 @@ void Combat()
         for (int i = 0; i < Zombie.ZombieCount; i++)
         {
             distance = CalcZombDistance(i);
+            // std::cout << "\nZombie " << i + 1 << " Distance : " << distance << std::endl;
             Zombie.ZombDist[i] = distance;
         }
+        // std::cout << "Nearest Zombie is: " << CompareZombDistance() << std::endl;
         Alien.hitObject = false;
         Alien.hitZombie = false;
         PlayerMovement();
