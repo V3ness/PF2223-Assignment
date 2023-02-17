@@ -357,6 +357,7 @@ void Player::PrintAlienMoveRight()
     << std::endl;
 }
 
+
 void Player::AlienMove(Map &map_, std::string inp, int x, int y)
 {
     Map map;
@@ -382,38 +383,47 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 {
                 case '1':
                     hitZombie = true;
+                    AlienZomb = 1;
                     break;
                 
                 case '2':
                     hitZombie = true;
+                    AlienZomb = 2;
                     break;
 
                 case '3':
                     hitZombie = true;
+                    AlienZomb = 3;
                     break;
                 
                 case '4':
                     hitZombie = true;
+                    AlienZomb = 4;
                     break;
 
                 case '5':
                     hitZombie = true;
+                    AlienZomb = 5;
                     break;
                 
                 case '6':
                     hitZombie = true;
+                    AlienZomb = 6;
                     break;
 
                 case '7':
                     hitZombie = true;
+                    AlienZomb = 7;
                     break;
 
                 case '8':
                     hitZombie = true;
+                    AlienZomb = 8;
                     break;
                 
                 case '9':
                     hitZombie = true;
+                    AlienZomb = 9;
                     break;
 
                 case 'r':                               // Special Case: Rock will stop the alien and change into a random object
@@ -640,38 +650,47 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 {
                 case '1':
                     hitZombie = true;
+                    AlienZomb = 1;
                     break;
                 
                 case '2':
                     hitZombie = true;
+                    AlienZomb = 2;
                     break;
 
                 case '3':
                     hitZombie = true;
+                    AlienZomb = 3;
                     break;
                 
                 case '4':
                     hitZombie = true;
+                    AlienZomb = 4;
                     break;
 
                 case '5':
                     hitZombie = true;
+                    AlienZomb = 5;
                     break;
                 
                 case '6':
                     hitZombie = true;
+                    AlienZomb = 6;
                     break;
 
                 case '7':
                     hitZombie = true;
+                    AlienZomb = 7;
                     break;
 
                 case '8':
                     hitZombie = true;
+                    AlienZomb = 8;
                     break;
                 
                 case '9':
                     hitZombie = true;
+                    AlienZomb = 9;
                     break;
 
                 case 'r':
@@ -898,38 +917,47 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 {
                 case '1':
                     hitZombie = true;
+                    AlienZomb = 1;
                     break;
                 
                 case '2':
                     hitZombie = true;
+                    AlienZomb = 2;
                     break;
 
                 case '3':
                     hitZombie = true;
+                    AlienZomb = 3;
                     break;
                 
                 case '4':
                     hitZombie = true;
+                    AlienZomb = 4;
                     break;
 
                 case '5':
                     hitZombie = true;
+                    AlienZomb = 5;
                     break;
                 
                 case '6':
                     hitZombie = true;
+                    AlienZomb = 6;
                     break;
 
                 case '7':
                     hitZombie = true;
+                    AlienZomb = 7;
                     break;
 
                 case '8':
                     hitZombie = true;
+                    AlienZomb = 8;
                     break;
                 
                 case '9':
                     hitZombie = true;
+                    AlienZomb = 9;
                     break;
 
                 case 'r':
@@ -1156,39 +1184,48 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                 {
                 case '1':
                     hitZombie = true;
+                    AlienZomb = 1;
                     break;
                 
                 case '2':
                     hitZombie = true;
+                    AlienZomb = 2;
                     break;
 
                 case '3':
                     hitZombie = true;
+                    AlienZomb = 3;
                     break;
                 
                 case '4':
                     hitZombie = true;
+                    AlienZomb = 4;
                     break;
 
                 case '5':
                     hitZombie = true;
+                    AlienZomb = 5;
                     break;
                 
                 case '6':
                     hitZombie = true;
+                    AlienZomb = 6;
                     break;
 
                 case '7':
                     hitZombie = true;
+                    AlienZomb = 7;
                     break;
 
                 case '8':
                     hitZombie = true;
+                    AlienZomb = 8;
                     break;
                 
                 case '9':
                     hitZombie = true;
-                    break;                    
+                    AlienZomb = 9;
+                    break;                   
 
                 case 'r':
                     hitObject = true;
@@ -1462,6 +1499,7 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
 {
     Map map;
     int randDir;
+    
     randDir = rand() % 4;
     // 0 = up, 1 = down, 2 = left, 3 = right
     if (randDir == 0)

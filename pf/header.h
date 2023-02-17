@@ -33,6 +33,8 @@ public:
     void CombatHUD();
 };
 
+class Enemy;
+
 class Player
 {
     char AlienSymbol = 'A';
@@ -42,6 +44,8 @@ class Player
         bool hitObject;
         bool hitBarrier;
         bool hitZombie;
+        int AlienZomb;
+        bool alienTurn;
         char prevObj;
         int prevX;
         int prevY;
@@ -55,6 +59,7 @@ class Player
         void InitialLanding(Map &map_, float x, float y);
         void AlienMove(Map &map_, std::string inp, int x, int y);
         void AlienPlacement(Map &map_);
+        void AttackSequence(Enemy Zombie,int zombieNum);
         void upPos(Map &map_);
         void downPos(Map &map_);
         void leftPos(Map &map_);
