@@ -12,12 +12,12 @@
 #include <algorithm>
 #include <fstream>
 
-
 char GSchoice;
 bool GameOver = false;
 int Rows = 9, Columns = 9;
 
 void Combat();
+int main();
 
 std::vector<std::vector<char>> board; // Make the board a sort of matrix
 
@@ -55,11 +55,12 @@ void ChangeZombieSettings()
     std::cout << "Enter number of zombies: ";
     std::cin >> Zombie.ZombieCount;
     if (Zombie.ZombieCount >= 10)
-    {
+    {   
         std::cout << "Number of zombies cannot exceed 9.\n";
         Sleep(3000);
         ClearScreen();
-        ChangeZombieSettings();
+        ChangeZombieSettings();    
+
     }
     else
     {
@@ -388,7 +389,7 @@ void QuitCommand()
 
 bool repeatLoad;
 
-void loadGame(std::string fileName, Map &map, Player &alien, Enemy &zombie) //Add file name here to customise it
+void loadGame(std::string fileName, Map &map, Player &alien, Enemy &zombie) // Add file name here to customise it
 {
     std::ifstream inFile(fileName);
     inFile >> map.rows >> map.columns;
@@ -408,7 +409,8 @@ void loadGame(std::string fileName, Map &map, Player &alien, Enemy &zombie) //Ad
         }
     }
     inFile.close();
-    std::cout << "Game loaded successfully. \n\nThere might be certain areas in which the data is wrong, \nPlease write load again until the data is consistent\n" << std::endl;
+    std::cout << "Game loaded successfully. \n\nThere might be certain areas in which the data is wrong, \nPlease write load again until the data is consistent\n"
+              << std::endl;
     pf::Pause();
     pf::ClearScreen();
     map.display();
@@ -423,8 +425,8 @@ void saveGame(std::string fileName, Map &map, Player &alien, Enemy &zombie)
     outFile << zombie.ZombieCount << std::endl;
     for (int i = 0; i < zombie.ZombieCount; i++)
     {
-        outFile << zombie.ZombPosX[i] << " " << zombie.ZombPosY[i] << " " << zombie.ZombHpVec[i] 
-        << " " << zombie.ZombAtkVec[i] << " " << zombie.ZombRngVec[i] << std::endl;
+        outFile << zombie.ZombPosX[i] << " " << zombie.ZombPosY[i] << " " << zombie.ZombHpVec[i]
+                << " " << zombie.ZombAtkVec[i] << " " << zombie.ZombRngVec[i] << std::endl;
     }
     outFile << alien.AlienHpVec[0] << " " << alien.AlienAtk;
     for (int i = 0; i < map.columns; i++)
@@ -555,7 +557,8 @@ void podEffect() // after implement zombies, needs to put in zombies
 
 void podMessage()
 {
-    std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie, " << "which is Zombie " << Zombie.nearestZomb << "\n"
+    std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie, "
+              << "which is Zombie " << Zombie.nearestZomb << "\n"
               << std::endl;
 }
 
@@ -613,6 +616,29 @@ void Combat()
     }
 }
 
+void gameover()
+{
+    char choice;
+    std::cout << "Play again? (y/n)> ";
+    std::cin >> choice;
+    if (choice == 'y' || choice == 'Y')
+    {
+        main();
+    }
+    else if (choice == 'n' || choice == 'N')
+    {
+        std::cout << "\n\nGoodbye!" << std::endl;
+        pf::Pause();
+        pf::ClearScreen();
+        exit(0);
+    }
+    else
+    {
+        std::cout << "\nInvalid input" << std::endl;
+        gameover();
+    }
+}
+
 int main()
 {
     // srand(time(NULL));
@@ -621,6 +647,6 @@ int main()
     ShowGameSettings();
     pf::ClearScreen();
     makeBoard();
-    
+
     Combat();
 }
