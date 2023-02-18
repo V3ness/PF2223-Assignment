@@ -11,6 +11,7 @@
 #include "pf/header.h"
 #include <algorithm>
 #include <fstream>
+#include <numeric>
 
 char GSchoice;
 bool GameOver = false;
@@ -127,9 +128,13 @@ void Map::CombatHUD()
 {
     Alien.AlienCreation(Zombie.ZombieCount);
     Zombie.ZombieCreation();
+    for (size_t i = 0; i < Zombie.Defeated.size(); i++)
+    {
+        std::cout << i << ": " << Zombie.Defeated[i];
+    }
     if (Alien.alienTurn == true)
     {
-        std::cout << "\n->Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+        std::cout << "\n\n->Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
         for (int i = 0; i < Zombie.ZombieCount; i++)
         {
             std::cout << '\n'
@@ -552,6 +557,12 @@ void podEffect() // after implement zombies, needs to put in zombies
         Zombie.nearestZomb = CompareZombDistance();
     }
     Zombie.ZombHpVec[Zombie.nearestZomb - 1] = Zombie.ZombHpVec[Zombie.nearestZomb - 1] - 10;
+    if (Zombie.ZombHpVec[Zombie.nearestZomb - 1] <= 0)
+    {
+        std::cout << "Alien has defeated zombie " << Zombie.nearestZomb << "." << std::endl;
+        Zombie.ZombHpVec[Zombie.nearestZomb - 1] = 0;
+        Zombie.Defeated[Zombie.nearestZomb - 1] = true;
+    }
 }
 
 void podMessage()
@@ -561,60 +572,6 @@ void podMessage()
               << std::endl;
 }
 
-void EnemyMovement()
-{
-    Alien.AlienAtk = 0;
-    Zombie.ZombieMove(map, Rows, Columns);
-    pf::ClearScreen();
-    map.display();
-    map.CombatHUD();
-    Zombie.ZombDist.at(Zombie.n) = CalcZombDistance(Zombie.n);
-    Zombie.ZombieAttack(Zombie.n, Alien, map);
-    pf::ClearScreen();
-    map.display();
-    map.CombatHUD();
-    std::cout << "\n\nZombie " << Zombie.n + 1 << "'s turns ends.\n"
-              << std::endl;
-    pf::Pause();
-    pf::ClearScreen();
-    map.display();
-    Zombie.n++;
-}
-
-void Combat()
-{
-    int distance;
-    if (Alien.AlienHp >= 0)
-    {
-        map.CombatHUD();
-        for (int i = 0; i < Zombie.ZombieCount; i++)
-        {
-            distance = CalcZombDistance(i);
-            // std::cout << "\nZombie " << i + 1 << " Distance : " << distance << std::endl;
-            Zombie.ZombDist[i] = distance;
-            Zombie.nearestZomb = CompareZombDistance();
-        }
-        // std::cout << "Nearest Zombie is: " << CompareZombDistance() << std::endl;
-        Alien.hitObject = false;
-        Alien.hitZombie = false;
-        PlayerMovement();
-        replaceDot(map, Columns, Rows);
-        for (int i = 0; i < Zombie.ZombieCount; i++)
-        {
-            Alien.alienTurn = false;
-            if (Zombie.ZombHpVec[i] >= 1)
-            {
-                EnemyMovement();
-                Zombie.count = 49;
-            }
-        }
-        // resets the zombie value on both gameboard and HUD
-        Zombie.n = 0;
-        Alien.alienTurn = true;
-        Combat();
-    }
-}
-
 void gameover(Player &Alien, Enemy &Zombie)
 {
     char choice;
@@ -622,6 +579,8 @@ void gameover(Player &Alien, Enemy &Zombie)
     std::cin >> choice;
     if (choice == 'y' || choice == 'Y')
     {
+        map.lastroundX = map.rows;
+        map.lastroundY = map.columns;
         Alien.AlienHpVec.clear();
         Alien.AlienMaxHpVec.clear();
         Zombie.ZombPosX.clear();
@@ -649,23 +608,87 @@ void gameover(Player &Alien, Enemy &Zombie)
     }
 }
 
+void EnemyMovement()
+{
+    Alien.AlienAtk = 0;
+    Zombie.ZombieMove(map, Rows, Columns);
+    pf::ClearScreen();
+    map.display();
+    map.CombatHUD();
+    Zombie.ZombDist.at(Zombie.n) = CalcZombDistance(Zombie.n);
+    Zombie.ZombieAttack(Zombie.n, Alien, map);
+    pf::ClearScreen();
+    map.display();
+    map.CombatHUD();
+    std::cout << "\n\nZombie " << Zombie.n + 1 << "'s turns ends.\n"
+              << std::endl;
+    pf::Pause();
+    pf::ClearScreen();
+    map.display();
+    Zombie.n++;
+}
+
+
+void Combat()
+{
+    int distance;
+    if (Alien.AlienHp >= 0)
+    {
+        if ((Zombie.Defeated.end() == std::find(Zombie.Defeated.begin(), Zombie.Defeated.end(), false)))
+        {
+            std::cout << "You won!\n";
+            gameover(Alien,Zombie);
+        }
+        map.CombatHUD();
+        for (int i = 0; i < Zombie.ZombieCount; i++)
+        {
+            distance = CalcZombDistance(i);
+            // std::cout << "\nZombie " << i + 1 << " Distance : " << distance << std::endl;
+            Zombie.ZombDist[i] = distance;
+            Zombie.nearestZomb = CompareZombDistance();
+        }
+        // std::cout << "Nearest Zombie is: " << CompareZombDistance() << std::endl;
+        Alien.hitObject = false;
+        Alien.hitZombie = false;
+
+        PlayerMovement();
+        replaceDot(map, Columns, Rows);
+        for (int i = 0; i < Zombie.ZombieCount; i++)
+        {
+            Alien.alienTurn = false;
+            if (Zombie.ZombHpVec[i] >= 1)
+            {
+                EnemyMovement();
+                Zombie.count = 49;
+            }
+        }
+        // resets the zombie value on both gameboard and HUD
+        Zombie.n = 0;
+        Alien.alienTurn = true;
+        Combat();
+    }
+}
+
+
+
 int main()
 {
     // srand(time(NULL));
-        Alien.AlienHpVec.clear();
-        Alien.AlienMaxHpVec.clear();
-        Zombie.ZombPosX.clear();
-        Zombie.ZombPosY.clear();
-        Zombie.ZombHpVec.clear();
-        Zombie.ZombAtkVec.clear();
-        Zombie.ZombRngVec.clear();
-        Zombie.ZombDist.clear();
+    Alien.AlienHpVec.clear();
+    Alien.AlienMaxHpVec.clear();
+    Zombie.ZombPosX.clear();
+    Zombie.ZombPosY.clear();
+    Zombie.ZombHpVec.clear();
+    Zombie.ZombAtkVec.clear();
+    Zombie.ZombRngVec.clear();
+    Zombie.ZombDist.clear();
+    Zombie.Defeated.clear();
     Alien.alienTurn = true;
     srand(1); // set fixed random value
     ShowGameSettings();
     pf::ClearScreen();
     makeBoard();
     Zombie.Defeated.resize(Zombie.ZombieCount, false);
-
+    
     Combat();
 }

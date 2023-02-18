@@ -27,6 +27,7 @@ public:
     std::vector<std::vector<char>> map_;
     int rows, columns;
     int itemsNo;
+    int lastroundX, lastroundY;
     void rockItem(Map &map_, int x, int y);
     void rockEffect();
     void init(int rows, int columns);
@@ -93,6 +94,7 @@ public:
     int ZombieAtk = 5 + (randomAtk * 5);
     int ZombieRange = randomRng;
     int nearestZomb;
+    int ZombiesDead;
     int count = 49; // use to display zombie on the gameboard
     int n = 0; // use to display zombie no. on the HUD
     std::vector<bool> Defeated;
