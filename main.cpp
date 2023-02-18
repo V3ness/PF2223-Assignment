@@ -388,9 +388,9 @@ void QuitCommand()
 
 bool repeatLoad;
 
-void loadGame(Map &map, Player &alien, Enemy &zombie) //Add file name here to customise it
+void loadGame(std::string fileName, Map &map, Player &alien, Enemy &zombie) //Add file name here to customise it
 {
-    std::ifstream inFile("test.txt");
+    std::ifstream inFile(fileName);
     inFile >> map.rows >> map.columns;
     inFile >> alien.posX >> alien.posY;
     inFile >> zombie.ZombieCount;
@@ -400,24 +400,24 @@ void loadGame(Map &map, Player &alien, Enemy &zombie) //Add file name here to cu
     }
     inFile >> alien.AlienHpVec[0] >> alien.AlienAtk;
     map.init(map.rows, map.columns);
-    for (int i = 0; i < map.rows; i++)
+    for (int i = 0; i < map.columns; i++)
     {
-        for (int j = 0; j < map.columns; j++)
+        for (int j = 0; j < map.rows; j++)
         {
             inFile >> std::noskipws >> map.map_[i][j];
         }
     }
     inFile.close();
-    std::cout << "Game loaded successfully. \nThere might be certain areas in which the data is wrong, \nPlease write load again to make sure the load is correct" << std::endl;
+    std::cout << "Game loaded successfully. \n\nThere might be certain areas in which the data is wrong, \nPlease write load again until the data is consistent\n" << std::endl;
     pf::Pause();
     pf::ClearScreen();
     map.display();
     Combat();
 }
 
-void saveGame(Map &map, Player &alien, Enemy &zombie)
+void saveGame(std::string fileName, Map &map, Player &alien, Enemy &zombie)
 {
-    std::ofstream outFile("test.txt");
+    std::ofstream outFile(fileName);
     outFile << map.rows << " " << map.columns << std::endl;
     outFile << alien.posX << " " << alien.posY << std::endl;
     outFile << zombie.ZombieCount << std::endl;
@@ -427,9 +427,9 @@ void saveGame(Map &map, Player &alien, Enemy &zombie)
         << " " << zombie.ZombAtkVec[i] << " " << zombie.ZombRngVec[i] << std::endl;
     }
     outFile << alien.AlienHpVec[0] << " " << alien.AlienAtk;
-    for (int i = 0; i < map.rows; i++)
+    for (int i = 0; i < map.columns; i++)
     {
-        for (int j = 0; j < map.columns; j++)
+        for (int j = 0; j < map.rows; j++)
         {
             outFile << map.map_[i][j];
         }
@@ -466,11 +466,17 @@ void PlayerMovement()
     }
     else if (userInput == "save")
     {
-        saveGame(map, Alien, Zombie);
+        std::string fileName;
+        std::cout << "Please name your file: ";
+        std::cin >> fileName;
+        saveGame(fileName, map, Alien, Zombie);
     }
     else if (userInput == "load")
     {
-        loadGame(map, Alien, Zombie);
+        std::string fileName;
+        std::cout << "Please insert the name of your save file: ";
+        std::cin >> fileName;
+        loadGame(fileName, map, Alien, Zombie);
     }
     else if (userInput == "up" || userInput == "down" || userInput == "left" || userInput == "right")
     {
