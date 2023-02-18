@@ -4,6 +4,8 @@
 #include <ctime>
 #include <fstream>
 
+void gameover(Player &Alien, Enemy &Zombie);
+
 void Map::init(int rows1, int columns1)
 {
     rows_ = rows1;
@@ -28,8 +30,6 @@ void Map::init(int rows1, int columns1)
         }
     }
 }
-
-
 
 void Map::display() const
 {
@@ -304,23 +304,6 @@ void dotEffect()
 {
     std::cout << "\n\nAlien has gone back the path it travel before.\n" << std::endl;
 }
-
-// void podEffect(Enemy &zombie, Player &alien) // after implement zombies, needs to put in zombies
-// {
-//     int distance;
-//     for (int i = 0; i < zombie.ZombieCount; i++)
-//     {
-//         distance = CalcZombDistance(i, alien, zombie);
-//         // std::cout << "\nZombie " << i + 1 << " Distance : " << distance << std::endl;
-//         zombie.ZombDist[i] = distance;
-//         std::cout << i << "is done";
-//         zombie.nearestZomb = CompareZombDistance(zombie);
-//         pf::Pause();
-//     }
-//     zombie.ZombHpVec[zombie.nearestZomb - 1] = zombie.ZombHpVec[zombie.nearestZomb - 1] - 10;
-//     std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie, " << "which is Zombie " << zombie.nearestZomb << "\n"
-//               << std::endl;
-// }
 
 void Player::upPos(Map &map_)
 {
@@ -1566,11 +1549,10 @@ void PrintZombMoveRight(int i)
     std::cout << "\n\nZombie " << i + 1 << " moves right.\n\n";
 }
 
-void gameover();
-
 void Enemy::ZombieAttack(int zombieNum, Player &Alien, Map &map_)
 {
     Map map;
+    Enemy Zombie;
     if (ZombDist[zombieNum] <= ZombRngVec[zombieNum])
     {
         Alien.AlienHpVec[0] = Alien.AlienHpVec[0] - ZombAtkVec[zombieNum];
@@ -1583,7 +1565,7 @@ void Enemy::ZombieAttack(int zombieNum, Player &Alien, Map &map_)
             map_.display();
             map.CombatHUD();
             std::cout << "\n\nZombie wins!" << std::endl;
-            gameover();
+            gameover(Alien, Zombie);
         }
     }
     else
