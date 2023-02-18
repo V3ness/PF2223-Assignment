@@ -55,12 +55,11 @@ void ChangeZombieSettings()
     std::cout << "Enter number of zombies: ";
     std::cin >> Zombie.ZombieCount;
     if (Zombie.ZombieCount >= 10)
-    {   
+    {
         std::cout << "Number of zombies cannot exceed 9.\n";
         Sleep(3000);
         ClearScreen();
-        ChangeZombieSettings();    
-
+        ChangeZombieSettings();
     }
     else
     {
@@ -616,13 +615,23 @@ void Combat()
     }
 }
 
-void gameover()
+void gameover(Player &Alien, Enemy &Zombie)
 {
     char choice;
     std::cout << "Play again? (y/n)> ";
     std::cin >> choice;
     if (choice == 'y' || choice == 'Y')
     {
+        Alien.AlienHpVec.clear();
+        Alien.AlienMaxHpVec.clear();
+        Zombie.ZombPosX.clear();
+        Zombie.ZombPosY.clear();
+        Zombie.ZombHpVec.clear();
+        Zombie.ZombAtkVec.clear();
+        Zombie.ZombRngVec.clear();
+        Zombie.ZombDist.clear();
+        Zombie.count = 49;
+        Zombie.n = 0;
         main();
     }
     else if (choice == 'n' || choice == 'N')
@@ -635,7 +644,7 @@ void gameover()
     else
     {
         std::cout << "\nInvalid input" << std::endl;
-        gameover();
+        gameover(Alien, Zombie);
     }
 }
 
