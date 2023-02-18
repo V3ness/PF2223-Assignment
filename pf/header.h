@@ -9,6 +9,10 @@
 #include <cmath>
 #include <iomanip>
 
+class Enemy;
+
+class Player;
+
 namespace pf
 {
     int ClearScreen();
@@ -17,10 +21,10 @@ namespace pf
 
 class Map
 {
-    std::vector<std::vector<char>> map_;
     int rows_, columns_;
 
 public:
+    std::vector<std::vector<char>> map_;
     int rows, columns;
     int itemsNo;
     void rockItem(Map &map_, int x, int y);
@@ -108,7 +112,6 @@ public:
 };
 
 void replaceDot(Map &map_, int rows, int columns);
-
 char randomiseItems(char x);
 
 #endif

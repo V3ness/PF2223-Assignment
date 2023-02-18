@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
+#include <fstream>
 
 void Map::init(int rows1, int columns1)
 {
@@ -28,16 +29,18 @@ void Map::init(int rows1, int columns1)
     }
 }
 
+
+
 void Map::display() const
 {
     std::cout << ".: Alien vs Zombie :." << std::endl;
 
     // Prints out each row
-    for (int i = 0; i < columns_; ++i)
+    for (int i = 0; i < columns; ++i)
     {
         // Displays border for top row
         std::cout << "  ";
-        for (int j = 0; j < rows_; ++j)
+        for (int j = 0; j < rows; ++j)
         {
             std::cout << "+-";
         }
@@ -45,7 +48,7 @@ void Map::display() const
         // Displays Row Number
         std::cout << std::setw(2) << (i + 1);
         // Displays the vector contents and border in between them
-        for (int j = 0; j < rows_; ++j)
+        for (int j = 0; j < rows; ++j)
         {
             std::cout << "|" << map_[i][j];
         }
@@ -53,7 +56,7 @@ void Map::display() const
     }
     // Display the border for the last row
     std::cout << "  ";
-    for (int j = 0; j < rows_; ++j)
+    for (int j = 0; j < rows; ++j)
     {
         std::cout << "+"
                   << "-";
@@ -61,7 +64,7 @@ void Map::display() const
     std::cout << "+" << std::endl;
     // display column number
     std::cout << "  ";
-    for (int j = 0; j < rows_; ++j)
+    for (int j = 0; j < rows; ++j)
     {
         int digit = (j + 1) / 10;
         std::cout << " ";
@@ -72,7 +75,7 @@ void Map::display() const
     }
     std::cout << std::endl;
     std::cout << "  ";
-    for (int j = 0; j < rows_; ++j)
+    for (int j = 0; j < rows; ++j)
     {
         std::cout << " " << (j + 1) % 10;
     }
@@ -351,7 +354,7 @@ void Player::rightPos(Map &map_)
 void Player::AlienAttack(int zombieNum, Enemy &Zombie)
 {
     Zombie.ZombHpVec[zombieNum - 1] = Zombie.ZombHpVec[zombieNum - 1] - AlienAtk;
-    std::cout << "Alien has dealt " << AlienAtk << " damge to Zombie " << zombieNum << "." << std::endl;
+    std::cout << "Alien has dealt " << AlienAtk << " damage to Zombie " << zombieNum << "." << std::endl;
     if (Zombie.ZombHpVec[zombieNum - 1] <= 0)
     {
         std::cout << "Alien has defeated zombie " << zombieNum << "." << std::endl;
