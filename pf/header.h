@@ -61,7 +61,7 @@ class Player
         std::vector<int> AlienMaxHpVec;
         void AlienCreation(int ZombCount);
         void InitialLanding(Map &map_, float x, float y);
-        void AlienMove(Map &map_, std::string inp, int x, int y);
+        void AlienMove(Map &map_, Enemy &Zombie, Player &Alien, std::string inp, int x, int y);
         void AlienPlacement(Map &map_);
         void upPos(Map &map_);
         void downPos(Map &map_);
@@ -95,6 +95,7 @@ public:
     int nearestZomb;
     int count = 49; // use to display zombie on the gameboard
     int n = 0; // use to display zombie no. on the HUD
+    std::vector<bool> Defeated;
     std::vector<int> ZombPosX; // vector to store each zombie's position x
     std::vector<int> ZombPosY; // vector to store each zombie's position y
     std::vector<int> ZombHpVec;

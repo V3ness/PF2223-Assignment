@@ -483,7 +483,7 @@ void PlayerMovement()
     {
         do
         {
-            Alien.AlienMove(map, userInput, Rows, Columns);
+            Alien.AlienMove(map, Zombie, Alien, userInput, Rows, Columns);
             Alien.AlienPlacement(map);
             if (Alien.hitBarrier == true)
             {
@@ -632,6 +632,7 @@ void gameover(Player &Alien, Enemy &Zombie)
         Zombie.ZombDist.clear();
         Zombie.count = 49;
         Zombie.n = 0;
+        map.map_.clear();
         main();
     }
     else if (choice == 'n' || choice == 'N')
@@ -651,11 +652,20 @@ void gameover(Player &Alien, Enemy &Zombie)
 int main()
 {
     // srand(time(NULL));
+        Alien.AlienHpVec.clear();
+        Alien.AlienMaxHpVec.clear();
+        Zombie.ZombPosX.clear();
+        Zombie.ZombPosY.clear();
+        Zombie.ZombHpVec.clear();
+        Zombie.ZombAtkVec.clear();
+        Zombie.ZombRngVec.clear();
+        Zombie.ZombDist.clear();
     Alien.alienTurn = true;
     srand(1); // set fixed random value
     ShowGameSettings();
     pf::ClearScreen();
     makeBoard();
+    Zombie.Defeated.resize(Zombie.ZombieCount, false);
 
     Combat();
 }
