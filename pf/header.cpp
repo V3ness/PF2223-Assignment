@@ -1555,7 +1555,13 @@ void Enemy::ZombieAttack(int zombieNum, Player &Alien, Map &map_)
         Alien.AlienHpVec[0] = Alien.AlienHpVec[0] - ZombAtkVec[zombieNum];
         std::cout << "\n\nZombie " << zombieNum + 1 << " has dealt " << ZombAtkVec[zombieNum] << " damage to the Alien!\n" << std::endl;
         pf::Pause();
-    };
+    }
+    else
+    {
+        std::cout << "\n\nZombie " << zombieNum + 1 << " is unable to attack." << std::endl;
+        std::cout << "Alien is too far away\n" << std::endl;
+        pf::Pause();
+    }
 }
 
 void Enemy::ZombieMove(Map &map_, int x, int y)
