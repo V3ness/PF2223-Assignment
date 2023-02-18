@@ -1498,7 +1498,7 @@ void Enemy::ZombieCreation()
         int randomAtk = rand() % 2 + 1;
         int randomRng = rand() % 5 + 1;
         int ZombieHp = 100 + (randomHp * 50);
-        int ZombieAtk = 5 + (randomAtk * 5);
+        int ZombieAtk = 500 + (randomAtk * 5);
         int ZombieRange = randomRng;
         ZombHpVec.push_back(ZombieHp);
         ZombAtkVec.push_back(ZombieAtk);
@@ -1566,13 +1566,25 @@ void PrintZombMoveRight(int i)
     std::cout << "\n\nZombie " << i + 1 << " moves right.\n\n";
 }
 
+void gameover();
+
 void Enemy::ZombieAttack(int zombieNum, Player &Alien, Map &map_)
 {
+    Map map;
     if (ZombDist[zombieNum] <= ZombRngVec[zombieNum])
     {
         Alien.AlienHpVec[0] = Alien.AlienHpVec[0] - ZombAtkVec[zombieNum];
         std::cout << "\n\nZombie " << zombieNum + 1 << " has dealt " << ZombAtkVec[zombieNum] << " damage to the Alien!\n" << std::endl;
         pf::Pause();
+        if (Alien.AlienHpVec[0] <= 0)
+        {
+            Alien.AlienHpVec[0] = 0;
+            pf::ClearScreen();
+            map_.display();
+            map.CombatHUD();
+            std::cout << "\n\nZombie wins!" << std::endl;
+            gameover();
+        }
     }
     else
     {
@@ -2242,4 +2254,3 @@ void Enemy::ZombieMove(Map &map_, int x, int y)
         } while (hitBorder == false && hitAlien == false && hitObject == false);
     }
 }
-
