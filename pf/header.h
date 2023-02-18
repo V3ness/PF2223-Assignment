@@ -92,6 +92,7 @@ public:
     int ZombieHp = 50 + (randomHp * 50);
     int ZombieAtk = 5 + (randomAtk * 5);
     int ZombieRange = randomRng;
+    int nearestZomb;
     int count = 49; // use to display zombie on the gameboard
     int n = 0; // use to display zombie no. on the HUD
     std::vector<int> ZombPosX; // vector to store each zombie's position x

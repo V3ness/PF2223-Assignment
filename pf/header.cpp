@@ -305,11 +305,22 @@ void dotEffect()
     std::cout << "\n\nAlien has gone back the path it travel before.\n" << std::endl;
 }
 
-void podEffect() // after implement zombies, needs to put in zombies
-{
-    std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie!\n"
-              << std::endl;
-}
+// void podEffect(Enemy &zombie, Player &alien) // after implement zombies, needs to put in zombies
+// {
+//     int distance;
+//     for (int i = 0; i < zombie.ZombieCount; i++)
+//     {
+//         distance = CalcZombDistance(i, alien, zombie);
+//         // std::cout << "\nZombie " << i + 1 << " Distance : " << distance << std::endl;
+//         zombie.ZombDist[i] = distance;
+//         std::cout << i << "is done";
+//         zombie.nearestZomb = CompareZombDistance(zombie);
+//         pf::Pause();
+//     }
+//     zombie.ZombHpVec[zombie.nearestZomb - 1] = zombie.ZombHpVec[zombie.nearestZomb - 1] - 10;
+//     std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie, " << "which is Zombie " << zombie.nearestZomb << "\n"
+//               << std::endl;
+// }
 
 void Player::upPos(Map &map_)
 {
@@ -393,6 +404,10 @@ void Player::PrintAlienMoveRight()
     std::cout << "\n\nAlien went to the RIGHT because it wanted to be right.\n"
     << std::endl;
 }
+
+void podEffect();
+void podMessage();
+
 
 void Player::AlienMove(Map &map_, std::string inp, int x, int y)
 {
@@ -492,7 +507,7 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        podEffect();
+                        podMessage();
                         pf::Pause();
                         inp = "up"; // Just to ensure the alien will still go up
                         break;
@@ -754,11 +769,12 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                             downPos(map_);
                         }
                         prevObj = 'p';
+                        podEffect();
                         hitObject = false;
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        podEffect();
+                        podMessage();
                         pf::Pause();
                         inp = "down";
                         break;
@@ -1021,11 +1037,12 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                             leftPos(map_);
                         }
                         hitObject = false;
+                        podEffect();
                         prevObj = 'p';
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        podEffect();
+                        podMessage();
                         pf::Pause();
                         inp = "left";
                         break;
@@ -1288,11 +1305,12 @@ void Player::AlienMove(Map &map_, std::string inp, int x, int y)
                             rightPos(map_);
                         }
                         prevObj = 'p';
+                        podEffect();
                         hitObject = false;
                         pf::ClearScreen();
                         map_.display();
                         map.CombatHUD();
-                        podEffect();
+                        podMessage();
                         pf::Pause();
                         inp = "right";
                         break;

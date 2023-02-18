@@ -540,6 +540,25 @@ int CompareZombDistance() // Use this to calculate the nearest Zombie
     return nearestZomb;
 }
 
+void podEffect() // after implement zombies, needs to put in zombies
+{
+    int distance;
+    for (int i = 0; i < Zombie.ZombieCount; i++)
+    {
+        distance = CalcZombDistance(i);
+        // std::cout << "\nZombie " << i + 1 << " Distance : " << distance << std::endl;
+        Zombie.ZombDist[i] = distance;
+        Zombie.nearestZomb = CompareZombDistance();
+    }
+    Zombie.ZombHpVec[Zombie.nearestZomb - 1] = Zombie.ZombHpVec[Zombie.nearestZomb - 1] - 10;
+}
+
+void podMessage()
+{
+    std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie, " << "which is Zombie " << Zombie.nearestZomb << "\n"
+              << std::endl;
+}
+
 void EnemyMovement()
 {
     Alien.AlienAtk = 0;
@@ -571,6 +590,7 @@ void Combat()
             distance = CalcZombDistance(i);
             // std::cout << "\nZombie " << i + 1 << " Distance : " << distance << std::endl;
             Zombie.ZombDist[i] = distance;
+            Zombie.nearestZomb = CompareZombDistance();
         }
         // std::cout << "Nearest Zombie is: " << CompareZombDistance() << std::endl;
         Alien.hitObject = false;
