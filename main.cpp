@@ -12,10 +12,12 @@
 #include <algorithm>
 #include <fstream>
 #include <numeric>
+#include <filesystem>
+
 
 char GSchoice;
 bool GameOver = false;
-int Rows = 9, Columns = 9;
+int Rows, Columns;
 
 void Combat();
 int main();
@@ -25,6 +27,8 @@ std::vector<std::vector<char>> board; // Make the board a sort of matrix
 Player Alien;
 Enemy Zombie;
 Map map;
+Encdec encdec;
+
 
 template <typename T> // Overloading Operator "<<" to let std::cout print out vector. (MUST NOT TOUCH)
 std::ostream &operator<<(std::ostream &os, const std::vector<T> &v)
@@ -34,6 +38,80 @@ std::ostream &operator<<(std::ostream &os, const std::vector<T> &v)
         os << v[i];
     }
     return os;
+}
+
+void Encdec::encrypt()
+{
+    std::fstream fin, fout;
+ 
+    fin.open(map.filenameN, std::fstream::in);
+    fout.open(map.filenameN + ".txt", std::fstream::out);
+ 
+    while (fin >> std::noskipws >> c) {
+        int temp = (c + key);
+        fout << (char)temp;
+    }
+ 
+    fin.close();
+    fout.close();
+    std::filesystem::remove(map.filenameN);
+}
+ 
+// Definition of decryption function
+void Encdec::decrypt()
+{
+    std::fstream fin;
+    std::fstream fout;
+    fin.open(map.filenameN + ".txt", std::fstream::in);
+    fout.open(map.filenameN, std::fstream::out);
+ 
+    while (fin >> std::noskipws >> c) {
+ 
+        int temp = (c - key);
+        fout << (char)temp;
+    }
+ 
+    fin.close();
+    fout.close();
+}
+
+void difficultyChooser()
+{
+    char diffinput;
+    std::cout << "\nChoose Your Desired Difficulty [E -> Easy | N -> Normal | H -> Hard] => ";
+    std::cin >> diffinput;
+    if (diffinput == 'e' || diffinput == 'E')
+    {
+        std::cout << "\nYou chose Easy mode, you may change the amount of rows and columns according to your liking.\n" << std::endl;
+        pf::Pause();
+        Rows = 15;
+        Columns = 15;
+        Zombie.ZombieCount = 1;
+    }
+    else if (diffinput == 'n' || diffinput == 'N')
+    {
+        std::cout << "\nYou chose Normal mode, you may change the amount of rows and columns according to your liking.\n" << std::endl;
+        pf::Pause();
+        Rows = 9;
+        Columns = 9;
+        Zombie.ZombieCount = 2;
+    }
+    else if (diffinput == 'h' || diffinput == 'H')
+    {
+        std::cout << "\nYou chose Hard mode, you may change the amount of rows and columns according to your liking.\n" << std::endl;
+        pf::Pause();
+        Rows = 5;
+        Columns = 5;
+        Zombie.ZombieCount = 2;
+    }
+    else
+    {
+        std::cout << "\nInvalid Input.\n" << std::endl;
+        pf::Pause();
+        pf::ClearScreen();
+        difficultyChooser();
+    }
+    
 }
 
 void Pause()
@@ -61,6 +139,13 @@ void ChangeZombieSettings()
         Sleep(3000);
         ClearScreen();
         ChangeZombieSettings();
+    }
+    else if (Zombie.ZombieCount <= 0)
+    {
+        std::cout << "Really bro? You wanna win without even trying your best? GGWP bro" << std::endl;
+        std::cout << "Here, let me let you win, by closing the game. Thanks!\n\n";
+        pf::Pause();
+        exit(0);
     }
     else
     {
@@ -128,10 +213,6 @@ void Map::CombatHUD()
 {
     Alien.AlienCreation(Zombie.ZombieCount);
     Zombie.ZombieCreation();
-    for (size_t i = 0; i < Zombie.Defeated.size(); i++)
-    {
-        std::cout << i << ": " << Zombie.Defeated[i];
-    }
     if (Alien.alienTurn == true)
     {
         std::cout << "\n\n->Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
@@ -422,6 +503,7 @@ void loadGame(std::string fileName, Map &map, Player &alien, Enemy &zombie) // A
         }
     }
     inFile.close();
+    std::filesystem::remove(map.filenameN);
     std::cout << "Game loaded successfully. \n\nThere might be certain areas in which the data is wrong, \nPlease write load again until the data is consistent\n"
               << std::endl;
     pf::Pause();
@@ -451,6 +533,7 @@ void saveGame(std::string fileName, Map &map, Player &alien, Enemy &zombie)
         }
     }
     outFile.close();
+    encdec.encrypt();
     std::cout << "Game saved successfully." << std::endl;
     pf::Pause();
     pf::ClearScreen();
@@ -485,11 +568,13 @@ void PlayerMovement()
         std::string fileName;
         std::cout << "Please name your file: ";
         std::cin >> fileName;
+        map.filenameN = fileName;
         saveGame(fileName, map, Alien, Zombie);
     }
     else if (userInput == "load")
     {
         std::string fileName;
+        map.filenameN = fileName;
         char choice;
         std::cout << "Do you want to save the current game? (y/n)> ";
         std::cin >> choice;
@@ -503,6 +588,8 @@ void PlayerMovement()
         {
             std::cout << "Please insert the name of your save file: ";
             std::cin >> fileName;
+            map.filenameN = fileName;
+            encdec.decrypt();
             loadGame(fileName, map, Alien, Zombie);
         }
         else
@@ -627,6 +714,7 @@ void gameover(Player &Alien, Enemy &Zombie)
         Zombie.count = 49;
         Zombie.n = 0;
         map.map_.clear();
+        pf::ClearScreen();
         main();
     }
     else if (choice == 'n' || choice == 'N')
@@ -720,6 +808,7 @@ int main()
     Zombie.Defeated.clear();
     Alien.alienTurn = true;
     srand(1); // set fixed random value
+    difficultyChooser();
     ShowGameSettings();
     pf::ClearScreen();
     makeBoard();

@@ -19,6 +19,16 @@ namespace pf
     int Pause();
 }
 
+class Encdec {
+    int key = 3;
+ 
+    char c;
+ 
+public:
+    void encrypt();
+    void decrypt();
+};
+
 class Map
 {
     int rows_, columns_;
@@ -36,6 +46,7 @@ public:
     void setObject(int x, int y, char ch);
     void setZomPos(int x, int y, int z);
     void CombatHUD();
+    std::string filenameN;
 };
 
 class Enemy;
@@ -90,7 +101,7 @@ public:
     int randomHp = rand() % 2 + 1;
     int randomAtk = rand() % 2 + 1;
     int randomRng = rand() % 5 + 1;
-    int ZombieCount = 1;
+    int ZombieCount;
     int ZombieHp = 50 + (randomHp * 50);
     int ZombieAtk = 5 + (randomAtk * 5);
     int ZombieRange = randomRng;
