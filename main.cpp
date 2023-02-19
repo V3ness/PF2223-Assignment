@@ -566,7 +566,7 @@ void PlayerMovement()
     else if (userInput == "save")
     {
         std::string fileName;
-        std::cout << "Please name your file: ";
+        std::cout << "Please name your file (There is no need for .txt extension at the end): ";
         std::cin >> fileName;
         map.filenameN = fileName;
         saveGame(fileName, map, Alien, Zombie);
@@ -580,17 +580,28 @@ void PlayerMovement()
         std::cin >> choice;
         if (choice == 'y' || choice == 'Y')
         {
-            std::cout << "Please name your file: ";
+            std::cout << "Please name your file (There is no need for .txt extension at the end): ";
             std::cin >> fileName;
             saveGame(fileName, map, Alien, Zombie);
         }
         else if (choice == 'n' || choice == 'N')
         {
-            std::cout << "Please insert the name of your save file: ";
+            std::cout << "Please insert the name of your save file (There is no need for .txt extension at the end): ";
             std::cin >> fileName;
             map.filenameN = fileName;
-            encdec.decrypt();
-            loadGame(fileName, map, Alien, Zombie);
+            if (std::filesystem::exists(fileName + ".txt"))
+            {
+                encdec.decrypt();
+                loadGame(fileName, map, Alien, Zombie);
+            }
+            else
+            {
+                std::cout << "No such file exists? Are you sure you entered the correct file name?\n";
+                pf::Pause();
+                pf::ClearScreen();
+                map.display();
+                Combat();
+            }
         }
         else
         {
