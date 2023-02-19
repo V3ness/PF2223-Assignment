@@ -557,19 +557,24 @@ void podEffect() // after implement zombies, needs to put in zombies
         Zombie.nearestZomb = CompareZombDistance();
     }
     Zombie.ZombHpVec[Zombie.nearestZomb - 1] = Zombie.ZombHpVec[Zombie.nearestZomb - 1] - 10;
+}
+
+void podMessage()
+{
+    std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie, "
+              << "which is Zombie " << Zombie.nearestZomb  
+              << std::endl;
     if (Zombie.ZombHpVec[Zombie.nearestZomb - 1] <= 0)
     {
         std::cout << "Alien has defeated zombie " << Zombie.nearestZomb << "." << std::endl;
         Zombie.ZombHpVec[Zombie.nearestZomb - 1] = 0;
         Zombie.Defeated[Zombie.nearestZomb - 1] = true;
     }
-}
-
-void podMessage()
-{
-    std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie, "
-              << "which is Zombie " << Zombie.nearestZomb << "\n"
-              << std::endl;
+    else
+    {
+        std::cout << "Zombie " << Zombie.nearestZomb << " is stil alive. " << std::endl;
+        std::cout << "Health left: " << Zombie.ZombHpVec[Zombie.nearestZomb - 1] << "\n\n";
+    }
 }
 
 void gameover(Player &Alien, Enemy &Zombie)
@@ -628,7 +633,6 @@ void EnemyMovement()
     Zombie.n++;
 }
 
-
 void Combat()
 {
     int distance;
@@ -636,7 +640,10 @@ void Combat()
     {
         if ((Zombie.Defeated.end() == std::find(Zombie.Defeated.begin(), Zombie.Defeated.end(), false)))
         {
-            std::cout << "You won!\n";
+            pf::ClearScreen();
+            map.display();
+            map.CombatHUD();
+            std::cout << "\n\nYou won!\n";
             gameover(Alien,Zombie);
         }
         map.CombatHUD();
@@ -668,8 +675,6 @@ void Combat()
         Combat();
     }
 }
-
-
 
 int main()
 {
