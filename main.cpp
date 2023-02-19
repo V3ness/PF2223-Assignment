@@ -480,9 +480,29 @@ void PlayerMovement()
     else if (userInput == "load")
     {
         std::string fileName;
-        std::cout << "Please insert the name of your save file: ";
-        std::cin >> fileName;
-        loadGame(fileName, map, Alien, Zombie);
+        char choice;
+        std::cout << "Do you want to save the current game? (y/n)> ";
+        std::cin >> choice;
+        if (choice == 'y' || choice == 'Y')
+        {
+            std::cout << "Please name your file: ";
+            std::cin >> fileName;
+            saveGame(fileName, map, Alien, Zombie);
+        }
+        else if (choice == 'n' || choice == 'N')
+        {
+            std::cout << "Please insert the name of your save file: ";
+            std::cin >> fileName;
+            loadGame(fileName, map, Alien, Zombie);
+        }
+        else
+        {
+            std::cout << "\nInvalid Input." << std::endl;
+            pf::Pause();
+            pf::ClearScreen();
+            map.display();
+            Combat();
+        }
     }
     else if (userInput == "up" || userInput == "down" || userInput == "left" || userInput == "right")
     {
@@ -546,7 +566,7 @@ int CompareZombDistance() // Use this to calculate the nearest Zombie
     return nearestZomb;
 }
 
-void podEffect() // after implement zombies, needs to put in zombies
+void podEffect()
 {
     int distance;
     for (int i = 0; i < Zombie.ZombieCount; i++)
@@ -562,7 +582,7 @@ void podEffect() // after implement zombies, needs to put in zombies
 void podMessage()
 {
     std::cout << "\n\nAlien has encountered a pod that deals 10 damage to the nearest zombie, "
-              << "which is Zombie " << Zombie.nearestZomb  
+              << "which is Zombie " << Zombie.nearestZomb
               << std::endl;
     if (Zombie.ZombHpVec[Zombie.nearestZomb - 1] <= 0)
     {
@@ -644,7 +664,7 @@ void Combat()
             map.display();
             map.CombatHUD();
             std::cout << "\n\nYou won!\n";
-            gameover(Alien,Zombie);
+            gameover(Alien, Zombie);
         }
         map.CombatHUD();
         for (int i = 0; i < Zombie.ZombieCount; i++)
@@ -694,6 +714,6 @@ int main()
     pf::ClearScreen();
     makeBoard();
     Zombie.Defeated.resize(Zombie.ZombieCount, false);
-    
+
     Combat();
 }
