@@ -143,7 +143,7 @@ void ChangeZombieSettings()
     else if (Zombie.ZombieCount <= 0)
     {
         std::cout << "Really bro? You wanna win without even trying your best? GGWP bro" << std::endl;
-        std::cout << "Here, let me let you win, by closing the game. Thanks!\n\n";
+        std::cout << "Here, let me let you win, by closing the game. Thanks for playing!\n\n";
         pf::Pause();
         exit(0);
     }
@@ -162,7 +162,27 @@ void ChangeGameSettings()
     std::cin >> Columns;
     std::cout << "Enter Columns : ";
     std::cin >> Rows;
-    if (Rows % 2 == 0 || Columns % 2 == 0)
+    if (Rows <= 0 || Columns <= 0)
+    {
+        std::cout << "\nDid you... did you just tried to cheat the system by doing a whoopsies?\n";
+        std::cout << "Please no. no. no. no. no. no. You can't do that.\n";
+        Sleep(500);
+        std::cout << "We can't have that here, it's dangerous\n";
+        Sleep(1000);
+        std::cout << "\nThere is a reason why my love partner times me is equal to 0,\n";
+        Sleep(1000);
+        std::cout << "Because: ";
+        Sleep(500);
+        std::cout << "They. ";
+        Sleep(500);
+        std::cout << "Dont. ";
+        Sleep(500);
+        std::cout << "Exist.\n\n";
+        pf::Pause();
+        pf::ClearScreen();
+        ChangeGameSettings();
+    }
+    else if (Rows % 2 == 0 || Columns % 2 == 0)
     {
         std::cout << "Please ensure that Rows and Columns are odd numbers.\n";
         Sleep(4000);
@@ -461,13 +481,15 @@ void QuitCommand()
     std::cin >> ans;
     if (ans == 'y' || ans == 'Y')
     {
-        std::cout << "\n\nGoodbye!" << std::endl;
+        std::cout << "\nGoodbye. Have a nice day!" << std::endl;
         pf::Pause();
         pf::ClearScreen();
         exit(0);
     }
     else
     {
+        pf::ClearScreen();
+        map.display();
         Combat();
     }
 }
@@ -730,7 +752,7 @@ void gameover(Player &Alien, Enemy &Zombie)
     }
     else if (choice == 'n' || choice == 'N')
     {
-        std::cout << "\nGoodbye!" << std::endl;
+        std::cout << "Goodbye. Have a nice day!" << std::endl;
         pf::Pause();
         pf::ClearScreen();
         exit(0);

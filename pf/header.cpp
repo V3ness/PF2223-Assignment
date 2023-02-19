@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <ctime>
+#include <vector>
 #include <fstream>
 
 void gameover(Player &Alien, Enemy &Zombie);
@@ -12,8 +13,28 @@ void Map::init(int rows1, int columns1)
     columns_ = columns1;
     rows = rows_;
     columns = columns_;
-    char randobjects[] = {' ', ' ', ' ', ' ', ' ', 'r', 'h', 'v', '^', '<', '>', 'p'};
-    int noOfObjects = 12; // number of objects in the objects array
+    int noOfObjects;
+    std::vector<char> randobjects;
+    if ((rows * columns) <= 9)
+    {
+        randobjects = {' ', 'r', 'h', 'v', '^', '<', '>', 'p'};
+        noOfObjects = 8; // number of objects in the objects array
+    }
+    else if ((rows * columns) <= 36)
+    {
+        randobjects = {' ' ,' ', ' ', 'r', 'h', 'v', '^', '<', '>', 'p'};
+        noOfObjects = 10; // number of objects in the objects array
+    }
+    else if ((rows * columns) <= 81)
+    {
+        randobjects = {' ', ' ', ' ', ' ', ' ', 'r', 'h', 'v', '^', '<', '>', 'p'};
+        noOfObjects = 12; // number of objects in the objects array
+    }
+    else
+    {
+        randobjects = {' ', ' ', ' ',' ', ' ', ' ', ' ', ' ', 'r', 'h', 'v', '^', '<', '>', 'p'};
+        noOfObjects = 15; // number of objects in the objects array
+    }
     // create dynamic 2D array using vector
     map_.resize(columns_); // create empty rows
     for (int i = 0; i < columns_; ++i)
