@@ -146,7 +146,7 @@ void Map::CombatHUD()
         switch (Zombie.n)
         {
         case 0:
-            std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+            std::cout << "\n\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             std::cout << '\n'
                       << "->Zombie " << 1 << " : Health " << Zombie.ZombHpVec[0] << ", Attack  " << Zombie.ZombAtkVec[0] << ", Range " << Zombie.ZombRngVec[0];
             for (int i = 1; i < Zombie.ZombieCount; i++)
@@ -157,7 +157,7 @@ void Map::CombatHUD()
             break;
 
         case 1:
-            std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+            std::cout << "\n\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             std::cout << '\n'
                       << "  Zombie " << 1 << " : Health " << Zombie.ZombHpVec[0] << ", Attack  " << Zombie.ZombAtkVec[0] << ", Range " << Zombie.ZombRngVec[0];
             std::cout << '\n'
@@ -170,7 +170,7 @@ void Map::CombatHUD()
             break;
 
         case 2:
-            std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+            std::cout << "\n\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             std::cout << '\n'
                       << "  Zombie " << 1 << " : Health " << Zombie.ZombHpVec[0] << ", Attack  " << Zombie.ZombAtkVec[0] << ", Range " << Zombie.ZombRngVec[0];
             std::cout << '\n'
@@ -185,7 +185,7 @@ void Map::CombatHUD()
             break;
 
         case 3:
-            std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+            std::cout << "\n\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             for (int i = 0; i < 3; i++)
             {
                 std::cout << '\n'
@@ -201,7 +201,7 @@ void Map::CombatHUD()
             break;
 
         case 4:
-            std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+            std::cout << "\n\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             for (int i = 0; i < 4; i++)
             {
                 std::cout << '\n'
@@ -217,7 +217,7 @@ void Map::CombatHUD()
             break;
 
         case 5:
-            std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+            std::cout << "\n\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             for (int i = 0; i < 5; i++)
             {
                 std::cout << '\n'
@@ -233,7 +233,7 @@ void Map::CombatHUD()
             break;
 
         case 6:
-            std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+            std::cout << "\n\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             for (int i = 0; i < 6; i++)
             {
                 std::cout << '\n'
@@ -249,7 +249,7 @@ void Map::CombatHUD()
             break;
 
         case 7:
-            std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+            std::cout << "\n\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             for (int i = 0; i < 7; i++)
             {
                 std::cout << '\n'
@@ -265,7 +265,7 @@ void Map::CombatHUD()
             break;
 
         case 8:
-            std::cout << "\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
+            std::cout << "\n\n  Alien    : Health " << Alien.AlienHpVec[0] << ", Attack  " << Alien.AlienAtk;
             for (int i = 0; i < 8; i++)
             {
                 std::cout << '\n'
@@ -395,13 +395,22 @@ bool repeatLoad;
 
 void loadGame(std::string fileName, Map &map, Player &alien, Enemy &zombie) // Add file name here to customise it
 {
+    int pX, pY, HpVec, AtkVec, RngVec, Def;
     std::ifstream inFile(fileName);
     inFile >> map.rows >> map.columns;
     inFile >> alien.posX >> alien.posY;
-    inFile >> zombie.ZombieCount;
+    inFile >> zombie.ZombieCount >> pX >> pY >> HpVec >> AtkVec >> RngVec >> Def;
+    zombie.ZombPosX.resize(pX);
+    zombie.ZombPosY.resize(pY);
+    zombie.ZombHpVec.resize(HpVec);
+    zombie.ZombAtkVec.resize(AtkVec);
+    zombie.ZombRngVec.resize(RngVec);
+    zombie.Defeated.resize(Def);
     for (int i = 0; i < zombie.ZombieCount; i++)
     {
-        inFile >> zombie.ZombPosX[i] >> zombie.ZombPosY[i] >> zombie.ZombHpVec[i] >> zombie.ZombAtkVec[i] >> zombie.ZombRngVec[i];
+        int x;
+        inFile >> zombie.ZombPosX[i] >> zombie.ZombPosY[i] >> zombie.ZombHpVec[i] >> zombie.ZombAtkVec[i] >> zombie.ZombRngVec[i] >> x;
+        zombie.Defeated[i] = x;
     }
     inFile >> alien.AlienHpVec[0] >> alien.AlienAtk;
     map.init(map.rows, map.columns);
@@ -426,11 +435,12 @@ void saveGame(std::string fileName, Map &map, Player &alien, Enemy &zombie)
     std::ofstream outFile(fileName);
     outFile << map.rows << " " << map.columns << std::endl;
     outFile << alien.posX << " " << alien.posY << std::endl;
-    outFile << zombie.ZombieCount << std::endl;
+    outFile << zombie.ZombieCount << " " << zombie.ZombPosX.size() << " " << zombie.ZombPosY.size() << " "<< zombie.ZombHpVec.size() 
+            << " " << zombie.ZombAtkVec.size() << " " << zombie.ZombRngVec.size() << " " << zombie.Defeated.size() << std::endl;
     for (int i = 0; i < zombie.ZombieCount; i++)
     {
         outFile << zombie.ZombPosX[i] << " " << zombie.ZombPosY[i] << " " << zombie.ZombHpVec[i]
-                << " " << zombie.ZombAtkVec[i] << " " << zombie.ZombRngVec[i] << std::endl;
+                << " " << zombie.ZombAtkVec[i] << " " << zombie.ZombRngVec[i] << " " << zombie.Defeated[i] << std::endl;
     }
     outFile << alien.AlienHpVec[0] << " " << alien.AlienAtk;
     for (int i = 0; i < map.columns; i++)
@@ -527,8 +537,7 @@ void PlayerMovement()
                 map.CombatHUD();
                 std::cout << "\n"
                           << "\nAlien attack Zombie " << Alien.AlienZomb << "." << std::endl;
-                Alien.AlienAttack(Alien.AlienZomb, Zombie);
-                pf::Pause();
+                Alien.AlienAttack(Alien.AlienZomb, Zombie, userInput, map, Alien);
             }
         } while (Alien.hitBarrier == false && Alien.hitObject == false && Alien.hitZombie == false);
     }
@@ -586,6 +595,7 @@ void podMessage()
               << std::endl;
     if (Zombie.ZombHpVec[Zombie.nearestZomb - 1] <= 0)
     {
+        map.setObject(Zombie.ZombPosX[Zombie.nearestZomb - 1], Zombie.ZombPosY[Zombie.nearestZomb - 1], ' ');
         std::cout << "Alien has defeated zombie " << Zombie.nearestZomb << "." << std::endl;
         Zombie.ZombHpVec[Zombie.nearestZomb - 1] = 0;
         Zombie.Defeated[Zombie.nearestZomb - 1] = true;

@@ -344,15 +344,18 @@ void Player::rightPos(Map &map_)
     map_.setObject(posX, posY, 'A');
 }
 
-void Player::AlienAttack(int zombieNum, Enemy &Zombie)
+void Player::AlienAttack(int zombieNum, Enemy &Zombie, std::string userInput, Map &map, Player &Alien)
 {
     Zombie.ZombHpVec[zombieNum - 1] = Zombie.ZombHpVec[zombieNum - 1] - AlienAtk;
     std::cout << "Alien has dealt " << AlienAtk << " damage to Zombie " << zombieNum << "." << std::endl;
     if (Zombie.ZombHpVec[zombieNum - 1] <= 0)
     {
-        std::cout << "Alien has defeated zombie " << zombieNum << "." << std::endl;
+        map.setObject(Zombie.ZombPosX[zombieNum - 1], Zombie.ZombPosY[zombieNum - 1], ' ');
+        std::cout << "Alien has defeated zombie " << zombieNum << ", it will rest for this round due to exhaustion." << std::endl;
         Zombie.ZombHpVec[zombieNum - 1] = 0;
         Zombie.Defeated[zombieNum - 1] = true;
+        hitZombie = false;
+        pf::Pause();
     }
     else
     {
@@ -434,6 +437,7 @@ void Player::AlienMove(Map &map, Enemy &Zombie, Player &Alien, std::string inp, 
                         PrintAlienMoveUp();
                         pf::Pause();
                         inp = "up";
+                        direction = "up";
                         AlienMove(map, Zombie, Alien,"up", map.rows, map.columns);
                         break;
                     }

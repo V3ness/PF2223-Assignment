@@ -60,6 +60,7 @@ class Player
         int AlienHp;
         std::vector<int> AlienHpVec;
         std::vector<int> AlienMaxHpVec;
+        std::string direction;
         void AlienCreation(int ZombCount);
         void InitialLanding(Map &map_, float x, float y);
         void AlienMove(Map &map_, Enemy &Zombie, Player &Alien, std::string inp, int x, int y);
@@ -72,7 +73,7 @@ class Player
         void PrintAlienMoveDown();
         void PrintAlienMoveLeft();
         void PrintAlienMoveRight();
-        void AlienAttack(int zombieNum, Enemy &Zombie);
+        void AlienAttack(int zombieNum, Enemy &Zombie, std::string userInput, Map &map, Player &Alien);
         void healthEffect();
 };
 
