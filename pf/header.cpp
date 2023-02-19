@@ -2130,8 +2130,8 @@ void Enemy::ZombieCreation()
         int randomHp = rand() % 2 + 1;
         int randomAtk = rand() % 2 + 1;
         int randomRng = rand() % 5 + 1;
-        int ZombieHp = 1 + (randomHp * 1);
-        int ZombieAtk = 0 + (randomAtk * 5);
+        int ZombieHp = 50 + (randomHp * 50);
+        int ZombieAtk = 5 + (randomAtk * 5);
         int ZombieRange = randomRng;
         ZombHpVec.push_back(ZombieHp);
         ZombAtkVec.push_back(ZombieAtk);
