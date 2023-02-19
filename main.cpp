@@ -167,7 +167,7 @@ void ChangeGameSettings()
         std::cout << "\nDid you... did you just tried to cheat the system by doing a whoopsies?\n";
         std::cout << "Please no. no. no. no. no. no. You can't do that.\n";
         Sleep(500);
-        std::cout << "We can't have that here, it's dangerous\n";
+        std::cout << "We can't have that here, it's dangerous!\n";
         Sleep(1000);
         std::cout << "\nThere is a reason why my love partner times me is equal to 0,\n";
         Sleep(1000);
@@ -178,6 +178,8 @@ void ChangeGameSettings()
         std::cout << "Dont. ";
         Sleep(500);
         std::cout << "Exist.\n\n";
+        Sleep(350);
+        std::cout << "-Lester Liew, 19/2/2023\n\n\n";
         pf::Pause();
         pf::ClearScreen();
         ChangeGameSettings();
