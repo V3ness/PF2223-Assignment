@@ -621,7 +621,7 @@ void gameover(Player &Alien, Enemy &Zombie)
     }
     else if (choice == 'n' || choice == 'N')
     {
-        std::cout << "\n\nGoodbye!" << std::endl;
+        std::cout << "\nGoodbye!" << std::endl;
         pf::Pause();
         pf::ClearScreen();
         exit(0);
